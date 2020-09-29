@@ -6,8 +6,8 @@ import styled from 'styled-components'
 import Img from 'gatsby-image'
 const ArticleTemplate = ({ data }) => {
 
-  const article = data.strapiArticle
-  console.log("article", article)
+  // const article = data.strapiArticle
+  // console.log("article", article)
 
   return (
     <Layout>
@@ -82,10 +82,10 @@ const ParagraphImageStyle = styled.p`
 
 export default ArticleTemplate
 
-export const query = graphql`
-  query ArticleTemplate($id: String!) {
-    strapiArticle(id: {eq: $id}) {
-      id
-    }
-  }
-`
+// export const query = graphql`
+//   query ArticleTemplate($id: String!) {
+//     strapiArticle(id: {eq: $id}) {
+//       id
+//     }
+//   }
+// `
