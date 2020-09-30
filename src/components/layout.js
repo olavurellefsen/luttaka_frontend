@@ -12,7 +12,6 @@ import styled from "styled-components"
 
 const Layout = ({ children }) => {
 
-
   return (
     <BackgroundStyle>
       <Container>
