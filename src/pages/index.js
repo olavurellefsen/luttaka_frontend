@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { Auth0Provider } from "@auth0/auth0-react"
 import { navigate } from "@reach/router"
 import LoginView from "../components/LoginView"
+import { Link } from "gatsby"
 
 const onRedirectCallback = appState => {
   navigate(
@@ -25,6 +26,8 @@ const IndexPage = () => {
       <Background>
         <Layout>
           <LoginView />
+          <Link to='/news'>News</Link>
+          <Link to='/archive'>Archive</Link>
         </Layout>
       </Background>
     </Auth0Provider>
