@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import HeaderButton from './headerButton';
 import LargeLogo from '../LargeLogo';
 import SmallLogo from '../SmallLogo';
+import Flower from '../flower_components/flower';
 
 const MenuContainer = () => {
   const { loginWithRedirect, logout, isAuthenticated, isLoading } = useAuth0()
@@ -18,10 +19,11 @@ const MenuContainer = () => {
   }
 
   return (
-    <ContainerStyle isAuthenticated={isAuthenticated}>
+    <ContainerStyle isauthenticated={isAuthenticated}>
       {isAuthenticated && !isLoading ? <SmallLogo isAuthenticated={isAuthenticated} /> : <LargeLogo />}
       {isAuthenticated && !isLoading && <HeaderButton isAuthenticated={isAuthenticated} />}
-      {!isAuthenticated && !isLoading ? <ButtonStyle backgroundColor={`green`} onClick={handleClick}>Rita inn</ButtonStyle> : ``}
+      {!isAuthenticated && !isLoading ? <ButtonStyle backgroundColor='green' onClick={handleClick}>Rita inn</ButtonStyle> : ``}
+      {isAuthenticated && !isLoading && <Flower/>}
     </ContainerStyle>
   );
 };
@@ -30,15 +32,14 @@ const MenuContainer = () => {
 const ContainerStyle = styled.div`
   width: 100%;
   height: 100%;
-   ${({ isAuthenticated }) =>
-    !isAuthenticated && css
+   ${({ isauthenticated }) =>
+  !isauthenticated && css
       `
       display: flex;
       align-self: center;
       justify-content: center;
       align-items: center;
   `}
-
 `
 
 const slideDown = keyframes`

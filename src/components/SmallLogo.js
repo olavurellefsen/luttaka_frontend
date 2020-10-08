@@ -28,7 +28,7 @@ const SmallLogo = ({ isAuthenticated }) => {
   `)
 
   return <ImageStyle
-    isAuthenticated={isAuthenticated}
+    isauthenticated={isAuthenticated}
     style={{ maxHeight: "100%" }}
     // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
@@ -50,8 +50,8 @@ const ImageStyle = styled(Img)`
   width: 100px;
   height: 100px;
   z-index: 1;
-  ${({ isAuthenticated }) =>
-    isAuthenticated && css
+  ${({ isauthenticated }) =>
+    isauthenticated && css
       `
       animation: ${slideInLeft};
       animation-duration: 3s;
