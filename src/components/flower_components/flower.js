@@ -64,8 +64,7 @@ const Flower = () => {
 const ContainerStyle = styled.div`
   width: 400px;
   height: 600px;
-  // position: fixed;
-   position: absolute;
+  position: absolute;
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
