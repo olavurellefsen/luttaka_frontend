@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Img from "gatsby-image"
 
-const Avatar = () => {
+const Avatar = ({ opened, setOpened}) => {
 
   const data = useStaticQuery(graphql`
     query {
@@ -17,12 +17,12 @@ const Avatar = () => {
     }
   `)
 
-  return <ImageStyle
+  return <Button onClick={() => setOpened(!opened)}><ImageStyle
     style={{ maxHeight: "100%", position: "absolute" }}
     // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
     name="Fróði avatar"
-  />
+  /></Button>
 
 }
 
@@ -32,5 +32,17 @@ const ImageStyle = styled(Img)`
   height: 170px;
   position: absolute;
   bottom: 0;
+`
+const Button = styled.button`
+  width: 130px;
+  height: 170px;
+  position: absolute;
+  bottom: 0;
+  left: 40px;
+  border: none;
+  background-color: #FEF9EC;
+  &:active {
+    oapcity: 0.3;
+  }
 `
 export default Avatar

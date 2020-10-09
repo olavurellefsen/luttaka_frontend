@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { keyframes, css } from 'styled-components'
 import { useAuth0 } from '@auth0/auth0-react';
 import HeaderButton from './headerButton';
@@ -9,7 +9,7 @@ import FrontPageContainer from '../front_page_large_screens/frontPageContainer';
 
 const MenuContainer = () => {
   const { loginWithRedirect, logout, isAuthenticated, isLoading } = useAuth0()
-
+  const [opened, setOpened] = useState(false)
   const handleClick = () => {
     if (isAuthenticated) {
       logout()
@@ -22,9 +22,9 @@ const MenuContainer = () => {
   return (
     <ContainerStyle isauthenticated={isAuthenticated}>
       {isAuthenticated && !isLoading ? <SmallLogo isAuthenticated={isAuthenticated} /> : <LargeLogo />}
-      {isAuthenticated && !isLoading && <HeaderButton isAuthenticated={isAuthenticated} />}
+      {isAuthenticated && !isLoading && <HeaderButton isAuthenticated={isAuthenticated} askQuestionedOpened={opened} />}
       {!isAuthenticated && !isLoading ? <ButtonStyle backgroundColor='green' onClick={handleClick}>Rita inn</ButtonStyle> : ``}
-      {isAuthenticated && !isLoading &&  <Flower/>}
+      {isAuthenticated && !isLoading &&  <Flower opened={opened} setOpened={setOpened} />}
       {isAuthenticated && !isLoading && <FrontPageContainer />}
     </ContainerStyle>
   );
@@ -48,7 +48,6 @@ const slideDown = keyframes`
   from {
     transform: translateY(0);
   }
-
   to {
       transform: translateY(170px);
   }

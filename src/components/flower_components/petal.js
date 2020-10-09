@@ -1,13 +1,22 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
-const Petal = ({ color, index, name, imageSource, stem}) => {
+const Petal = ({ color, index, name, imageSource, opened }) => {
   return (
-    <ContainerStyle color={color} index={index}>
+    <ContainerStyle color={color} index={index} opened={opened}>
       <ImgStyle src={imageSource} alt={name}/>
     </ContainerStyle>
   )
 }
+
+const fadeAway = keyframes`
+ from {
+   opacity: 1;
+ }
+ to {
+   opacity: 0;
+ }
+`
 
 const ContainerStyle = styled.div`
   display: flex;
@@ -15,6 +24,13 @@ const ContainerStyle = styled.div`
   justify-content: center;
   position: absolute;
   z-index: 4;
+  ${({ opened }) =>
+    opened && css
+      `
+    animation: ${fadeAway};
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+  `}
 `
 
 const ImgStyle = styled.img`
