@@ -25,7 +25,7 @@ const MenuContainer = () => {
       {isAuthenticated && !isLoading && <HeaderButton isAuthenticated={isAuthenticated} askQuestionedOpened={opened} />}
       {!isAuthenticated && !isLoading ? <ButtonStyle backgroundColor='green' onClick={handleClick}>Rita inn</ButtonStyle> : ``}
       {isAuthenticated && !isLoading &&  <Flower opened={opened} setOpened={setOpened} />}
-      {isAuthenticated && !isLoading && <FrontPageContainer />}
+      {isAuthenticated && !isLoading && <FrontPageContainer opened={opened} setOpened={setOpened} />}
     </ContainerStyle>
   );
 };

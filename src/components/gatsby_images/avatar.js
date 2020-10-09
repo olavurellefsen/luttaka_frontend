@@ -42,7 +42,7 @@ const Button = styled.button`
   border: none;
   background-color: #FEF9EC;
   &:active {
-    oapcity: 0.3;
+    opacity: 0.3;
   }
 `
 export default Avatar
