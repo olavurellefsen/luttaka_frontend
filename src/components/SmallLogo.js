@@ -17,9 +17,9 @@ import styled, { keyframes, css } from "styled-components"
 const SmallLogo = ({ isAuthenticated }) => {
   const data = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "Logo_1.png" }) {
+      placeholderImage: file(relativePath: { eq: "Logo.png" }) {
         childImageSharp {
-          fluid(maxWidth: 100, maxHeight: 100) {
+          fluid(maxWidth: 400, maxHeight: 400) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -29,7 +29,7 @@ const SmallLogo = ({ isAuthenticated }) => {
 
   return <ImageStyle
     isauthenticated={isAuthenticated}
-    style={{ maxHeight: "100%" }}
+    style={{ maxHeight: "100%", position: "absolute"}}
     // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
   />
@@ -43,12 +43,13 @@ const slideInLeft = keyframes`
 
   to {
     // -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate(10px, 10px);
+    transform: translate(-110px,-160px);
 `
 
 const ImageStyle = styled(Img)`
-  width: 100px;
-  height: 100px;
+position: absolute;
+  width: 300px;
+  height: 300px;
   z-index: 1;
   ${({ isauthenticated }) =>
     isauthenticated && css

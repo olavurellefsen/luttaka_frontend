@@ -10,8 +10,9 @@ import path6 from './flower_images/Path 6.svg'
 import path7 from './flower_images/Path 7.svg'
 import path8 from './flower_images/Path 8.svg'
 import Avatar from '../gatsby_images/avatar';
+import { media } from '../../utils/mediaTemplate'
+
 const Flower = () => {
-  console.log("shce", schedule)
   const petals = [
     {
       title: `Skráin 2020`,
@@ -68,6 +69,10 @@ const ContainerStyle = styled.div`
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
+  display: none;
+   ${media.desktop3`
+    display: block;
+  `}
 `
 const PetalContainer = styled.div`
   div:nth-child(1) {
@@ -88,16 +93,10 @@ const PetalContainer = styled.div`
   }
 `
 
-const StemContainer = styled.div`
-
-`
-
 const StemStyle = styled.img`
     position: absolute;
     bottom: 0;
     right: ${props => props.right};
 `
-const StemStyleRotate = styled(StemStyle)`
-  transform: rotateY(180deg);
-`
+
 export default Flower;

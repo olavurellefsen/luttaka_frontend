@@ -5,6 +5,7 @@ import HeaderButton from './headerButton';
 import LargeLogo from '../LargeLogo';
 import SmallLogo from '../SmallLogo';
 import Flower from '../flower_components/flower';
+import FrontPageContainer from '../front_page_large_screens/frontPageContainer';
 
 const MenuContainer = () => {
   const { loginWithRedirect, logout, isAuthenticated, isLoading } = useAuth0()
@@ -23,7 +24,8 @@ const MenuContainer = () => {
       {isAuthenticated && !isLoading ? <SmallLogo isAuthenticated={isAuthenticated} /> : <LargeLogo />}
       {isAuthenticated && !isLoading && <HeaderButton isAuthenticated={isAuthenticated} />}
       {!isAuthenticated && !isLoading ? <ButtonStyle backgroundColor='green' onClick={handleClick}>Rita inn</ButtonStyle> : ``}
-      {isAuthenticated && !isLoading && <Flower/>}
+      {isAuthenticated && !isLoading &&  <Flower/>}
+      {isAuthenticated && !isLoading && <FrontPageContainer />}
     </ContainerStyle>
   );
 };
