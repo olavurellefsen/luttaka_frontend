@@ -34,6 +34,7 @@ const ContainerStyle = styled.div`
 const IconStyle = styled(FontAwesomeIcon)`
   color: #74AB58;
   position: absolute;
+  cursor: pointer;
     ${({ isauthenticated }) =>
    isauthenticated && css
       `
