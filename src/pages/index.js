@@ -1,13 +1,13 @@
 import React from "react"
 import Layout from "../components/layout"
 import styled from "styled-components"
-import MenuContainer from "../components/header/menuContainer"
+import FrontPageComponent from "../components/header/frontPageComponent"
 
 const IndexPage = () => {
   return (
     <Background>
       <Layout>
-        <MenuContainer />
+        <FrontPageComponent />
       </Layout>
     </Background>
   )

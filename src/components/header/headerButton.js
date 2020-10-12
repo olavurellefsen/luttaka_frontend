@@ -21,7 +21,7 @@ const slideInLeft = keyframes`
   }
 
   to {
-      right: 20px;
+      right: 10%;
   }
 `;
 

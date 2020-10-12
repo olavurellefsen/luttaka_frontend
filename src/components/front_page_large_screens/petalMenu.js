@@ -5,31 +5,37 @@ import news from '../flower_components/flower_images/Group 5.svg'
 import storage from '../flower_components/flower_images/Group 6.svg'
 import join from '../flower_components/flower_images/Group 7.svg'
 import { media } from '../../utils/mediaTemplate'
+import { Link } from 'gatsby'
 
 const PetalMenu = () => {
   const petals = [
     {
       title: `Skráin 2020`,
       image: schedule,
+      to: "/schedule"
     }, {
       title: `Tíðindi`,
       image: news,
+      to: "/news"
     },
     {
       title: "Savn",
       image: storage,
-
+      to: "/library"
     },
     {
       title: `Tilmelding`,
       image: join,
+      to: "/signup"
     }
   ]
   return (
     <ContainerStyle>
       {petals.map((item, index) => {
         return (
-          <ImageStyle key={index} src={item.image} alt={item.title} />
+          <Link to={item.to}>
+            <ImageStyle key={index} src={item.image} alt={item.title} />
+          </Link>
         )
       })}
     </ContainerStyle>
@@ -38,10 +44,10 @@ const PetalMenu = () => {
 
 const SlideUp = keyframes`
   from {
-    transform: translateY(100px);
+    transform: translateY(-120%);
   }
   to {
-        transform: translateY(-70px);
+    transform: translateY(15%);
   }
 
 `
@@ -66,7 +72,7 @@ const ContainerStyle = styled.div`
   animation-fill-mode: forwards;
   z-index: 1;
   ${media.desktop2`
-   margin: 0 200px;
+  margin: 0 200px;
   `}
 `
 
