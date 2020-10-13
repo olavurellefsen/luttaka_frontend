@@ -13,8 +13,8 @@ const backend_schedule = graphql`
       start_time
       title
       lecturer {
-        lecturer_name
-        lecturer_organisation
+        name
+        organisation
       }
     }
   }
