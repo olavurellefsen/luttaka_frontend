@@ -4,14 +4,15 @@ import Description from './description'
 import PetalMenu from './petalMenu'
 import { media } from '../../utils/mediaTemplate'
 import AvatarLargeScreens from '../gatsby_images/avatarLargeScreens'
+import QuestionBox from '../questionBox'
 
-const FrontPageContainer = () => {
-
+const FrontPageContainer = ({ opened, setOpened}) => {
   return (
     <ContainerStyle>
       <PetalMenu />
-      <Description />
-      <AvatarLargeScreens />
+      <Description opened={opened} />
+      <AvatarLargeScreens opened={opened} setOpened={setOpened} />
+      <QuestionBox opened={opened} setOpened={setOpened} largeScreen={true}/>
     </ContainerStyle>
   )
 }
@@ -19,7 +20,7 @@ const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   margin: 120px 20px;
-${media.desktop3`
+ ${media.desktop3`
      display: none;
   `}
 `

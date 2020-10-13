@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import Petal from './petal';
 import schedule from './flower_images/Skráin 2020.svg'
 import news from './flower_images/Group 5.svg'
@@ -11,19 +11,18 @@ import path7 from './flower_images/Path 7.svg'
 import path8 from './flower_images/Path 8.svg'
 import Avatar from '../gatsby_images/avatar';
 import { media } from '../../utils/mediaTemplate'
+import QuestionBox from '../questionBox';
 
-const Flower = () => {
+const Flower = ({ opened, setOpened }) => {
   const petals = [
     {
       title: `Skráin 2020`,
       color: `green`,
       image: schedule,
-      stem: path4
     }, {
       title: `Tíðindi`,
       color: `red`,
       image: news,
-      stem: path6
     },
     {
       title: "Savn",
@@ -36,28 +35,26 @@ const Flower = () => {
       title: `Tilmelding`,
       color: `blue`,
       image: join,
-      stem: path8
     }
   ]
 
   return (
-    <>
     <ContainerStyle>
       <PetalContainer name="petal_container">
         {petals.map((item, index) => {
           return (
-            <Petal key={index} color={item.color} title={item.title} index={index} imageSource={item.image} stem={item.stem} />
+            <Petal key={index} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
           )
         })}
 
       </PetalContainer>
-      <StemStyle src={path4} right='171px' />
-      <StemStyle src={path6} right='171px' />
-      <StemStyle src={path7} right='111px;' />
-      <StemStyle src={path8} right='111px' />
-      <Avatar />
+      <StemStyle src={path4} right='50%' opened={opened} />
+      <StemStyle src={path6} right='50%' opened={opened} />
+      <StemStyle src={path7} right='133px;' opened={opened} />
+      <StemStyle src={path8} right='137px' opened={opened} />
+      <QuestionBox opened={opened} setOpened={setOpened} />
+      <Avatar opened={opened} setOpened={setOpened} />
     </ContainerStyle>
-    </>
   );
 };
 
@@ -74,29 +71,46 @@ const ContainerStyle = styled.div`
     display: block;
   `}
 `
+
 const PetalContainer = styled.div`
   div:nth-child(1) {
-    left: 60px;
-    bottom: 400px;
+    left: 50px;
+    bottom: 380px;
    }
   div:nth-child(2) {
-    bottom: 340px;
-    left: 240px;
+    bottom: 320px;
+    left: 200px;
   }
   div:nth-child(3) {
     bottom: 240px;
-    left: 60px;
+    left: 20px;
   }
   div:nth-child(4) {
     bottom: 155px;
-    right: 0;
+    right: 20px;
   }
 `
 
+const fadeAway = keyframes`
+ from {
+   opacity: 1;
+ }
+ to {
+   opacity: 0.3;
+ }
+`
+
 const StemStyle = styled.img`
-    position: absolute;
-    bottom: 0;
-    right: ${props => props.right};
+  position: absolute;
+  bottom: 0;
+  right: ${props => props.right};
+    ${({ opened }) =>
+    opened && css
+      `
+    animation: ${fadeAway};
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+  `}
 `
 
 export default Flower;

@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { media } from '../../utils/mediaTemplate'
 
-const Description = () => {
+const Description = ({ opened }) => {
   return (
-    <ContainerStyle>
+    <ContainerStyle opened={opened}>
       <TitleStyle>
         VÍSINDAVØKA BYGGIR BRÝR MILLUM <br /> GRANSKARAR OG ALMENNING
       </TitleStyle>
@@ -33,6 +33,7 @@ const Description = () => {
 }
 
 const ContainerStyle = styled.div`
+  visibility: ${props => props.opened ? "hidden" : "visible"};
   display: flex;
   align-items: center;
   background: #FFFFFF 0% 0% no-repeat padding-box;
