@@ -39,7 +39,12 @@ const ContainerStyle = styled.div`
   background: #FFFFFF 0% 0% no-repeat padding-box;
   border-radius: 4px;
   display: block;
-  margin: 0 200px;
+  margin: 100px 200px;
+  min-width: 900px;
+  ${media.desktop2`
+     margin-bottom: 10px;
+
+  `}
   ${media.desktop3`
      display: none;
   `}

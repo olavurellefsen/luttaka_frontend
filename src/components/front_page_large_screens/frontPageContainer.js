@@ -19,7 +19,7 @@ const FrontPageContainer = ({ opened, setOpened}) => {
 const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 120px 20px;
+  margin: 20px;
  ${media.desktop3`
      display: none;
   `}

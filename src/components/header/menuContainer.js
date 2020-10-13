@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled, { keyframes, css } from 'styled-components'
 import { useAuth0 } from '@auth0/auth0-react';
 import HeaderButton from './headerButton';
 import LargeLogo from '../LargeLogo';
 import SmallLogo from '../SmallLogo';
-import Flower from '../flower_components/flower';
-import FrontPageContainer from '../front_page_large_screens/frontPageContainer';
 
-const MenuContainer = () => {
+const MenuContainer = ({opened}) => {
   const { loginWithRedirect, logout, isAuthenticated, isLoading } = useAuth0()
-  const [opened, setOpened] = useState(false)
+
   const handleClick = () => {
     if (isAuthenticated) {
       logout()
@@ -20,12 +18,10 @@ const MenuContainer = () => {
   }
 
   return (
-    <ContainerStyle isauthenticated={isAuthenticated}>
+    <ContainerStyle name="menuContainer" isauthenticated={isAuthenticated}>
       {isAuthenticated && !isLoading ? <SmallLogo isAuthenticated={isAuthenticated} /> : <LargeLogo />}
       {isAuthenticated && !isLoading && <HeaderButton isAuthenticated={isAuthenticated} askQuestionedOpened={opened} />}
       {!isAuthenticated && !isLoading ? <ButtonStyle backgroundColor='green' onClick={handleClick}>Rita inn</ButtonStyle> : ``}
-      {isAuthenticated && !isLoading &&  <Flower opened={opened} setOpened={setOpened} />}
-      {isAuthenticated && !isLoading && <FrontPageContainer opened={opened} setOpened={setOpened} />}
     </ContainerStyle>
   );
 };
@@ -33,12 +29,13 @@ const MenuContainer = () => {
 
 const ContainerStyle = styled.div`
   width: 100%;
-  height: 100%;
-   ${({ isauthenticated }) =>
-  !isauthenticated && css
+  // height: 100%;
+  // margin: 70px 0;
+  ${({ isauthenticated }) =>
+    !isauthenticated && css
       `
       display: flex;
-      align-self: center;
+      align-self: flex-start;
       justify-content: center;
       align-items: center;
   `}

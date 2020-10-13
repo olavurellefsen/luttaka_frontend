@@ -43,7 +43,7 @@ const slideInLeft = keyframes`
 
   to {
     // -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate(-110px,-160px);
+    transform: translate(-40%,-50%);
 `
 
 const ImageStyle = styled(Img)`
