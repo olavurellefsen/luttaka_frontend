@@ -32,14 +32,16 @@ const Schedule = () => (
       render={
         data=>(
           <div>
-            {data.allStrapiScheduleItem.nodes.map(item => (
+            {data.allStrapiScheduleItem.nodes.map(item => {
+              console.log("item: ", item)
+              return(
               <ScheduleItem 
-                name={item.name}
+                title={item.title}
                 start_time={item.start_time}
-                lecturer_name={item.lecturer?.lecturer_name}
-                lecturer_organisation={item.lecturer?.lecturer_organisation}
+                lecturer_name={item.lecturer?.name}
+                lecturer_organisation={item.lecturer?.organisation}
               />
-            ))}
+            )})}
           </div>
         )
       }
