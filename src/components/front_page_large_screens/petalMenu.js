@@ -4,6 +4,7 @@ import schedule from '../flower_components/flower_images/Skráin 2020.svg'
 import news from '../flower_components/flower_images/Group 5.svg'
 import storage from '../flower_components/flower_images/Group 6.svg'
 import join from '../flower_components/flower_images/Group 7.svg'
+import { media } from '../../utils/mediaTemplate'
 
 const PetalMenu = () => {
   const petals = [
@@ -64,7 +65,9 @@ const ContainerStyle = styled.div`
   animation-duration: 3s;
   animation-fill-mode: forwards;
   z-index: 1;
-
+  ${media.desktop2`
+   margin: 0 200px;
+  `}
 `
 
 const ImageStyle = styled.img`
