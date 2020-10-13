@@ -37,9 +37,11 @@ const BackgroundStyle = styled.div`
 const Container = styled.div`
   display: flex;
   flex: 1;
+  width: 100%;
+  height: 100%;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-self: center;
   border-radius: 300px
 `

@@ -1,6 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
+import styled, { keyframes, css } from "styled-components"
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -13,12 +14,12 @@ import Img from "gatsby-image"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Image = ({ image }) => {
+const SmallLogo = ({ isAuthenticated }) => {
   const data = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "Logo@2x.png" }) {
+      placeholderImage: file(relativePath: { eq: "Logo_1.png" }) {
         childImageSharp {
-          fluid(maxWidth: 600, maxHeight: 600) {
+          fluid(maxWidth: 100, maxHeight: 100) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -26,11 +27,36 @@ const Image = ({ image }) => {
     }
   `)
 
-  return <Img
+  return <ImageStyle
+    isAuthenticated={isAuthenticated}
     style={{ maxHeight: "100%" }}
-    imgStyle={{ objectFit: "contain" }}
+    // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
-    />
+  />
+
 }
 
-export default Image
+const slideInLeft = keyframes`
+  from {
+    transform: translate(100%, 250%);
+  }
+
+  to {
+    // -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate(10px, 10px);
+`
+
+const ImageStyle = styled(Img)`
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  ${({ isAuthenticated }) =>
+    isAuthenticated && css
+      `
+      animation: ${slideInLeft};
+      animation-duration: 3s;
+      animation-fill-mode: forwards;
+
+  `}
+`
+export default SmallLogo
