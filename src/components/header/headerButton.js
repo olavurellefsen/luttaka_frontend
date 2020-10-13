@@ -8,7 +8,7 @@ const HeaderButton = ({ isAuthenticated }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   return (
     <ContainerStyle name="HeaderButton">
-      <IconStyle  onClick={() => setMenuOpen(!menuOpen)} isAuthenticated={isAuthenticated} icon={faBars} size="2x" />
+      <IconStyle onClick={() => setMenuOpen(!menuOpen)} isauthenticated={isAuthenticated ? `true` : `false`} icon={faBars} size="2x" />
       {menuOpen && <Menu setMenuOpen={setMenuOpen} menuOpen={menuOpen} />}
     </ContainerStyle>
   )
@@ -34,8 +34,8 @@ const ContainerStyle = styled.div`
 const IconStyle = styled(FontAwesomeIcon)`
   color: #74AB58;
   position: absolute;
-    ${({ isAuthenticated }) =>
-    isAuthenticated && css
+    ${({ isauthenticated }) =>
+   isauthenticated && css
       `
         animation: ${slideInLeft };
         animation-duration: 0.8s;
