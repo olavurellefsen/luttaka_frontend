@@ -28,6 +28,8 @@ const IndexPage = () => {
           <LoginView />
           <Link to='/news'>News</Link>
           <Link to='/archive'>Archive</Link>
+          <Link to='/schedule'>Schedule</Link>
+          <Link to='/signup'>Signup</Link>
         </Layout>
       </Background>
     </Auth0Provider>

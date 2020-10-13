@@ -16,14 +16,11 @@ module.exports = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: `http://localhost:1337`,
+        apiURL: `http://localhost:5439`,
         contentTypes: [
           `article`,
-          `user`,
-          `lecture`,
-          `lecturer`,
           `schedule`,
-          `work-place`,
+          'schedule-item',
         ],
         markdownImages: {
           typesToParse: {

@@ -1,0 +1,50 @@
+import React from "react"
+import { Link } from "gatsby"
+import { StaticQuery, graphql } from "gatsby"
+
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+import ScheduleItem from './../components/schedule/ScheduleItem';
+
+const backend_schedule = graphql`
+  query {
+  allStrapiScheduleItem {
+    nodes {
+      start_time
+      title
+      lecturer {
+        lecturer_name
+        lecturer_organisation
+      }
+    }
+  }
+}`
+
+
+const Schedule = () => (
+  <Layout>
+    <SEO title="schedule" />
+    <h1>Schedule</h1>
+    <p>Schedule of all events</p>
+    <Link to="/">Go back to the main menu</Link>
+    <StaticQuery 
+      query={backend_schedule} 
+      render={
+        data=>(
+          <div>
+            {data.allStrapiScheduleItem.nodes.map(item => (
+              <ScheduleItem 
+                name={item.name}
+                start_time={item.start_time}
+                lecturer_name={item.lecturer?.lecturer_name}
+                lecturer_organisation={item.lecturer?.lecturer_organisation}
+              />
+            ))}
+          </div>
+        )
+      }
+    />
+  </Layout>
+)
+
+export default Schedule
