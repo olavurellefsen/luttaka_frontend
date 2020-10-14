@@ -33,8 +33,8 @@ const PetalMenu = () => {
     <ContainerStyle>
       {petals.map((item, index) => {
         return (
-          <Link key={index} to={item.to}>
-            <ImageStyle src={item.image} alt={item.title} />
+          <Link to={item.to} key={"petal" + index}>
+            <ImageStyle key={index} src={item.image} alt={item.title} />
           </Link>
         )
       })}
