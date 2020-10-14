@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
-import { media } from '../utils/mediaTemplate'
 import Img from "gatsby-image"
 import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
@@ -21,7 +20,34 @@ const ArticleTemplate = ({ data }) => {
             <TitleStyle>{article.title}</TitleStyle>
             <DateStyle>{article.date}</DateStyle>
             <ImageStyle style={{ width: "100%" }} imgStyle={{ width: "100%" }} fixed={article.image?.childImageSharp.fixed} alt={article.title} />
-            <MarkDownContainer source={article.content} />
+            <MarkDownContainer
+              source={article.content}
+              renderers={{
+                image: ({ src, alt }) => {
+                  const image = article.content_images?.find(
+                    element => element.url === src
+                  )
+                  return (
+                    <>
+                      {image && image.formats?.large.childImageSharp.fixed ? (
+                        <Img
+                          fixed={image.url}
+                          alt={alt}
+                        />
+                      ) : (
+                          <img src={src} alt={alt} />
+                        )}
+                    </>
+                  )
+                },
+                paragraph: props =>
+                  props.children[0].type.name === "image" ? (
+                    <div {...props} />
+                  ) : (
+                      <ParagraphImageStyle name={props.children[0].type.name} {...props} />
+                    ),
+              }}
+            />
           </ContentContainer>
 
         </StyledContainer>
@@ -85,24 +111,18 @@ const ImageStyle = styled(Img)`
 
 
 const MarkDownContainer = styled(ReactMarkdown)`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   min-height: 100px;
-  align-self: stretch;
   margin: 5px 0;
   text-align: left;
 `
-// const ParagraphImageStyle = styled.p`
-//   display: flex;
-//   img {
-//     align-items: center;
-//     justify-content: center;
-//     margin: 0 10px;
-//   }
-// `
+
+const ParagraphImageStyle = styled.p`
+  display: flex;
+  img {
+    margin: auto;
+  }
+`
 
 export default ArticleTemplate
 
