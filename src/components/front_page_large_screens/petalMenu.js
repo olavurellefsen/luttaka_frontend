@@ -33,8 +33,8 @@ const PetalMenu = () => {
     <ContainerStyle>
       {petals.map((item, index) => {
         return (
-          <Link to={item.to}>
-            <ImageStyle key={index} src={item.image} alt={item.title} />
+          <Link key={index} to={item.to}>
+            <ImageStyle src={item.image} alt={item.title} />
           </Link>
         )
       })}
@@ -64,7 +64,7 @@ const FadeIn = keyframes`
 const ContainerStyle = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 0 280px;
   animation: ${SlideUp};
