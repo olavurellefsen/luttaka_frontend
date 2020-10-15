@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled, { keyframes, css } from "styled-components"
 
@@ -27,12 +27,12 @@ const SmallLogo = ({ isAuthenticated }) => {
     }
   `)
 
-  return <ImageStyle
+  return <LinkStyle to="/" ><ImageStyle
     isauthenticated={isAuthenticated}
     style={{ maxHeight: "100%", position: "absolute"}}
     // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
-  />
+  /></LinkStyle>
 
 }
 
@@ -43,11 +43,18 @@ const slideInLeft = keyframes`
 
   to {
     // -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate(-50%,-75%);
+    transform: translate(-40%,-60%);
+`
+const LinkStyle = styled(Link)`
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  z-index: 1;
 `
 
+
 const ImageStyle = styled(Img)`
-position: absolute;
+  position: absolute;
   width: 300px;
   height: 300px;
   z-index: 1;

@@ -27,7 +27,9 @@ const slideInLeft = keyframes`
 
 const ContainerStyle = styled.div`
   position: absolute;
+  z-index: 9;
   top: 50px;
+  right: 0;
   width: 100%;
   display: ${props => props.askQuestionedOpened ? "none" : "block" };
 `

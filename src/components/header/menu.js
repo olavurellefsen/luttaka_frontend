@@ -44,13 +44,13 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
 const slideInLeft = keyframes`
    from {
-    right: -320px;
-      top: -50px;
+    right: -300px;
+    top: -50px;
 
   }
 
   to {
-      right: 0px;
+      right: -5px;
       top: -50px;
   }
 `;
@@ -61,7 +61,7 @@ const ContainerStyle = styled.div`
   z-index: 10;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  width: 240px;
+  width: 250px;
   div:not(:first-child){
     border-top: gray solid 0.1px;
     padding: 5px;
