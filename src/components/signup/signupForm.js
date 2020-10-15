@@ -52,7 +52,7 @@ const SignupForm = () => {
       SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
       let olavursEmail = emailDraft
       olavursEmail.to = "oe@tokni"
-      // SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
+      SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
       alert("Srásetingin eydnaðist og tú nú verður send/ur víðari til forsíðina")
       navigate(`/`)
