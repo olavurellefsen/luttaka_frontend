@@ -23,11 +23,12 @@ module.exports = {
           `lecture`,
           `lecturer`,
           `schedule`,
-          `work-place`,
         ],
+        singleTypes: [`registered-text`],
         markdownImages: {
           typesToParse: {
-            article: ['content']
+            article: ['content'],
+            "registered-text": ['content']
           }
         },
         queryLimit: 1000,
