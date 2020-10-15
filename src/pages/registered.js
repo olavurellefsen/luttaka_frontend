@@ -9,6 +9,7 @@ import { media } from '../utils/mediaTemplate'
 
 const Registered = ({ data }) => {
   const registrationText = data.allStrapiRegisteredText.nodes[0].content
+  
   return (
     <ContainerStyle>
       <Layout>
