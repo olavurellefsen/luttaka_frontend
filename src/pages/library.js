@@ -7,6 +7,7 @@ import ContentContainer from "../components/library/contentContainer"
 import SearchBar from "../components/searchBar"
 import { useAuth0 } from "@auth0/auth0-react"
 import {media} from "../utils/mediaTemplate"
+
 const LibraryPage = () => {
   const { isLoading } = useAuth0()
 

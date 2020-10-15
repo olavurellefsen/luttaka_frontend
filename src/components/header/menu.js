@@ -15,7 +15,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
     },
     {
       name: `Um vísindavøkuna`,
-      onClick: () => navigate()
+      onClick: () => navigate("/about")
     },
     {
       name: "Mín skrá",
@@ -33,7 +33,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
       {menuItems.map((item, index) => {
 
-        return <MenuItemStyle onClick={item.onClick} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
+        return <MenuItemStyle onClick={() => item.onClick()} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
       })}
       <ExitButton icon={faTimes} onClick={() => {
         setMenuOpen(!menuOpen)

@@ -25,9 +25,11 @@ module.exports = {
           `schedule`,
           `work-place`,
         ],
+        singleTypes: [`about`],
         markdownImages: {
           typesToParse: {
-            article: ['content']
+            article: ['content'],
+            about: ['content']
           }
         },
         queryLimit: 1000,
