@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import SendEmail from '../../utils/mail/SendEmail'
 import { navigate } from 'gatsby'
+import { media } from '../../utils/mediaTemplate'
+
+
 const SignupForm = () => {
 
   const { register, handleSubmit, watch, formState, errors} = useForm()
@@ -98,7 +101,10 @@ const ContainerStyle = styled.div`
   justify-content: center;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-top: 50px;
+  margin-top: 60px;
+  ${media.desktop3`
+    margin-top: 200px;
+  `}
 `
 
 const TitleStyle = styled.h1`
