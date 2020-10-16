@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { media } from "../utils/mediaTemplate"
 
 const SearchBar = () => {
 
@@ -10,7 +11,7 @@ const SearchBar = () => {
   );
 };
 const ContainerStyle = styled.div`
-  margin: 150px 20px 0;
+  margin:20px;
 `
 
 const InputStyle = styled.input`

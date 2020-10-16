@@ -2,11 +2,11 @@ import { faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import styled, { keyframes, css } from 'styled-components'
-const QuestionBox = ({ opened, setOpened, largeScreen }) => {
+const QuestionBox = ({ opened, setOpened, large_screen }) => {
   return (
     <ContainerStyle opened={opened}>
-      <ExitButton largeScreen={largeScreen} opened={opened.toString()} icon={faTimes} onClick={() => setOpened(!opened)}/>
-      <CircleStyle name="circle info" opened={opened} largeScreen={largeScreen}>
+      <ExitButton large_screen={large_screen ? "true" : "false"} opened={opened.toString()} icon={faTimes} onClick={() => setOpened(!opened)}/>
+      <CircleStyle name="circle info" opened={opened} large_screen={large_screen ? "true" : "false"}>
         <TextStyle>Hevur tú hugskot</TextStyle>
         <TextStyle>til granskingarevni</TextStyle>
         <TextStyle>ella vilt tú spyrja ein</TextStyle>
@@ -59,15 +59,15 @@ const CircleStyle = styled.div`
   position: absolute;
   top: 22%;
   z-index: 9;
-  ${({ largeScreen }) =>
-  largeScreen && css`
+  ${({ large_screen }) =>
+  large_screen && css`
     top: 40%;
 
   `}
 
-  ${({ opened, largeScreen }) =>
+  ${({ opened, large_screen }) =>
     opened && css`
-    animation: ${!largeScreen ? SlideRight : SlideRightLarge};
+    animation: ${!large_screen ? SlideRight : SlideRightLarge};
     animation-duration: 1s;
     animation-fill-mode: forwards;
 
@@ -94,8 +94,8 @@ const ExitButton = styled(FontAwesomeIcon)`
   right: 20px;
   cursor: pointer;
   font-size: 20px;
-  ${({ largeScreen }) =>
-    largeScreen && css`
+  ${({ large_screen }) =>
+    large_screen && css`
     top: 5%;
   `}
    ${({ opened }) =>
