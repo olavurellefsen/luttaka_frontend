@@ -23,13 +23,13 @@ module.exports = {
           `lecture`,
           `lecturer`,
           `schedule`,
-          `work-place`,
         ],
-        singleTypes: [`about`],
+        singleTypes: [`registered-text`, `about`],
         markdownImages: {
           typesToParse: {
             article: ['content'],
-            about: ['content']
+            about: ['content'],
+            "registered-text": ['content']
           }
         },
         queryLimit: 1000,
@@ -52,6 +52,13 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
-    `gatsby-plugin-fontawesome-css`
+    `gatsby-plugin-fontawesome-css`,
+    {
+      resolve: `gatsby-plugin-netlify-functions`,
+      options: {
+        functionsSrc: `${__dirname}/src/functions`,
+        functionsOutput: `${__dirname}/functions`,
+      },
+    }
   ],
 }

@@ -12,6 +12,7 @@ import path8 from './flower_images/Path 8.svg'
 import Avatar from '../gatsby_images/avatar';
 import { media } from '../../utils/mediaTemplate'
 import QuestionBox from '../questionBox';
+import { navigate } from 'gatsby';
 
 const Flower = ({ opened, setOpened }) => {
   const petals = [
@@ -19,22 +20,25 @@ const Flower = ({ opened, setOpened }) => {
       title: `Skráin 2020`,
       color: `green`,
       image: schedule,
+      to: () =>navigate("/schedule")
     }, {
       title: `Tíðindi`,
       color: `red`,
       image: news,
+      to: () =>navigate("/news")
     },
     {
       title: "Savn",
       color: "yellow",
       image: storage,
-      stem: path7
-
+      stem: path7,
+      to: () => navigate("/library")
     },
     {
       title: `Tilmelding`,
       color: `blue`,
       image: join,
+      to: () => navigate("/signup")
     }
   ]
 
@@ -43,7 +47,7 @@ const Flower = ({ opened, setOpened }) => {
       <PetalContainer name="petal_container">
         {petals.map((item, index) => {
           return (
-            <Petal key={index} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
+              <Petal navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
           )
         })}
 

@@ -64,7 +64,7 @@ const FadeIn = keyframes`
 const ContainerStyle = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 0 280px;
   animation: ${SlideUp};
