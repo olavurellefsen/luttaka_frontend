@@ -52,7 +52,7 @@ query fetchArticles {
     nodes {
       id
       title
-      date(locale: "dk")
+      date(formatString: "DD-MM-YYYY")
       description
       image {
         childImageSharp {
