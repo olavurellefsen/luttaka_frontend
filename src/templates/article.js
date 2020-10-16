@@ -136,7 +136,7 @@ export const query = graphql`
       date
        image {
         childImageSharp {
-            fixed(width: 1430, height: 450) {
+            fixed(width: 1024, height: 512) {
               ...GatsbyImageSharpFixed
              }
           }
