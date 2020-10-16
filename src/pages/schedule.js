@@ -8,7 +8,7 @@ import ScheduleItem from './../components/schedule/ScheduleItem';
 
 const backend_schedule = graphql`
   query {
-  allStrapiScheduleItem {
+  allStrapiScheduleItem(sort: {fields: start_time, order: ASC}) {
     nodes {
       start_time
       title
