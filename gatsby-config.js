@@ -24,6 +24,7 @@ module.exports = {
           `lecturer`,
           `schedule`,
           `work-place`,
+          `category`
         ],
         markdownImages: {
           typesToParse: {
