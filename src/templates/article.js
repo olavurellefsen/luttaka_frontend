@@ -73,7 +73,7 @@ const StyledContainer = styled.div`
   flex-direction: row;
   margin: 20px;
   background-color: #FFFFFF;
-
+  max-width: 1100px;
 `
 
 const ContentContainer = styled.div`
