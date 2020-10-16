@@ -35,6 +35,7 @@ const Content = styled.div`
   flex: 1;
   flex-direction: column;
   max-width: 300px;
+  cursor: pointer;
 `
 const CheckboxContainer = styled.div`
   margin-left: 20px;
