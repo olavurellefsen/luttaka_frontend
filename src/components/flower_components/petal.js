@@ -1,9 +1,9 @@
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
-const Petal = ({ color, index, name, imageSource, opened }) => {
+const Petal = ({ color, index, name, imageSource, opened, navigate }) => {
   return (
-    <ContainerStyle color={color} index={index} opened={opened}>
+    <ContainerStyle color={color} index={index} opened={opened} onClick={() => navigate()}>
       <ImgStyle src={imageSource} alt={name}/>
     </ContainerStyle>
   )
