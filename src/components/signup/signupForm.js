@@ -55,7 +55,7 @@ const SignupForm = () => {
       SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
       alert("Srásetingin eydnaðist og tú nú verður send/ur víðari til forsíðina")
-      navigate(`/`)
+      navigate(`/registered`)
     }
   }, [isSubmitted, isSubmitSuccessful, emailDraft])
 
@@ -66,11 +66,11 @@ const SignupForm = () => {
       {formState.isSubmitting && <div>SENDING EMAIL</div>}
       <FormStyle onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
-          <InputStyle name="firstname" ref={register} placeholder="Fornavn" />
-          <InputStyle name="lastname" ref={register} placeholder="Eftirnavn" />
+          <InputStyle name="firstname" ref={register({ required: true })} placeholder="Fornavn" />
+          <InputStyle name="lastname" ref={register({ required: true })} placeholder="Eftirnavn" />
         </InputContainer>
-        <InputStyle name="email" ref={register} placeholder="Teldupostur" />
-        <select name="signup_type" ref={register} placeholder="Melda til sum">
+        <InputStyle name="email" ref={register({ required: true })} placeholder="Teldupostur" />
+        <select name="signup_type" ref={register({ required: true })} placeholder="Melda til sum">
           <option value="alone">Einstaklingur</option>
           <option value="group">Við Bólki</option>
         </select>
@@ -78,8 +78,8 @@ const SignupForm = () => {
           <InputStyle name="participant_nr" ref={register({ required: true })} placeholder="Hvussu nógv eru í bólkinum" />
           {errors.participant_nr && <ErrorParagraph>Tú mást upplýsa, hvussu nógv tit ereu, um tú vilt skráset teg við bólki </ErrorParagraph>}
           </>}
-        <InputStyle name="work_place" ref={register} placeholder="Arbeiðsstaður" />
-        <InputStyle name="school_class" ref={register} placeholder="Vinaliga skriva flokkin, um talan er um ein skúlaflokk" />
+        <InputStyle name="work_place" ref={register({ required: true })} placeholder="Arbeiðsstaður" />
+        <InputStyle name="school_class" ref={register({ required: true })} placeholder="Vinaliga skriva flokkin, um talan er um ein skúlaflokk" />
 
         <LabelContainer>
           <LabelStyle htmlFor="accepted-terms">

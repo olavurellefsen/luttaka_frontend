@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
-// import NewsContainer from '../components/news/newsContainer'
+import NewsContainer from '../components/news/newsContainer'
 import { media } from "../utils/mediaTemplate"
 
 
@@ -17,7 +17,7 @@ const News = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>Tíðindi</TitleStyle>
-        {/* <NewsContainer nodes={data.allStrapiArticle.nodes} /> */}
+        <NewsContainer nodes={data.allStrapiArticle.nodes} />
       </Layout>
     </ContainerStyle>
   )
