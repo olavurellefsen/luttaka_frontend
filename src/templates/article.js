@@ -62,7 +62,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 20px;
-
+  width: 100%;
 `
 
 const StyledContainer = styled.div`
@@ -74,6 +74,7 @@ const StyledContainer = styled.div`
   margin: 20px;
   background-color: #FFFFFF;
   max-width: 1100px;
+
 `
 
 const ContentContainer = styled.div`
