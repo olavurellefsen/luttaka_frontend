@@ -16,6 +16,7 @@ const backend_schedule = graphql`
         name
         organisation
       }
+      description
     }
   }
 }`
@@ -40,6 +41,7 @@ const Schedule = () => (
                 start_time={item.start_time}
                 lecturer_name={item.lecturer?.name}
                 lecturer_organisation={item.lecturer?.organisation}
+                description={item.description}
               />
             )})}
           </div>
