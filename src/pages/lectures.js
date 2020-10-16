@@ -23,7 +23,7 @@ const LecturesPage = ({ data }) => {
         <TitleStyle>VÍSINDAVØKU SAVN - FYRILESTRAR</TitleStyle>
         <SearchBar />
         {categories.map((category, index) => (
-          <div style={{ width: "15%" }} key={index}>
+          <div key={index}>
             <HeaderStyle onClick={() => setOpen(!open)} >
               <TextStyle>
                 {category.title}
