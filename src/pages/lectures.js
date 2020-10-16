@@ -23,7 +23,7 @@ const LecturesPage = ({ data }) => {
         <TitleStyle>VÍSINDAVØKU SAVN - FYRILESTRAR</TitleStyle>
         <SearchBar />
         {categories.map((category, index) => (
-          <div key={index}>
+          <HeaderContainer key={index}>
             <HeaderStyle onClick={() => setOpen(!open)} >
               <TextStyle>
                 {category.title}
@@ -40,7 +40,7 @@ const LecturesPage = ({ data }) => {
                 </LinkStyle>
               )
             })}
-          </div>
+          </HeaderContainer>
         ))}
       </Layout>
     </Background>
@@ -69,6 +69,15 @@ const TitleStyle = styled.h1`
   `}
 `
 
+const HeaderContainer = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 1000px;
+  width: 100%;
+`
 
 const HeaderStyle = styled.div`
   display: flex;
@@ -116,6 +125,8 @@ const ListItemStyle = styled.div`
   animation: ${slideDown};
   animation-duration: 2s;
   animation-fill-mode: forwards;
+  max-width: 540px;
+  width: 100%;
   ${({ open }) =>
     open && css
       `
@@ -136,6 +147,8 @@ const ListItemStyle = styled.div`
 const LinkStyle = styled(Link)`
   text-decoration: none;
   color: black;
+  max-width: 540px;
+  width: 100%;
 `
 
 export default LecturesPage
