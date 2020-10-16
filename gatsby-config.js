@@ -19,10 +19,8 @@ module.exports = {
         apiURL: `http://localhost:1337`,
         contentTypes: [
           `article`,
-          `user`,
-          `lecture`,
-          `lecturer`,
           `schedule`,
+          'schedule-item',
         ],
         singleTypes: [`registered-text`],
         markdownImages: {
