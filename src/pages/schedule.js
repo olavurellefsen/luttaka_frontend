@@ -10,6 +10,7 @@ const backend_schedule = graphql`
   query {
   allStrapiScheduleItem(sort: {fields: start_time, order: ASC}) {
     nodes {
+      id
       start_time
       title
       lecturer {
@@ -28,15 +29,15 @@ const Schedule = () => (
     <h1>Schedule</h1>
     <p>Schedule of all events</p>
     <Link to="/">Go back to the main menu</Link>
-    <StaticQuery 
-      query={backend_schedule} 
+    <StaticQuery
+      query={backend_schedule}
       render={
         data=>(
           <div>
             {data.allStrapiScheduleItem.nodes.map(item => {
-              console.log("item: ", item)
               return(
-              <ScheduleItem 
+              <ScheduleItem
+                key={item.id}
                 title={item.title}
                 start_time={item.start_time}
                 lecturer_name={item.lecturer?.name}

@@ -1,16 +1,39 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from 'react'
+import styled from 'styled-components'
+import PetalMenu from '../components/front_page_large_screens/petalMenu'
+import MenuContainer from '../components/header/menuContainer'
+import Layout from '../components/layout'
+import SignupForm from '../components/signup/signupForm'
+import { media } from "../utils/mediaTemplate"
+import { ProtectedRoute } from '../utils/protectedRoute'
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+const Signup = () => {
+  return (
+    <ProtectedRoute>
+      <Background>
+        <Layout>
+          <MenuContainer />
+          <PetalContainer name="petal container">
+            <PetalMenu />
+          </PetalContainer>
+          <SignupForm />
+        </Layout>
+      </Background>
+    </ProtectedRoute>
+  )
+}
 
-const News = () => (
-  <Layout>
-    <SEO title="signup" />
-    <h1>Sign up</h1>
-    <p>Sign up for amazing events</p>
-    <Link to="/">Go back to the main menu</Link>
-  </Layout>
-)
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`
 
-export default News
+const PetalContainer = styled.div`
+  display: flex;
+  ${media.desktop3`
+    display: none;
+  `}
+
+`
+export default Signup

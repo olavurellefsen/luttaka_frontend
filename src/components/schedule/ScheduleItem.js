@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import styled from "styled-components"
-import Checkbox from "./Checkbox" 
+import Checkbox from "./Checkbox"
 import ReactMarkDown from 'react-markdown';
 
 const ScheduleItem = ({title, start_time, description, lecturer_name, lecturer_organisation}) => {
@@ -25,12 +25,10 @@ const ScheduleItem = ({title, start_time, description, lecturer_name, lecturer_o
 
 const Container = styled.div`
   display: flex;
- ${'' /*  margin: 10px; */}
   padding: 9px;
   background-color: white;
-  ${'' /* border-radius: 7px; */}
   justify-content: space-between;
-
+  min-width: 200px;
 `
 const Content = styled.div`
   display: flex;
@@ -55,8 +53,8 @@ const Lecturer = styled.div`
   display: flex;
 `
 const LecturerName = styled.div`
-color: #222222;
-font-size: 16px;
+  color: #222222;
+  font-size: 16px;
 `
 const LecturerOrganisation = styled.div`
   color: #222222;

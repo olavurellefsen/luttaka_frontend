@@ -1,16 +1,68 @@
-import React from "react"
-import { Link } from "gatsby"
+import { graphql } from 'gatsby'
+import React from 'react'
+import styled from 'styled-components'
+import PetalMenu from '../components/front_page_large_screens/petalMenu'
+import MenuContainer from '../components/header/menuContainer'
+import Layout from '../components/layout'
+import NewsContainer from '../components/news/newsContainer'
+import { media } from "../utils/mediaTemplate"
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
 
-const News = () => (
-  <Layout>
-    <SEO title="news" />
-    <h1>News</h1>
-    <p>List of news</p>
-    <Link to="/">Go back to the main menu</Link>
-  </Layout>
-)
+const News = ({ data }) => {
+  return (
+    <ContainerStyle>
+      <Layout>
+        <MenuContainer />
+        <PetalContainer name="petal container">
+          <PetalMenu />
+        </PetalContainer>
+        <TitleStyle>Tíðindi</TitleStyle>
+        <NewsContainer nodes={data.allStrapiArticle.nodes} />
+      </Layout>
+    </ContainerStyle>
+  )
+}
+
+const ContainerStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`
+
+const PetalContainer = styled.div`
+  display: flex;
+  ${media.desktop3`
+    display: none;
+  `}
+
+`
+
+const TitleStyle = styled.h3`
+  color: #58A449;
+  display: none;
+  ${media.desktop3`
+    display: block;
+  `}
+  `
 
 export default News
+
+export const pageQuery = graphql`
+query fetchArticles {
+  allStrapiArticle(sort: {fields: date, order: ASC}) {
+    nodes {
+      id
+      title
+      date(locale: "dk")
+      description
+      image {
+        childImageSharp {
+            fixed(width: 430, height: 300) {
+              ...GatsbyImageSharpFixed
+             }
+          }
+        }
+      }
+    }
+  }
+`

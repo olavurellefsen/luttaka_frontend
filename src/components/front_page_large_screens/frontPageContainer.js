@@ -12,13 +12,14 @@ const FrontPageContainer = ({ opened, setOpened}) => {
       <PetalMenu />
       <Description opened={opened} />
       <AvatarLargeScreens opened={opened} setOpened={setOpened} />
-      <QuestionBox opened={opened} setOpened={setOpened} largeScreen={true}/>
+      <QuestionBox opened={opened} setOpened={setOpened} large_screen={true}/>
     </ContainerStyle>
   )
 }
 const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
+  
   margin: 20px;
  ${media.desktop3`
      display: none;
