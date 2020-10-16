@@ -9,7 +9,7 @@ import { media } from '../utils/mediaTemplate'
 
 const Registered = ({ data }) => {
   const registrationText = data.allStrapiRegisteredText.nodes[0].content
-  
+
   return (
     <ContainerStyle>
       <Layout>
@@ -18,7 +18,7 @@ const Registered = ({ data }) => {
             <PetalMenu />
           </PetalContainer>
         <BackgroundStyle>
-          <TitleStyle>Tú ert nú skrásett/ur</TitleStyle>
+          <TitleStyle>BOÐINI ERU MÒTTiKIN</TitleStyle>
           <DescriptionStyle source={registrationText} />
         </BackgroundStyle>
       </Layout>
