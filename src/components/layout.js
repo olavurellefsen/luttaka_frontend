@@ -12,7 +12,6 @@ import styled from "styled-components"
 
 const Layout = ({ children }) => {
 
-
   return (
     <BackgroundStyle>
       <Container>
@@ -31,18 +30,17 @@ const BackgroundStyle = styled.div`
   flex: 1;
   flex-direction: column;
   justify-content: space-around;
-  width: 100vw;
-  height: 100vh;
 `
 
 const Container = styled.div`
   display: flex;
   flex: 1;
+  width: 100%;
+  height: 100%;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  border-radius: 300px
 `
 
 export default Layout
