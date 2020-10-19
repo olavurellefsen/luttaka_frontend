@@ -68,7 +68,8 @@ const ContainerStyle = styled.div`
   align-items: center;
   margin: 0 280px;
   animation: ${SlideUp};
-  animation-duration: 3s;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-out;
   animation-fill-mode: forwards;
   z-index: 1;
   ${media.desktop2`
@@ -79,7 +80,7 @@ const ContainerStyle = styled.div`
 const ImageStyle = styled.img`
   opacity: 0;
   animation: ${FadeIn};
-  animation-duration: 3s;
+  animation-duration: 1.2s;
   animation-fill-mode: forwards;
   z-index: 1;
 `
