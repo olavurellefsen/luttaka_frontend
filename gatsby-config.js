@@ -16,25 +16,25 @@ module.exports = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: `http://localhost:1337`,
+        apiURL: `http://localhost:5439`,
         contentTypes: [
           `article`,
           `user`,
           `lecture`,
           `lecturer`,
           `schedule`,
-          `work-place`,
         ],
-        singleTypes: [`about`],
+        singleTypes: [`about`, `registered-text`],
         markdownImages: {
           typesToParse: {
             article: ['content'],
-            about: ['content']
-          }
+            about: ['content'],
+            "registered-text": ['content']
         },
         queryLimit: 1000,
       }
-    },
+    }
+  },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -52,6 +52,13 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
-    `gatsby-plugin-fontawesome-css`
+    `gatsby-plugin-fontawesome-css`,
+    {
+      resolve: `gatsby-plugin-netlify-functions`,
+      options: {
+        functionsSrc: `${__dirname}/src/functions`,
+        functionsOutput: `${__dirname}/functions`,
+      },
+    }
   ],
 }
