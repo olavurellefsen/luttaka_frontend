@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
-import styled, { keyframes, css } from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
