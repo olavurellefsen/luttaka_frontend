@@ -6,11 +6,11 @@ import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
-  const { logout, user, isAuthenticated, isLoading } = useAuth0()
+  const { logout, loginWithRedirect, user, isAuthenticated } = useAuth0()
 
   const menuItems = [
     {
-      name: user.name,
+      name: isAuthenticated ? user.name : "Ikki innritaður",
       onClick: () => navigate()
     },
     {
@@ -22,11 +22,10 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       onClick: () => navigate()
     },
     {
-      name: `Rita út`,
-      onClick: () => logout({})
+      name: isAuthenticated ? `Rita út` : "Rita inn",
+      onClick: isAuthenticated ? () => logout({}) : () => loginWithRedirect({})
     }
   ]
-  if (!isAuthenticated || isLoading) return null
 
   return (
     <ContainerStyle menuOpen={menuOpen} >
