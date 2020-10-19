@@ -99,7 +99,7 @@ const TextStyle = styled.p`
 const ExitButton = styled(FontAwesomeIcon)`
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 25px;
   cursor: pointer;
   font-size: 20px;
   &:hover {
