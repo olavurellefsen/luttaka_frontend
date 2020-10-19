@@ -6,34 +6,33 @@ import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
-  const { logout, user, isAuthenticated, isLoading } = useAuth0()
+  const { logout, loginWithRedirect, user, isAuthenticated } = useAuth0()
 
   const menuItems = [
     {
-      name: user.name,
+      name: isAuthenticated ? user.name : "Ikki innritaður",
       onClick: () => navigate()
     },
     {
       name: `Um vísindavøkuna`,
-      onClick: () => navigate()
+      onClick: () => navigate("/about")
     },
     {
       name: "Mín skrá",
       onClick: () => navigate()
     },
     {
-      name: `Rita út`,
-      onClick: () => logout({})
+      name: isAuthenticated ? `Rita út` : "Rita inn",
+      onClick: isAuthenticated ? () => logout({}) : () => loginWithRedirect({})
     }
   ]
-  if (!isAuthenticated || isLoading) return null
 
   return (
     <ContainerStyle menuOpen={menuOpen} >
 
       {menuItems.map((item, index) => {
 
-        return <MenuItemStyle onClick={item.onClick} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
+        return <MenuItemStyle onClick={() => item.onClick()} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
       })}
       <ExitButton icon={faTimes} onClick={() => {
         setMenuOpen(!menuOpen)
@@ -69,12 +68,12 @@ const ContainerStyle = styled.div`
   div:first-child {
     padding: 10px;
    }
-
   ${({ menuOpen }) =>
     menuOpen && css
       `
         animation: ${slideInLeft};
-        animation-duration: 3s;
+        animation-timing-function: ease-in-out;
+        animation-duration: .7s;
         animation-fill-mode: forwards;
 
   `}

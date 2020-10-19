@@ -28,6 +28,7 @@ const ContainerStyle = styled.div`
   flex-direction: column;
   margin: 20px;
 `
+
 const PetalContainer = styled.div`
   display: flex;
   ${media.desktop3`

@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
-import styled, { keyframes, css } from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -29,7 +29,7 @@ const SmallLogo = ({ isAuthenticated }) => {
 
   return <LinkStyle to="/" ><ImageStyle
     isauthenticated={isAuthenticated}
-    style={{ maxHeight: "100%", position: "absolute"}}
+    style={{ maxHeight: "100%", position: "absolute" }}
     // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
   /></LinkStyle>
@@ -43,7 +43,7 @@ const slideInLeft = keyframes`
 
   to {
     // -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate(-40%,-60%);
+    transform: translate(-40%,-65%);
 `
 const LinkStyle = styled(Link)`
   position: absolute;
@@ -58,13 +58,9 @@ const ImageStyle = styled(Img)`
   width: 300px;
   height: 300px;
   z-index: 1;
-  ${({ isauthenticated }) =>
-    isauthenticated && css
-      `
-      animation: ${slideInLeft};
-      animation-duration: 3s;
-      animation-fill-mode: forwards;
-
-  `}
+  animation: ${slideInLeft};
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+  
 `
 export default SmallLogo

@@ -1,7 +1,7 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
-import styled, { keyframes, css } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import Menu from './menu'
 
 const HeaderButton = ({ isAuthenticated, askQuestionedOpened }) => {
@@ -17,9 +17,7 @@ const HeaderButton = ({ isAuthenticated, askQuestionedOpened }) => {
 const slideInLeft = keyframes`
    from {
       right: -20px;
-
   }
-
   to {
       right: 5%;
   }
@@ -37,14 +35,12 @@ const IconStyle = styled(FontAwesomeIcon)`
   color: #74AB58;
   position: absolute;
   cursor: pointer;
-    ${({ isauthenticated }) =>
-    isauthenticated && css
-      `
-        animation: ${slideInLeft };
-        animation-duration: 0.8s;
-        animation-fill-mode: forwards;
+  animation: ${slideInLeft };
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
 
-  `}
+
 `
 
 export default HeaderButton;
