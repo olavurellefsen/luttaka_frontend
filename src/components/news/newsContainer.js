@@ -7,7 +7,6 @@ import Img from "gatsby-image"
 
 const NewsContainer = ({ nodes }) => {
 
-  console.log("data", nodes.article)
   return (
     <ContainerStyle>
       <SearchBar />
@@ -20,8 +19,8 @@ const NewsContainer = ({ nodes }) => {
               <LinkStyle to={article.id}>
                 <ContentContainer>
                   <TitleStyle>{article.title}</TitleStyle>
-                  <DateStyle>02.02.2002</DateStyle>
-                  {article.image ? <ImageStyle fixed={article.image?.childImageSharp.fixed} alt={article.title} /> : null}
+                  <DateStyle>{article.date}</DateStyle>
+                  {article.image ? <ImageStyle fluid={article.image?.childImageSharp.fluid} alt={article.title} /> : null}
                   <Descriptionstyle>
                     {article.description}
                   </Descriptionstyle>
@@ -41,7 +40,7 @@ const ContainerStyle = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1800px;
+  max-width: 1000px;
 `
 
 const RowContainer = styled.div`
@@ -59,14 +58,6 @@ const BackgroundStyle = styled.div`
   flex-direction: row;
   margin: 20px;
   background-color: #FFFFFF;
-  width: 460px;
-  height: 550px;
-  ${media.tablet`
-     width: 380px;
-    height: 280px;
-  `}
-
-
 `
 const ContentContainer = styled.div`
   margin: 5px 15px;
@@ -87,14 +78,15 @@ const Descriptionstyle = styled.p`
 
   font-size: 18px;
   display: block;
-  ${media.tablet`
+  ${media.desktop3`
     display: none;
   `}
 `
 
 const ImageStyle = styled(Img)`
+  max-width: 400px;
+  height: 200px;
   width: 100%;
-  height: 150px;
 `
 
 const LinkStyle = styled(Link)`

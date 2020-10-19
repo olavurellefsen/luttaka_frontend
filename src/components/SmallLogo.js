@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled, { keyframes } from "styled-components"
 
@@ -27,12 +27,12 @@ const SmallLogo = ({ isAuthenticated }) => {
     }
   `)
 
-  return <ImageStyle
+  return <Link to="/" ><ImageStyle
     isauthenticated={isAuthenticated}
     style={{ maxHeight: "100%", position: "absolute" }}
     // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
-  />
+  /></Link>
 
 }
 
