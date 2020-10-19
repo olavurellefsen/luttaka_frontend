@@ -21,6 +21,7 @@ module.exports = {
           `article`,
           `schedule`,
           'schedule-item',
+          'movie'
         ],
         singleTypes: [`registered-text`],
         markdownImages: {
