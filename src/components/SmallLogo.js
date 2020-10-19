@@ -29,7 +29,7 @@ const SmallLogo = ({ isAuthenticated }) => {
 
   return <ImageStyle
     isauthenticated={isAuthenticated}
-    style={{ maxHeight: "100%", position: "absolute"}}
+    style={{ maxHeight: "100%", position: "absolute" }}
     // imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
   />
@@ -43,21 +43,16 @@ const slideInLeft = keyframes`
 
   to {
     // -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate(-50%,-75%);
+    transform: translate(-40%,-65%);
 `
 
 const ImageStyle = styled(Img)`
-position: absolute;
+  position: absolute;
   width: 300px;
   height: 300px;
   z-index: 1;
-  ${({ isauthenticated }) =>
-    isauthenticated && css
-      `
-      animation: ${slideInLeft};
-      animation-duration: 3s;
-      animation-fill-mode: forwards;
-
-  `}
+  animation: ${slideInLeft};
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
 `
 export default SmallLogo
