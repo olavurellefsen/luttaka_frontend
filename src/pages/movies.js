@@ -19,13 +19,15 @@ const Movies = ({ data }) => {
         <PetalContainer name="petal container">
           <PetalMenu />
         </PetalContainer>
-        <TitleStyle>Filmar</TitleStyle>
-        {movies.map((movie, index) => {
+        <BackgroundStyle>
+          <TitleStyle>Filmar</TitleStyle>
+          {movies.map((movie, index) => {
 
-          return (
-            <LinkStyle to={movie.node.id} key={index}>{movie.node.title}</LinkStyle>
-          )
-        })}
+            return (
+              <LinkStyle to={movie.node.id} key={index}>{movie.node.title}</LinkStyle>
+            )
+          })}
+        </BackgroundStyle>
       </Layout>
     </ContainerStyle>
   )
@@ -43,14 +45,22 @@ const PetalContainer = styled.div`
   `}
 
 `
+const BackgroundStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 60px;
+  ${media.desktop3`
+    margin-top: 200px;
+  `}
+`
 
 const TitleStyle = styled.h3`
   color: #58A449;
-  display: none;
-  ${media.desktop3`
-    display: block;
-  `}
-  `
+`
 
 const LinkStyle = styled(Link)`
   text-decoration: none;

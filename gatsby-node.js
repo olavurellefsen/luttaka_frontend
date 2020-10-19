@@ -56,21 +56,6 @@ exports.createPages = ({ actions, graphql }) => {
     edges {
       node {
         id
-        title
-        thumbnail {
-           childImageSharp {
-            fixed(width: 430, height: 300) {
-              ...GatsbyImageSharpFixed
-             }
-          }
-        }
-        video {
-          childImageSharp {
-            fixed(width: 430, height: 300) {
-              ...GatsbyImageSharpFixed
-             }
-          }
-        }
       }
     }
   }
