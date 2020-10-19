@@ -22,16 +22,17 @@ module.exports = {
           `schedule`,
           'schedule-item',
         ],
-        singleTypes: [`registered-text`],
+        singleTypes: [`about`, `registered-text`],
         markdownImages: {
           typesToParse: {
             article: ['content'],
+            about: ['content'],
             "registered-text": ['content']
-          }
         },
         queryLimit: 1000,
       }
-    },
+    }
+  },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
