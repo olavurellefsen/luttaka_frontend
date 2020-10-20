@@ -8,19 +8,21 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const asyncLogin = async () => {
       await loginWithRedirect({
-        appState: { targetUrl: window.location.pathname },
+        appState: { targetUrl: window.location.pathname }
       })
     }
-    if (isAuthenticated) {
+    if (isAuthenticated & isLoading) {
       return children
     }
 
     if(!isAuthenticated  && !isLoading)
       asyncLogin()
 
-  }, [isAuthenticated, children, loginWithRedirect])
+  }, [isAuthenticated, children, isLoading, loginWithRedirect])
+  const render =
+    isAuthenticated ? children : null
 
-  return children
+  return render
 }
 
 ProtectedRoute.propTypes = {
