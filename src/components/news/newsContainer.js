@@ -13,6 +13,7 @@ const NewsContainer = ({ nodes }) => {
       <RowContainer>
 
         {nodes?.map((article, index) => {
+          console.log("image: ", article.image)
           return (
             <BackgroundStyle key={index}>
               <LinkStyle to={article.id}>
@@ -22,7 +23,7 @@ const NewsContainer = ({ nodes }) => {
                   {article.image ? 
                     <ImageStyle 
                       imgStyle={{ "max-width": "80%" }}
-                      fixed={article.image?.childImageSharp.fixed} 
+                      fluid={article.image?.childImageSharp.fluid} 
                       alt={article.title} /> 
                     : null}
                   <Descriptionstyle>
