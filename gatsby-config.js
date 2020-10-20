@@ -21,6 +21,9 @@ module.exports = {
         contentTypes: [
           `article`,
           `schedule`,
+          `work-place`,
+          `lecture`,
+          `category`,
           'schedule-item',
         ],
         singleTypes: [`about`, `registered-text`],

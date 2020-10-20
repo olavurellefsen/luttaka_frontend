@@ -74,6 +74,7 @@ const ContainerStyle = styled.div`
    ${media.desktop3`
     display: block;
   `}
+  z-index: 100;
 `
 
 const PetalContainer = styled.div`
