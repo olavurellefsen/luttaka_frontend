@@ -4,20 +4,22 @@ import PropTypes from 'prop-types'
 import { useAuth0 } from '@auth0/auth0-react'
 
 const ProtectedRoute = ({ children }) => {
-  const { loading, isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0()
   useEffect(() => {
-    if (loading || isAuthenticated) {
-      return undefined
-    }
     const asyncLogin = async () => {
       await loginWithRedirect({
         appState: { targetUrl: window.location.pathname },
       })
     }
-    asyncLogin()
+    if (isAuthenticated) {
+      return children
+    }
 
-  }, [loading, isAuthenticated, loginWithRedirect])
-  
+    if(!isAuthenticated  && !isLoading)
+      asyncLogin()
+
+  }, [isAuthenticated, children, loginWithRedirect])
+
   return children
 }
 

@@ -35,7 +35,7 @@ const LecturesPage = ({ data }) => {
                 <LinkStyle to={`Lecture_${lecture.id}`}>
                   <ListItemStyle name="listItemstyle" key={lectureIndex} open={open}>
                     <HeaderTitleStyle source={lecture.title} />
-                    {lecture.lecturer && <GetLecturer id={lecture.lecturer} />}
+                    {/* {lecture.lecturer && <GetLecturer id={lecture.lecturer} />} */}
                   </ListItemStyle>
                 </LinkStyle>
               )
@@ -161,7 +161,6 @@ query fetchCategoies {
       lectures {
         id
         title
-        lecturer
       }
     }
   }

@@ -16,32 +16,33 @@ const RenderDiv = (lecturer) => {
 }
 
 const GetLecturer = ({ id }) => {
-  return <StaticQuery
-    query={graphql`
-  query fetchLecturers {
-    allStrapiLecturer {
-      edges {
-        node {
-          id
-          name
-          work_place {
-           id
-            name
-          }
-        }
-      }
-    }
-  }
+  return null
+  // return <StaticQuery
+  //   query={graphql`
+  // query fetchLecturers {
+  //   allStrapiLecturer {
+  //     edges {
+  //       node {
+  //         id
+  //         name
+  //         work_place {
+  //          id
+  //           name
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
-    `}
-    render={(data) => {
+  //   `}
+  //   render={(data) => {
 
-      const lecturer = data.allStrapiLecturer.edges.find(
-        lecturer => lecturer.node.id === `Lecturer_${id}`
-      )
-      return (RenderDiv(lecturer))
-    }}
-  />
+  //     const lecturer = data.allStrapiLecturer.edges.find(
+  //       lecturer => lecturer.node.id === `Lecturer_${id}`
+  //     )
+  //     return (RenderDiv(lecturer))
+  //   }}
+  // />
 }
 
 const TextStyle = styled.div`

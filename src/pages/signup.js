@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import React from 'react'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
@@ -8,6 +9,7 @@ import { media } from "../utils/mediaTemplate"
 import { ProtectedRoute } from '../utils/protectedRoute'
 
 const Signup = () => {
+
   return (
     <ProtectedRoute>
       <Background>
