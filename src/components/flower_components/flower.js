@@ -47,7 +47,7 @@ const Flower = ({ opened, setOpened }) => {
       <PetalContainer name="petal_container">
         {petals.map((item, index) => {
           return (
-              <Petal navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
+              <Petal key={index} navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
           )
         })}
 

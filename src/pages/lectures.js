@@ -9,7 +9,7 @@ import { graphql, Link } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
-import GetLecturer from "../components/lectures/getLecturer"
+
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
   const [open, setOpen] = useState(false)
