@@ -9,13 +9,13 @@ const RenderDiv = (lecturer) => {
 
   return (
     <TextStyle>
-      {lecturer.node.name}
-      , {lecturer.node.work_place.name}
+      {/* {lecturer.node.name}
+      , {lecturer.node.work_place.name} */}
     </TextStyle>
   )
 }
 
-const GetLecturer = ({ id }) => {
+/* const GetLecturer = ({ id }) => {
   return <StaticQuery
     query={graphql`
   query fetchLecturers {
@@ -42,10 +42,10 @@ const GetLecturer = ({ id }) => {
       return (RenderDiv(lecturer))
     }}
   />
-}
+} */
 
 const TextStyle = styled.div`
   margin: 0 20px;
   margin-bottom: 10px;
 `
-export default GetLecturer;
+export default RenderDiv;
