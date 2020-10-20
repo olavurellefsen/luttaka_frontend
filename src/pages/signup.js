@@ -1,5 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
@@ -9,12 +8,7 @@ import { media } from "../utils/mediaTemplate"
 import { ProtectedRoute } from '../utils/protectedRoute'
 
 const Signup = () => {
-  const { isAuthenticated, isLoading} = useAuth0()
-  useEffect(() => {
-    if(!isAuthenticated)
-      return null
 
-  }, [isAuthenticated])
   return (
     <ProtectedRoute>
     <Background>
