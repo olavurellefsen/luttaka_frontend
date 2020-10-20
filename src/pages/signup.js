@@ -8,17 +8,18 @@ import { media } from "../utils/mediaTemplate"
 import { ProtectedRoute } from '../utils/protectedRoute'
 
 const Signup = () => {
+
   return (
     <ProtectedRoute>
-      <Background>
-        <Layout>
-          <MenuContainer />
-          <PetalContainer name="petal container">
-            <PetalMenu />
-          </PetalContainer>
-          <SignupForm />
-        </Layout>
-      </Background>
+    <Background>
+      <Layout>
+        <MenuContainer />
+        <PetalContainer name="petal container">
+          <PetalMenu />
+        </PetalContainer>
+        <SignupForm />
+      </Layout>
+    </Background>
     </ProtectedRoute>
   )
 }
