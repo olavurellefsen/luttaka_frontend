@@ -115,7 +115,6 @@ const StemStyle = styled.img`
     animation-duration: 2s;
     animation-fill-mode: forwards;
   `}
-  border: 1px solid pink;
 `
 
 export default Flower;

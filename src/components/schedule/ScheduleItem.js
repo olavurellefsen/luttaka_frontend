@@ -12,8 +12,8 @@ const ScheduleItem = ({title, start_time, description, lecturer_name, lecturer_o
       <Title>{title}</Title>
       <Lecturer>
         <LecturerName>{lecturer_name}</LecturerName>
-        {lecturer_name && <Seperator>, </Seperator>}
-        <LecturerOrganisation> {lecturer_organisation}</LecturerOrganisation>
+        {lecturer_name && <Seperator>,</Seperator>}
+        <LecturerOrganisation>{lecturer_organisation}</LecturerOrganisation>
       </Lecturer>
       {addDescription && <Description source={description} />}
     </Content>
@@ -52,6 +52,7 @@ const Title = styled.div`
 `
 const Lecturer = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `
 const LecturerName = styled.div`
   color: #222222;
@@ -60,11 +61,11 @@ const LecturerName = styled.div`
 const LecturerOrganisation = styled.div`
   color: #222222;
   font-size: 16px;
-  margin-left: 5px;
 `
 const Seperator = styled.div`
   color: #222222;
   font-size: 16px;
+  margin-right: 6px;
 `
 const Description = styled(ReactMarkDown)`
   color: #222222;
