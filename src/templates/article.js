@@ -19,7 +19,7 @@ const ArticleTemplate = ({ data }) => {
           <ContentContainer>
             <TitleStyle>{article.title}</TitleStyle>
             <DateStyle>{article.date}</DateStyle>
-            <ImageStyle style={{ width: "100%" }} imgStyle={{ width: "100%" }} fixed={article.image?.childImageSharp.fixed} alt={article.title} />
+            <ImageStyle style={{ width: "100%" }} imgStyle={{ width: "90%" }} fixed={article.image?.childImageSharp.fixed} alt={article.title} />
             <MarkDownContainer
               source={article.content}
               renderers={{
@@ -62,7 +62,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 20px;
-
+  width: 100%;
 `
 
 const StyledContainer = styled.div`
@@ -73,6 +73,7 @@ const StyledContainer = styled.div`
   flex-direction: row;
   margin: 20px;
   background-color: #FFFFFF;
+  max-width: 1100px;
 
 `
 
@@ -136,7 +137,7 @@ export const query = graphql`
       date
        image {
         childImageSharp {
-            fixed(width: 1430, height: 450) {
+            fixed(width: 1024, height: 512) {
               ...GatsbyImageSharpFixed
              }
           }

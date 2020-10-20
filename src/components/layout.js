@@ -27,14 +27,15 @@ Layout.propTypes = {
 
 const BackgroundStyle = styled.div`
   display: flex;
+  flex: 0;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-betweem;
 `
 
 const Container = styled.div`
   display: flex;
   flex: 1;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   align-items: center;
   flex-direction: column;

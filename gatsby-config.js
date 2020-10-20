@@ -5,6 +5,7 @@ module.exports = {
     author: `@gatsbyjs & @strapi`,
   },
   plugins: [
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -16,23 +17,27 @@ module.exports = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: `http://localhost:1337`,
+        apiURL: process.env.API_URL || `https://vvadmin.tokni.fo`,
         contentTypes: [
           `article`,
           `schedule`,
+          `work-place`,
+          `lecture`,
+          `category`,
           'schedule-item',
           'movie'
         ],
-        singleTypes: [`registered-text`],
+        singleTypes: [`about`, `registered-text`],
         markdownImages: {
           typesToParse: {
             article: ['content'],
+            about: ['content'],
             "registered-text": ['content']
-          }
         },
         queryLimit: 1000,
       }
-    },
+    }
+  },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
