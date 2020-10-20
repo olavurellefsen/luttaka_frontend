@@ -53,7 +53,7 @@ exports.createPages = ({ actions, graphql }) => {
 
   const getMovies = makeRequest(graphql, `
  {
-  allStrapiMovie {
+  allStrapiVideo {
     edges {
       node {
         id
@@ -63,11 +63,10 @@ exports.createPages = ({ actions, graphql }) => {
 }
     `).then(result => {
     // Create pages for each Movie.
-    result.data.allStrapiMovie.edges.forEach(({ node }) => {
-      console.log("node ", node)
+    result.data.allStrapiVideo.edges.forEach(({ node }) => {
       createPage({
-        path: `movies/${node.id}`,
-        component: path.resolve(`src/templates/movie.js`),
+        path: `videos/${node.id}`,
+        component: path.resolve(`src/templates/video.js`),
         context: {
           id: node.id,
         },
