@@ -22,7 +22,6 @@ module.exports = {
           `article`,
           `schedule`,
           `work-place`,
-          `lecturer`,
           `lecture`,
           `category`,
           'schedule-item',

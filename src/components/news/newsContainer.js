@@ -7,7 +7,6 @@ import Img from "gatsby-image"
 
 const NewsContainer = ({ nodes }) => {
 
-  console.log("data", nodes.article)
   return (
     <ContainerStyle>
       <SearchBar />
@@ -45,7 +44,7 @@ const ContainerStyle = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1800px;
+  max-width: 1000px;
 `
 
 const RowContainer = styled.div`
@@ -90,13 +89,15 @@ const DateStyle = styled.p`
 const Descriptionstyle = styled.p`
   font-size: 18px;
   display: block;
-  ${media.tablet`
+  ${media.desktop3`
     display: none;
   `}
 `
 
 const ImageStyle = styled(Img)`
-
+  max-width: 400px;
+  height: 200px;
+  width: 100%;
 `
 
 const LinkStyle = styled(Link)`
