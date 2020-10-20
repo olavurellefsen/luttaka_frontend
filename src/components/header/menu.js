@@ -6,34 +6,33 @@ import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
-  const { logout, user, isAuthenticated, isLoading } = useAuth0()
+  const { logout, loginWithRedirect, user, isAuthenticated } = useAuth0()
 
   const menuItems = [
     {
-      name: user.name,
+      name: isAuthenticated ? user.name : "Ikki innritaður",
       onClick: () => navigate()
     },
     {
       name: `Um vísindavøkuna`,
-      onClick: () => navigate()
+      onClick: () => navigate("/about")
     },
     {
       name: "Mín skrá",
       onClick: () => navigate()
     },
     {
-      name: `Rita út`,
-      onClick: () => logout({})
+      name: isAuthenticated ? `Rita út` : "Rita inn",
+      onClick: isAuthenticated ? () => logout({}) : () => loginWithRedirect({})
     }
   ]
-  if (!isAuthenticated || isLoading) return null
 
   return (
     <ContainerStyle menuOpen={menuOpen} >
 
       {menuItems.map((item, index) => {
 
-        return <MenuItemStyle onClick={item.onClick} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
+        return <MenuItemStyle onClick={() => item.onClick()} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
       })}
       <ExitButton icon={faTimes} onClick={() => {
         setMenuOpen(!menuOpen)
@@ -44,13 +43,13 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
 const slideInLeft = keyframes`
    from {
-    right: -320px;
-      top: -50px;
+    right: -300px;
+    top: -50px;
 
   }
 
   to {
-      right: 0px;
+      right: -5px;
       top: -50px;
   }
 `;
@@ -61,7 +60,7 @@ const ContainerStyle = styled.div`
   z-index: 10;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  width: 240px;
+  width: 250px;
   div:not(:first-child){
     border-top: gray solid 0.1px;
     padding: 5px;
@@ -69,12 +68,12 @@ const ContainerStyle = styled.div`
   div:first-child {
     padding: 10px;
    }
-
   ${({ menuOpen }) =>
     menuOpen && css
       `
         animation: ${slideInLeft};
-        animation-duration: 3s;
+        animation-timing-function: ease-in-out;
+        animation-duration: .7s;
         animation-fill-mode: forwards;
 
   `}
@@ -100,7 +99,7 @@ const TextStyle = styled.p`
 const ExitButton = styled(FontAwesomeIcon)`
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 25px;
   cursor: pointer;
   font-size: 20px;
   &:hover {

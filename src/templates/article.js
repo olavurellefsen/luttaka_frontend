@@ -19,7 +19,7 @@ const ArticleTemplate = ({ data }) => {
           <ContentContainer>
             <TitleStyle>{article.title}</TitleStyle>
             <DateStyle>{article.date}</DateStyle>
-            <ImageStyle style={{ width: "100%" }} imgStyle={{ width: "100%" }} fixed={article.image?.childImageSharp.fixed} alt={article.title} />
+            <ImageStyle style={{ width: "100%" }} imgStyle={{ width: "90%" }} fixed={article.image?.childImageSharp.fixed} alt={article.title} />
             <MarkDownContainer
               source={article.content}
               renderers={{

@@ -2,6 +2,7 @@ html {
   height: 100%;
   margin: 0;
 }
+@import url('https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900');
 
 body {
   min-width: 100%;
@@ -9,6 +10,7 @@ body {
   background-color: #FEF9EC;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: Lato;
   overflow-x: hidden;
   margin: 0;
 }
