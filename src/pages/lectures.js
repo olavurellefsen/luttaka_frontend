@@ -9,7 +9,6 @@ import { graphql, Link } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
-import GetLecturer from "../components/lectures/getLecturer"
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
   const [open, setOpen] = useState(false)
@@ -31,11 +30,13 @@ const LecturesPage = ({ data }) => {
               <IconStyle icon={open ? faChevronUp : faChevronDown} />
             </HeaderStyle>
             {category.lectures.map((lecture, lectureIndex) => {
+              console.log("lecture: ", lecture)
               return (
                 <LinkStyle to={`Lecture_${lecture.id}`}>
                   <ListItemStyle name="listItemstyle" key={lectureIndex} open={open}>
                     <HeaderTitleStyle source={lecture.title} />
-                    {/* {lecture.lecturer && <GetLecturer id={lecture.lecturer} />} */}
+                    <div>{lecture.lecturer.name}</div>
+                    <div>{lecture.lecturer.organisation}</div>
                   </ListItemStyle>
                 </LinkStyle>
               )
@@ -161,6 +162,10 @@ query fetchCategoies {
       lectures {
         id
         title
+        lecturer {
+          name
+          organisation
+        }
       }
     }
   }
