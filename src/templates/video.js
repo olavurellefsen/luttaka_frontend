@@ -18,7 +18,7 @@ const Video = ({ data }) => {
         <BackgroundStyle>
           <Link to={data.strapiMovie.video.link}><div>{data.strapiMovie.video.title}</div></Link>
         </BackgroundStyle>
-      </ContainerStyle >
+      </ContainerStyle>
     </Layout>
   )
 }

@@ -119,6 +119,7 @@ query fetchVideos {
         id
         title
         description
+        link
         thumbnail {
           childImageSharp {
             fluid(maxWidth: 800, maxHeight: 400) {
