@@ -19,12 +19,13 @@ const slideInLeft = keyframes`
       right: -20px;
   }
   to {
-      right: 10%;
+      right: 5%;
   }
 `;
 
 const ContainerStyle = styled.div`
   position: absolute;
+  z-index: 9;
   top: 50px;
   width: 100%;
   display: ${props => props.askQuestionedOpened ? "none" : "block" };
@@ -36,6 +37,7 @@ const IconStyle = styled(FontAwesomeIcon)`
   cursor: pointer;
   animation: ${slideInLeft };
   animation-duration: 0.8s;
+  animation-timing-function: ease-in;
   animation-fill-mode: forwards;
 
 

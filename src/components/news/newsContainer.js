@@ -14,14 +14,18 @@ const NewsContainer = ({ nodes }) => {
       <RowContainer>
 
         {nodes?.map((article, index) => {
-          console.log("article.image", article.image)
           return (
             <BackgroundStyle key={index}>
               <LinkStyle to={article.id}>
                 <ContentContainer>
                   <TitleStyle>{article.title}</TitleStyle>
-                  <DateStyle>02.02.2002</DateStyle>
-                  {article.image ? <ImageStyle fixed={article.image?.childImageSharp.fixed} alt={article.title} /> : null}
+                  <DateStyle>{article.date}</DateStyle>
+                  {article.image ? 
+                    <ImageStyle 
+                      imgStyle={{ "max-width": "80%" }}
+                      fixed={article.image?.childImageSharp.fixed} 
+                      alt={article.title} /> 
+                    : null}
                   <Descriptionstyle>
                     {article.description}
                   </Descriptionstyle>
@@ -62,14 +66,14 @@ const BackgroundStyle = styled.div`
   width: 460px;
   height: 550px;
   ${media.tablet`
-     width: 380px;
+    width: 380px;
     height: 280px;
   `}
-
-
 `
 const ContentContainer = styled.div`
   margin: 5px 15px;
+  width: calc(100% - 20px);
+  
 `
 const TitleStyle = styled.h2`
   font-size: 18px;
@@ -84,7 +88,6 @@ const DateStyle = styled.p`
 `
 
 const Descriptionstyle = styled.p`
-
   font-size: 18px;
   display: block;
   ${media.tablet`
@@ -93,12 +96,12 @@ const Descriptionstyle = styled.p`
 `
 
 const ImageStyle = styled(Img)`
-  width: 100%;
-  height: 150px;
+
 `
 
 const LinkStyle = styled(Link)`
   text-decoration: none;
   color: black;
+  width: 100%;
 `
 export default NewsContainer
