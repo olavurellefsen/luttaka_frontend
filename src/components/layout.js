@@ -27,7 +27,6 @@ Layout.propTypes = {
 
 const BackgroundStyle = styled.div`
   display: flex;
-  flex: 0;
   flex-direction: column;
   justify-content: space-betweem;
 `

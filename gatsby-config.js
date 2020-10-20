@@ -25,6 +25,7 @@ module.exports = {
           `lecture`,
           `category`,
           'schedule-item',
+          'video'
         ],
         singleTypes: [`about`, `registered-text`],
         markdownImages: {
