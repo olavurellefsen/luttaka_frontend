@@ -2,7 +2,6 @@ import { faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import styled, { keyframes, css } from 'styled-components'
-import { media } from '../utils/mediaTemplate'
 
 const QuestionBox = ({ opened, setOpened, large_screen }) => {
 
