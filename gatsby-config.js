@@ -57,6 +57,7 @@ module.exports = {
         functionsSrc: `${__dirname}/src/functions`,
         functionsOutput: `${__dirname}/functions`,
       },
-    }
+    },
+    `gatsby-plugin-mailgo`
   ],
 }

@@ -47,7 +47,7 @@ const Flower = ({ opened, setOpened }) => {
       <PetalContainer name="petal_container">
         {petals.map((item, index) => {
           return (
-              <Petal navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
+              <Petal key={index} navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
           )
         })}
 
@@ -56,7 +56,7 @@ const Flower = ({ opened, setOpened }) => {
       <StemStyle src={path6} right='50%' opened={opened} />
       <StemStyle src={path7} right='133px;' opened={opened} />
       <StemStyle src={path8} right='137px' opened={opened} />
-      <QuestionBox opened={opened} setOpened={setOpened} />
+      <QuestionBox opened={opened} setOpened={setOpened} large_screen={false}/>
       <Avatar opened={opened} setOpened={setOpened} />
     </ContainerStyle>
   );
