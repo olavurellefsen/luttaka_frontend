@@ -82,7 +82,7 @@ const SignupForm = ({ selectedItems }) => {
           <InputStyle name="lastname" ref={register({ required: true })} placeholder="Eftirnavn" />
         </InputContainer>
         <InputStyle name="email" ref={register({ required: true })} placeholder="Teldupostur" />
-        <div style={{ backgroundColor: "#F5F5F5", width: "100%", margin: "5px" }}>
+        <div style={{ backgroundColor: "#F5F5F5", width: "97%", margin: "5px" }}>
           <LabelInput>
             Eg meldi til sum einstaklingur
           <input name="signup_type" type="radio" value="alone" ref={register({ required: true })} />
