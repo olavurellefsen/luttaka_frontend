@@ -13,12 +13,11 @@ const Registered = ({ data }) => {
   return (
     <ContainerStyle>
       <Layout>
-          <MenuContainer />
-          <PetalContainer name="petal container">
-            <PetalMenu />
-          </PetalContainer>
+        <MenuContainer />
+        <PetalContainer name="petal container">
+          <PetalMenu />
+        </PetalContainer>
         <BackgroundStyle>
-          <TitleStyle>BOÐINI ERU MÒTTiKIN</TitleStyle>
           <DescriptionStyle source={registrationText} />
         </BackgroundStyle>
       </Layout>
@@ -45,9 +44,7 @@ const BackgroundStyle = styled.div`
     margin-top: 200px;
   `}
 `
-const TitleStyle = styled.h1`
 
-  `
 
 const DescriptionStyle = styled(ReactMarkdown)`
   margin: 20px;
