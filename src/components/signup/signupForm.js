@@ -8,7 +8,7 @@ import { media } from '../../utils/mediaTemplate'
 
 const SignupForm = () => {
 
-  const { register, handleSubmit, watch, formState, errors} = useForm()
+  const { register, handleSubmit, watch, formState, errors } = useForm()
   const watchSignupType = watch("signup_type")
   const { isSubmitSuccessful, isSubmitted } = formState;
 
@@ -48,13 +48,13 @@ const SignupForm = () => {
   }
 
   useEffect(() => {
-    if (isSubmitted && isSubmitSuccessful && emailDraft){
+    if (isSubmitted && isSubmitSuccessful && emailDraft) {
       SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
       let olavursEmail = emailDraft
       olavursEmail.to = "oe@tokni"
       SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
-      alert("Srásetingin eydnaðist og tú nú verður send/ur víðari til forsíðina")
+      alert("Srásetingin eydnaðist og tú nú verður send/ur víðari")
       navigate(`/registered`)
     }
   }, [isSubmitted, isSubmitSuccessful, emailDraft])
@@ -70,20 +70,26 @@ const SignupForm = () => {
           <InputStyle name="lastname" ref={register({ required: true })} placeholder="Eftirnavn" />
         </InputContainer>
         <InputStyle name="email" ref={register({ required: true })} placeholder="Teldupostur" />
-        <select name="signup_type" ref={register({ required: true })} placeholder="Melda til sum">
-          <option value="alone">Einstaklingur</option>
-          <option value="group">Við Bólki</option>
-        </select>
+        <div style={{ backgroundColor: "#F5F5F5", width: "100%", margin: "5px" }}>
+          <LabelInput>
+            Eg meldi til sum Eistaklingur
+          <input name="signup_type" type="radio" value="Eistaklingur" ref={register({ required: true })} />
+          </LabelInput>
+          <LabelInput>
+            Eg meldi til sum bólkur
+          <input name="signup_type" type="radio" value="group" ref={register({ required: true })} />
+          </LabelInput>
+        </div>
         {watchSignupType === "group" && <>
           <InputStyle name="participant_nr" ref={register({ required: true })} placeholder="Hvussu nógv eru í bólkinum" />
           {errors.participant_nr && <ErrorParagraph>Tú mást upplýsa, hvussu nógv tit ereu, um tú vilt skráset teg við bólki </ErrorParagraph>}
-          </>}
+        </>}
         <InputStyle name="work_place" ref={register({ required: true })} placeholder="Arbeiðsstaður" />
-        <InputStyle name="school_class" ref={register({ required: true })} placeholder="Vinaliga skriva flokkin, um talan er um ein skúlaflokk" />
+        <InputStyle name="school_class" ref={register({required: false})} placeholder="Vinaliga skriva flokkin, um talan er um ein skúlaflokk" />
 
         <LabelContainer>
           <LabelStyle htmlFor="accepted-terms">
-            Eg havi lisið leiðreglurnar fyri verju av privatum upplýsingum. Eg játti, at luttaka.fo kann deila upplýsingar um meg við fyriskiparan av tiltakinum.
+            Eg havi lisið leiðreglurnar fyri verju av privatum upplýsingum.
           </LabelStyle>
           <CheckboxStyle id="accepted-terms" type="checkbox" name="accepted_terms" ref={register({ required: true })} />
           {errors.accepted_terms && <ErrorParagraph>Tú mást góðkenna treytirnar fyri at skráseta teg</ErrorParagraph>}
@@ -118,6 +124,7 @@ const FormStyle = styled.form`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: 20px;
 `
 
 const InputStyle = styled.input`
@@ -128,12 +135,22 @@ const InputStyle = styled.input`
   border: none;
 `
 
+
 const LabelStyle = styled.label`
   height: 40px;
   width: 50%;
   margin: 0px 10px;
   text-align: left;
 `
+
+const LabelInput = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  margin: 5px;
+`
+
 
 const InputContainer = styled.div`
   display: flex;
