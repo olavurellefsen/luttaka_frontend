@@ -51,7 +51,7 @@ exports.createPages = ({ actions, graphql }) => {
   });
 
 
-  const getMovies = makeRequest(graphql, `
+  /* const getMovies = makeRequest(graphql, `
  {
   allStrapiVideo {
     edges {
@@ -72,12 +72,12 @@ exports.createPages = ({ actions, graphql }) => {
         },
       })
     })
-  });
+  }); */
 
 
   // Queries for articles and authors nodes to use in creating pages.
   return Promise.all([
-    getArticles,
-    getMovies
+    getArticles
+    
   ])
 };

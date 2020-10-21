@@ -20,7 +20,7 @@ const ContentContainer = () => {
     },
     {
       image: lecture,
-      title: "Fyrilestrar",
+      title: "Framløgur",
       to: "/lectures"
     },
     {
