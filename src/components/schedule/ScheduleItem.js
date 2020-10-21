@@ -38,6 +38,7 @@ const Content = styled.div`
   cursor: pointer;
 `
 const CheckboxContainer = styled.div`
+  margin-top: 23px;
   margin-left: 20px;
 `
 
