@@ -1,11 +1,25 @@
 import React from "react"
 import styled from "styled-components"
 
-const Checkbox = () => {
+const Checkbox = ({ selectedItems, setSelectedItems, title }) => {
+
+  const handleChange = (e) => {
+    const item =  e.currentTarget.value
+    const items = [...selectedItems]
+
+    if(items.indexOf(title) > -1){
+      items.splice(items.indexOf(title), 1)
+      setSelectedItems(items)
+    } else {
+      items.push(item)
+      setSelectedItems(items)
+    }
+
+  }
 
   return(
     <Container>
-      <Box></Box>
+      <Box value={title} onChange={handleChange} />
       <Indicator></Indicator>
     </Container>
   )
@@ -59,7 +73,7 @@ const Indicator = styled.span`
   ${Box}:checked + & {
     background-color: white;
   }
-  
+
   &:after {
     content: "";
     position: absolute;
