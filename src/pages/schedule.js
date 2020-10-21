@@ -27,7 +27,7 @@ const backend_schedule = graphql`
 const Schedule = () => (
   <Layout>
     <SEO title="schedule" />
-    
+
     <MenuContainer />
     <PetalContainer name="petal container">
           <PetalMenu />
@@ -68,16 +68,21 @@ const TitleStyle = styled.h3`
   display: none;
   ${media.desktop3`
     display: block;
+    margin-top: 100px;
   `}
   `
+
 const Location = styled.div`
   font-size: 20px;
   font-weight: bold;
   background: white;
   padding: 10px;
+  margin: 0 20px;
 `
 
 const ScheduleItemList = styled.div`
-  margin-top: 20px;
+  margin: 20px;
+  background-color: #FFFF;
+
 `
 export default Schedule

@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Checkbox from "./Checkbox"
 import ReactMarkDown from 'react-markdown';
 
-const ScheduleItem = ({title, start_time, description, lecturer_name, lecturer_organisation}) => {
+const ScheduleItem = ({ title, start_time, description, lecturer_name, lecturer_organisation, selectedItems, setSelectedItems}) => {
   const [addDescription, setAddDescription] = useState(false)
   return(
   <Container>
@@ -18,7 +18,7 @@ const ScheduleItem = ({title, start_time, description, lecturer_name, lecturer_o
       {addDescription && <Description source={description} />}
     </Content>
     <CheckboxContainer>
-      <Checkbox />
+        <Checkbox selectedItems={selectedItems} setSelectedItems={setSelectedItems} title={title}/>
     </CheckboxContainer>
   </Container>
 )}
@@ -29,6 +29,7 @@ const Container = styled.div`
   background-color: white;
   justify-content: space-between;
   min-width: 200px;
+  margin: 0 20px;
 `
 const Content = styled.div`
   display: flex;

@@ -3,11 +3,9 @@ import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import SendEmail from '../../utils/mail/SendEmail'
 import { navigate } from 'gatsby'
-import { media } from '../../utils/mediaTemplate'
 
 
-const SignupForm = () => {
-
+const SignupForm = ({ selectedItems }) => {
   const { register, handleSubmit, watch, formState, errors } = useForm()
   const watchSignupType = watch("signup_type")
   const { isSubmitSuccessful, isSubmitted } = formState;
@@ -15,6 +13,7 @@ const SignupForm = () => {
   const [emailDraft, setEmailDraft] = useState(``)
 
   const onSubmit = async data => {
+
     const {
       firstname,
       lastname,
@@ -25,30 +24,38 @@ const SignupForm = () => {
       school_class
     } = data
 
-    setEmailDraft({
-      to: `kr@tokni.com`,
-      subject: `Nýggj skráseting`,
-      html: `<h1>Ein nýggjur luttakari er skrásettur</h1> <br/>
-              <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
-                <p>Navn: ${firstname} ${lastname}.</p>
-                <p>Teldupostur: ${email}</p>
-                <p>Melda til sum: ${signup_type === "alone" ? "Einstaklingur" : "Bólkur"}</p>
-                 ${signup_type === "group" ? ` <p>Tal av luttakarum: ${participant_nr}</p>` : ``}
-                <p>Arbeiðstaður: ${work_place}</p>
-                <p>Skúlaflokkur: ${school_class}</p><br/>
-               <p>
-                 tøkni.fo<br>
-                 Niels Finsensgøta 16<br>
-                 FO-100 Tórshavn<br>
-                 Faroe Islands
-               </p>
- `
-    })
+    const orderedList = []
+    for (const iterator of selectedItems) {
+      orderedList.push(`<li>${iterator}</li>`)
+    }
+    if (orderedList.length > 0) {
+      setEmailDraft({
+        to: `kr@tokni.com`,
+        subject: `Nýggj skráseting`,
+        html: `<h1>Ein nýggjur luttakari er skrásettur</h1> <br/>
+                <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
+                  <p>Navn: ${firstname} ${lastname}.</p>
+                  <p>Teldupostur: ${email}</p>
+                  <p>Melda til sum: ${signup_type === "alone" ? "Einstaklingur" : "Bólkur"}</p>
+                   ${signup_type === "group" ? ` <p>Tal av luttakarum: ${participant_nr}</p>` : ``}
+                  <p>Arbeiðstaður: ${work_place}</p>
+                 ${school_class ? `<p>Skúlaflokkur: </p><br/>` : ``}
+                  <ol>
+                    ${orderedList.toString().replaceAll(`,`, ``)}
+                  </ol>
+                 <p>
+                   tøkni.fo<br>
+                   Niels Finsensgøta 16<br>
+                   FO-100 Tórshavn<br>
+                   Faroe Islands
+                 </p>`
+      })
+    }
 
   }
 
   useEffect(() => {
-    if (isSubmitted && isSubmitSuccessful && emailDraft) {
+    if (isSubmitted && isSubmitSuccessful && emailDraft && selectedItems.length > 0) {
       SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
       let olavursEmail = emailDraft
       olavursEmail.to = "oe@tokni"
@@ -56,24 +63,29 @@ const SignupForm = () => {
 
       alert("Srásetingin eydnaðist og tú nú verður send/ur víðari")
       navigate(`/registered`)
+    } else if (isSubmitted && selectedItems.length === 0) {
+      alert("Vinaliga vel ein fyrilestur")
     }
-  }, [isSubmitted, isSubmitSuccessful, emailDraft])
+
+  }, [isSubmitted, isSubmitSuccessful, emailDraft, selectedItems])
 
 
   return (
     <ContainerStyle>
       <TitleStyle>Tilmelding til Vísindavøku 2020</TitleStyle>
       {formState.isSubmitting && <div>SENDING EMAIL</div>}
+
+
       <FormStyle onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
           <InputStyle name="firstname" ref={register({ required: true })} placeholder="Fornavn" />
           <InputStyle name="lastname" ref={register({ required: true })} placeholder="Eftirnavn" />
         </InputContainer>
         <InputStyle name="email" ref={register({ required: true })} placeholder="Teldupostur" />
-        <div style={{ backgroundColor: "#F5F5F5", width: "100%", margin: "5px" }}>
+        <div style={{ backgroundColor: "#F5F5F5", width: "97%", margin: "5px" }}>
           <LabelInput>
-            Eg meldi til sum Eistaklingur
-          <input name="signup_type" type="radio" value="Eistaklingur" ref={register({ required: true })} />
+            Eg meldi til sum einstaklingur
+          <input name="signup_type" type="radio" value="alone" ref={register({ required: true })} />
           </LabelInput>
           <LabelInput>
             Eg meldi til sum bólkur
@@ -83,9 +95,9 @@ const SignupForm = () => {
         {watchSignupType === "group" && <>
           <InputStyle name="participant_nr" ref={register({ required: true })} placeholder="Hvussu nógv eru í bólkinum" />
           {errors.participant_nr && <ErrorParagraph>Tú mást upplýsa, hvussu nógv tit ereu, um tú vilt skráset teg við bólki </ErrorParagraph>}
+          <InputStyle name="school_class" ref={register({ required: false })} placeholder="Vinaliga skriva flokkin, um talan er um ein skúlaflokk" />
         </>}
         <InputStyle name="work_place" ref={register({ required: true })} placeholder="Arbeiðsstaður" />
-        <InputStyle name="school_class" ref={register({required: false})} placeholder="Vinaliga skriva flokkin, um talan er um ein skúlaflokk" />
 
         <LabelContainer>
           <LabelStyle htmlFor="accepted-terms">
@@ -107,10 +119,9 @@ const ContainerStyle = styled.div`
   justify-content: center;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-top: 60px;
-  ${media.desktop3`
-    margin-top: 200px;
-  `}
+  margin: 20px;
+  width: 90%;
+  max-width: 380px;
 `
 
 const TitleStyle = styled.h1`
@@ -166,7 +177,8 @@ const InputContainer = styled.div`
 
 const LabelContainer = styled.div`
   margin: 5px 10px;
-  width: 300px;
+  max-width: 300px;
+  width: 97%;
 `
 
 const SubmitButton = styled.button`
