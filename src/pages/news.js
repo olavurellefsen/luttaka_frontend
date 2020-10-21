@@ -53,12 +53,12 @@ query fetchArticles {
     nodes {
       id
       title
-      date(locale: "dk")
+      date(formatString: "DD-MM-YYYY")
       description
       image {
         childImageSharp {
-            fixed(width: 430, height: 300) {
-              ...GatsbyImageSharpFixed
+            fluid(maxWidth: 400, maxHeight: 200) {
+              ...GatsbyImageSharpFluid
              }
           }
         }

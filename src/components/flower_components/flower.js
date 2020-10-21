@@ -47,7 +47,7 @@ const Flower = ({ opened, setOpened }) => {
       <PetalContainer name="petal_container">
         {petals.map((item, index) => {
           return (
-              <Petal navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
+              <Petal key={index} navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
           )
         })}
 
@@ -56,7 +56,7 @@ const Flower = ({ opened, setOpened }) => {
       <StemStyle src={path6} right='50%' opened={opened} />
       <StemStyle src={path7} right='133px;' opened={opened} />
       <StemStyle src={path8} right='137px' opened={opened} />
-      <QuestionBox opened={opened} setOpened={setOpened} />
+      <QuestionBox opened={opened} setOpened={setOpened} large_screen={false}/>
       <Avatar opened={opened} setOpened={setOpened} />
     </ContainerStyle>
   );
@@ -74,6 +74,7 @@ const ContainerStyle = styled.div`
    ${media.desktop3`
     display: block;
   `}
+  z-index: 100;
 `
 
 const PetalContainer = styled.div`
@@ -115,7 +116,6 @@ const StemStyle = styled.img`
     animation-duration: 2s;
     animation-fill-mode: forwards;
   `}
-  border: 1px solid pink;
 `
 
 export default Flower;

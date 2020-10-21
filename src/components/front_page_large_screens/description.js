@@ -34,8 +34,6 @@ const Description = ({ opened }) => {
 
 const ContainerStyle = styled.div`
   visibility: ${props => props.opened ? "hidden" : "visible"};
-  display: flex;
-  align-items: center;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   border-radius: 4px;
   display: block;

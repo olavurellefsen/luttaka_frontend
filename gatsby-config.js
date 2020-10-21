@@ -21,7 +21,11 @@ module.exports = {
         contentTypes: [
           `article`,
           `schedule`,
+          `work-place`,
+          `lecture`,
+          `category`,
           'schedule-item',
+          'video'
         ],
         singleTypes: [`about`, `registered-text`],
         markdownImages: {
@@ -58,6 +62,7 @@ module.exports = {
         functionsSrc: `${__dirname}/src/functions`,
         functionsOutput: `${__dirname}/functions`,
       },
-    }
+    },
+    `gatsby-plugin-mailgo`
   ],
 }

@@ -2,40 +2,24 @@ import { faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import styled, { keyframes, css } from 'styled-components'
+
 const QuestionBox = ({ opened, setOpened, large_screen }) => {
+
   return (
     <ContainerStyle opened={opened}>
-      <ExitButton large_screen={large_screen ? "true" : "false"} opened={opened.toString()} icon={faTimes} onClick={() => setOpened(!opened)}/>
+      <ExitButton large_screen={large_screen ? "true" : "false"} opened={opened.toString()} icon={faTimes} onClick={() => setOpened(!opened)} />
       <CircleStyle name="circle info" opened={opened} large_screen={large_screen ? "true" : "false"}>
         <TextStyle>Hevur tú hugskot</TextStyle>
         <TextStyle>til granskingarevni</TextStyle>
         <TextStyle>ella vilt tú spyrja ein</TextStyle>
         <TextStyle>granskara eitthvørt?</TextStyle>
-        <br/>
+        <br />
         <TextStyle>Skriva til okkara</TextStyle>
-        <EmailButton icon={faEnvelope}/>
+        <a href="mailto:annika@gransking.fo" aria-label="email link"><EmailButton aria-label="email icon" icon={faEnvelope}/></a>
       </CircleStyle>
     </ContainerStyle>
   )
 }
-
-const SlideRight = keyframes`
-  from {
-    right: 250%;
-  }
-  to {
-      right: 17%;
-  }
-`
-
-const SlideRightLarge = keyframes`
-  from {
-    right: 250%;
-  }
-  to {
-      right: 39%;
-  }
-`
 
 const ContainerStyle = styled.div`
   display: flex;
@@ -43,7 +27,7 @@ const ContainerStyle = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  display: ${props => props.opened ? "block" : "none"}
+  display: ${props => props.opened ? "flex" : "none"};
 `
 
 const CircleStyle = styled.div`
@@ -57,17 +41,17 @@ const CircleStyle = styled.div`
   border: green solid 1px;
   background-color: white;
   position: absolute;
-  top: 22%;
+  top: 20%;
   z-index: 9;
+  opacity: 0;
   ${({ large_screen }) =>
-  large_screen && css`
-    top: 40%;
-
+    large_screen === "true" && css`
+    top: 30%;
   `}
 
-  ${({ opened, large_screen }) =>
+  ${({ opened }) =>
     opened && css`
-    animation: ${!large_screen ? SlideRight : SlideRightLarge};
+    animation: ${fade};
     animation-duration: 1s;
     animation-fill-mode: forwards;
 
@@ -90,8 +74,8 @@ const fade = keyframes`
 
 const ExitButton = styled(FontAwesomeIcon)`
   position: absolute;
-  top: -15%;;
-  right: 20px;
+  top: -15%;
+  right: 5%;
   cursor: pointer;
   font-size: 20px;
   ${({ large_screen }) =>

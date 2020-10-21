@@ -16,7 +16,7 @@ const ContentContainer = () => {
     {
       image: movies,
       title: "Filmar",
-      to: "/movies"
+      to: "/videos"
     },
     {
       image: lecture,
