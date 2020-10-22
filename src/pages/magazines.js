@@ -5,6 +5,7 @@ import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
+import { graphql } from 'gatsby'
 
 
 const Magazines = ({ data }) => {

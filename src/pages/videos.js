@@ -8,7 +8,7 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 // import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
-
+import { graphql } from 'gatsby'
 
 const Videos = ({ data }) => {
 
