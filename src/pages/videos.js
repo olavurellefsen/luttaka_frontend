@@ -8,6 +8,7 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 // import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
+import { graphql } from "gatsby"
 
 
 const Videos = ({ data }) => {
@@ -119,14 +120,14 @@ export default Videos
 
 export const PageQuery = graphql`
  query fetchVideos {
-   allStrapiVideo {
+   allStrapiVideo(sort: {fields: date, order: ASC}) {
      edges {
        node {
          id
          title
          description
          link
-         date
+         date(formatString: "DD-MM-YYYY")
          thumbnail {
            childImageSharp {
              fluid(maxWidth: 800, maxHeight: 400) {
