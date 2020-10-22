@@ -41,7 +41,7 @@ const PetalMenu = () => {
     }
   ]
 
-  const fetchWindowLocation = (path) => {
+  /* const fetchWindowLocation = (path) => {
     switch(path) {
       case "/schedule":
         return "green"
@@ -66,16 +66,16 @@ const PetalMenu = () => {
       default:
         return ""
     }
-  }
+  } */
 
   return (
     <ContainerStyle>
       {petals.map((item, index) => {
-        const color = fetchWindowLocation(window.location.pathname)
-        const toColor = fetchWindowLocation(item.to)
+        //const color = fetchWindowLocation(window.location.pathname)
+        //const toColor = fetchWindowLocation(item.to)
         return (
           <LinkStyle to={item.to} key={"petal" + index} >
-            <ImageStyle key={index} src={color === toColor ? item.alternaTiveImage : item.image} alt={item.title} />
+            <ImageStyle key={index} src={item.image} alt={item.title} />
           </LinkStyle>
         )
       })}
