@@ -55,16 +55,17 @@ const SignupForm = ({ selectedItems }) => {
   }
 
   useEffect(() => {
-    if (isSubmitted && isSubmitSuccessful && emailDraft && selectedItems.length > 0) {
-      SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
-      let olavursEmail = emailDraft
-      olavursEmail.to = "oe@tokni"
-      SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
+    // if (isSubmitted && isSubmitSuccessful && emailDraft && selectedItems.length > 0) {
+    //   SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
+    //   let olavursEmail = emailDraft
+    //   olavursEmail.to = "oe@tokni"
+    //   SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
-      navigate(`/registered`)
-    } else if (isSubmitted && selectedItems.length === 0) {
-      alert("Vinaliga vel ein fyrilestur")
-    }
+    //   alert("Srásetingin eydnaðist og tú nú verður send/ur víðari")
+    //   navigate(`/registered`)
+    // } else if (isSubmitted && selectedItems.length === 0) {
+    //   alert("Vinaliga vel ein fyrilestur")
+    // }
 
   }, [isSubmitted, isSubmitSuccessful, emailDraft, selectedItems])
 
@@ -106,7 +107,7 @@ const SignupForm = ({ selectedItems }) => {
           {errors.accepted_terms && <ErrorParagraph>Tú mást góðkenna treytirnar fyri at skráseta teg</ErrorParagraph>}
         </LabelContainer>
 
-        <SubmitButton type="submit" >Skráset</SubmitButton>
+        <SubmitButton type="submit" title="Skrásetingin opnar í morgin kl 12">Skráset</SubmitButton>
       </FormStyle>
     </ContainerStyle>
   )
@@ -181,7 +182,7 @@ const LabelContainer = styled.div`
 `
 
 const SubmitButton = styled.button`
-  background-color: #6DA745;
+  background-color: gray;
   color: white;
   width: 95%;
   height: 40px;
@@ -190,6 +191,7 @@ const SubmitButton = styled.button`
   &:active {
     opacity: 0.1;
   }
+  cursor: not-allowed;
 `
 
 const CheckboxStyle = styled(InputStyle)`

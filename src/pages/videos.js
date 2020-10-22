@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby'
+
 import Image from 'gatsby-image'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -112,24 +112,24 @@ const MarkDownContainer = styled(ReactMarkdown)`
 export default Videos
 
 export const PageQuery = graphql`
-query fetchVideos {
-  allStrapiVideo {
-    edges {
-      node {
-        id
-        title
-        description
-        link
-        thumbnail {
-          childImageSharp {
-            fluid(maxWidth: 800, maxHeight: 400) {
-                ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-    }
-  }
-}
+ query fetchVideos {
+   allStrapiVideo {
+     edges {
+       node {
+         id
+         title
+         description
+         link
+         thumbnail {
+           childImageSharp {
+             fluid(maxWidth: 800, maxHeight: 400) {
+                 ...GatsbyImageSharpFluid
+             }
+           }
+         }
+       }
+     }
+   }
+ }
 
-`
+ `
