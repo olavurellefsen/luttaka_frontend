@@ -25,7 +25,11 @@ module.exports = {
           `lecture`,
           `category`,
           'schedule-item',
-          'video'
+          'video',
+          'award',
+          `media`,
+          `diverse`,
+          `magazine`
         ],
         singleTypes: [`about`, `registered-text`],
         markdownImages: {
