@@ -65,6 +65,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-mailgo`,
-    `gatsby-plugin-netlify`
+    `gatsby-plugin-netlify`,
+    {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        trackingId: `UA-181039206-1`,
+      },
+    },
   ],
 }
