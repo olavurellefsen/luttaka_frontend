@@ -8,6 +8,7 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 // import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
+import { graphql } from "gatsby"
 
 
 const Videos = ({ data }) => {
@@ -32,6 +33,7 @@ const Videos = ({ data }) => {
                   fluid={video.node.thumbnail.childImageSharp.fluid}
                   alt={video.node.title} />
               </LinkStyle>
+              <DateContainer>{video.node.date}</DateContainer>
               <MarkDownContainer source={video.node.description}/>
             </BackgroundStyle>
           )
@@ -100,6 +102,11 @@ const ImageStyle = styled(Image)`
   margin: 20px;
 `
 
+const DateContainer = styled.div`
+  display: flex;
+  align-self: flex-start;
+  margin-left: 10px;
+`
 const MarkDownContainer = styled(ReactMarkdown)`
   margin: 20px;
   background-color: white;
@@ -113,13 +120,14 @@ export default Videos
 
 export const PageQuery = graphql`
  query fetchVideos {
-   allStrapiVideo {
+   allStrapiVideo(sort: {fields: date, order: ASC}) {
      edges {
        node {
          id
          title
          description
          link
+         date(formatString: "DD-MM-YYYY")
          thumbnail {
            childImageSharp {
              fluid(maxWidth: 800, maxHeight: 400) {

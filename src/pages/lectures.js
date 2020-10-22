@@ -174,7 +174,7 @@ export default LecturesPage
 
 export const PageQuery = graphql`
 query fetchCategoies {
-  allStrapiCategory {
+  allStrapiCategory(sort: {fields: id, order: ASC}) {
     nodes {
       title
       lectures {
