@@ -11,20 +11,17 @@ const NewsContainer = ({ nodes }) => {
     <ContainerStyle>
       {/* <SearchBar /> */}
       <RowContainer>
-
         {nodes?.map((article, index) => {
-          console.log("image: ", article.image)
           return (
             <BackgroundStyle key={index}>
               <LinkStyle to={article.id}>
                 <ContentContainer>
                   <TitleStyle>{article.title}</TitleStyle>
                   <DateStyle>{article.date}</DateStyle>
-                  {article.image ? 
-                    <ImageStyle 
-                      imgStyle={{ "max-width": "80%" }}
-                      fluid={article.image?.childImageSharp.fluid} 
-                      alt={article.title} /> 
+                  {article.image ?
+                    <ImageStyle
+                      fluid={article.image?.childImageSharp.fluid}
+                      alt={article.title} />
                     : null}
                   <Descriptionstyle>
                     {article.description}
@@ -53,7 +50,8 @@ const RowContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-
+  margin: 20px;
+  width: 100%;
 `
 
 const BackgroundStyle = styled.div`
@@ -63,16 +61,16 @@ const BackgroundStyle = styled.div`
   flex-direction: row;
   margin: 20px;
   background-color: #FFFFFF;
-  width: 460px;
+  min-width: 200px;
+  max-width: 460px;
+  width: 100%;
   ${media.tablet`
-    width: 380px;
-    height: 280px;
+    // width: 330px;
   `}
 `
 const ContentContainer = styled.div`
   margin: 5px 15px;
-  width: calc(100% - 20px);
-  
+
 `
 const TitleStyle = styled.h2`
   font-size: 18px;
@@ -95,9 +93,10 @@ const Descriptionstyle = styled.p`
 `
 
 const ImageStyle = styled(Img)`
-  max-width: 400px;
-  height: 200px;
-  width: 100%;
+  // max-width: 400px;
+  // height: 200px;
+  // width: 100%;
+
 `
 
 const LinkStyle = styled(Link)`
