@@ -1,14 +1,18 @@
 import { graphql } from 'gatsby'
-import React from 'react'
+import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
+import { useLocation, navigate  } from '@reach/router'
 
 const PrivacyPolicy = ({ data }) => {
+  const [accepted, setAccepted] = useState("")
+
   const PrivacyPolicyText = data.allStrapiPrivacyPolicy.nodes[0]?.content
+  const location = useLocation()
   return (
     <ContainerStyle>
       <Layout>
@@ -19,7 +23,14 @@ const PrivacyPolicy = ({ data }) => {
         <BackgroundStyle>
           <TitleStyle>Leiðreglur um privatlívspolitikk</TitleStyle>
           <DescriptionStyle source={PrivacyPolicyText} />
+          <TextStyle>
+            Eg havi lisið leiðreglurnar fyri verju av privatum upplýsingum. Eg játti, at visindavoka.fo kann deila upplýsingar um meg við fyriskiparan av tiltakinum. <InputStyle type="checkbox" />
+          </TextStyle>
         </BackgroundStyle>
+        <ButtonStyle onClick={() => {
+          navigate(`http://${process.env.GATBSY_AUTH0_DOMAIN}/continue${location.search}`)
+
+        }}>Víðari</ButtonStyle>
       </Layout>
     </ContainerStyle>
   )
@@ -39,6 +50,7 @@ const PetalContainer = styled.div`
 
 const TitleStyle = styled.h1`
   color: #58A449;
+  margin: 20px;
 `
 
 const BackgroundStyle = styled.div`
@@ -64,6 +76,30 @@ const DescriptionStyle = styled(ReactMarkdown)`
 
 `
 
+const InputStyle = styled.input`
+  font-size: 24px;
+`
+
+const TextStyle = styled.div`
+  font-size: 22px;
+  margin: 20px;
+`
+
+const ButtonStyle = styled.button`
+  border: none;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #74AB58;
+  color: white;
+  &:active{
+    opacity: 0.1;
+  }
+  width: 200px;
+  height: 30px;
+  margin: 20px;
+`
 export default PrivacyPolicy
 
 export const PageQuery = graphql`
