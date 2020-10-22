@@ -66,7 +66,7 @@ const LinkStyle = styled(Link)`
 const ImageStyle = styled(Img)`
   position: absolute;
   width: 300px;
-  height: 300px;
+  height: 50px;
   ${media.phone1`
     width: 220px;
     height: 220px;
