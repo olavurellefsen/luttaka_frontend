@@ -64,7 +64,6 @@ const BackgroundStyle = styled.div`
   margin: 20px;
   background-color: #FFFFFF;
   width: 460px;
-  height: 550px;
   ${media.tablet`
     width: 380px;
     height: 280px;

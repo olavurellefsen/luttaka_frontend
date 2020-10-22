@@ -49,7 +49,7 @@ export default News
 
 export const pageQuery = graphql`
 query fetchArticles {
-  allStrapiArticle(sort: {fields: date, order: ASC}) {
+  allStrapiArticle(sort: {fields: date, order: DESC}) {
     nodes {
       id
       title
