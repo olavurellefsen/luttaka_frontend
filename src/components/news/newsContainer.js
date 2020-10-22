@@ -2,7 +2,7 @@ import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { media } from "../../utils/mediaTemplate"
-import SearchBar from '../searchBar'
+// import SearchBar from '../searchBar'
 import Img from "gatsby-image"
 
 const NewsContainer = ({ nodes }) => {

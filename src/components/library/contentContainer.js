@@ -8,7 +8,7 @@ import award from './images/award.jpg'
 import mediaImage from './images/media.jpg'
 import avatar from '../../images/Vitanarfróði einlittur.png'
 import { Link } from 'gatsby';
-import SearchBar from '../searchBar';
+// import SearchBar from '../searchBar';
 
 const ContentContainer = () => {
 
