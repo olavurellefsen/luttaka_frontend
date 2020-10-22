@@ -5,10 +5,12 @@ import { navigate } from 'gatsby'
 import React, { useRef } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import useOutsideClick from '../../utils/useOutsideClick'
+import { useLocation } from '@reach/router';
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
   const { logout, loginWithRedirect, user, isAuthenticated } = useAuth0()
   const ref = useRef()
+  const location = useLocation()
 
   const menuItems = [
     {
@@ -19,9 +21,13 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       name: `Um vísindavøkuna`,
       onClick: () => navigate("/about")
     },
+    // {
+    //   name: "Mín skrá",
+    //   onClick: () => navigate()
+    // },
     {
       name: isAuthenticated ? `Rita út` : "Rita inn",
-      onClick: isAuthenticated ? () => logout({}) : () => loginWithRedirect({})
+      onClick: isAuthenticated ? () => logout({returnTo: location.origin}) : () => loginWithRedirect({redirectUri: location.origin})
     }
   ]
   useOutsideClick(ref, () => {

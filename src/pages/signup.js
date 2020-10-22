@@ -44,7 +44,7 @@ const Signup = () => {
                 <ScheduleItemList>
                   <div style={{display: "flex", justifyContent: "center", alignItems: "center", margin: "20px 0"}}>
 
-                    <HeaderStyle>Vel teir fyrilestrar, tú ynskir at luttaka í. Útfyll formilin niðanfyri og trýst á knøttin "Skráset"</HeaderStyle>
+                    <HeaderStyle>Vel tær framløgur, tú ynskir at hoyra, og skráset upplýsingar í frymlinum niðanfyri. Trýst síðani á ”Skráset”.</HeaderStyle>
                   </div>
                     <Location>Kongshøll</Location>
                   {data.allStrapiScheduleItem.nodes.map(item => {
