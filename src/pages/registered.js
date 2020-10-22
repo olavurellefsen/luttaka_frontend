@@ -43,6 +43,9 @@ const BackgroundStyle = styled.div`
   ${media.desktop3`
     margin-top: 200px;
   `}
+    iv > * {
+    margin: 20px;
+  }
 `
 
 

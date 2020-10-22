@@ -7,9 +7,8 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
 
-const About = ({ data }) => {
-  const aboutText = data.allStrapiAbout.nodes[0]?.content
-  console.log("aboutText", aboutText)
+const PrivacyPolicy = ({ data }) => {
+  const PrivacyPolicyText = data.allStrapiPrivacyPolicy.nodes[0]?.content
   return (
     <ContainerStyle>
       <Layout>
@@ -18,8 +17,8 @@ const About = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <BackgroundStyle>
-          <TitleStyle>Um Vísindavøkuna</TitleStyle>
-          <DescriptionStyle source={aboutText} />
+          <TitleStyle>Leiðreglur um privatlívspolitikk</TitleStyle>
+          <DescriptionStyle source={PrivacyPolicyText} />
         </BackgroundStyle>
       </Layout>
     </ContainerStyle>
@@ -54,21 +53,22 @@ const BackgroundStyle = styled.div`
   ${media.desktop3`
     margin-top: 200px;
   `}
-   div > * {
+ div > * {
     margin: 20px;
   }
 `
 
 const DescriptionStyle = styled(ReactMarkdown)`
   margin: 20px;
+  width: 100%;
 
 `
 
-export default About
+export default PrivacyPolicy
 
 export const PageQuery = graphql`
-query fetchAbout {
-  allStrapiAbout {
+query fetchPrivacyPolicy {
+  allStrapiPrivacyPolicy {
     nodes {
       content
     }
