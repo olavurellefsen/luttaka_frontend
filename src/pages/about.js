@@ -50,18 +50,18 @@ const BackgroundStyle = styled.div`
   width: 100%;
   max-width: 1000px;
   margin-top: 60px;
+  background-color: white;
   ${media.desktop3`
     margin-top: 200px;
   `}
+   div > * {
+    margin: 20px;
+  }
 `
 
 const DescriptionStyle = styled(ReactMarkdown)`
   margin: 20px;
-  background-color: white;
-  width: 100%;
-  p {
-    margin: 10px;
-  }
+
 `
 
 export default About

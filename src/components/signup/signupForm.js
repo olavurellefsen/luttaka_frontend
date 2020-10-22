@@ -30,7 +30,7 @@ const SignupForm = ({ selectedItems }) => {
     }
     if (orderedList.length > 0) {
       setEmailDraft({
-        to: `kr@tokni.com`,
+        to: `gransking@gransking.fo`,
         subject: `Nýggj skráseting`,
         html: `<h1>Ein nýggjur luttakari er skrásettur</h1> <br/>
                 <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
@@ -61,7 +61,6 @@ const SignupForm = ({ selectedItems }) => {
     //   olavursEmail.to = "oe@tokni"
     //   SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
-    //   alert("Srásetingin eydnaðist og tú nú verður send/ur víðari")
     //   navigate(`/registered`)
     // } else if (isSubmitted && selectedItems.length === 0) {
     //   alert("Vinaliga vel ein fyrilestur")
@@ -101,7 +100,7 @@ const SignupForm = ({ selectedItems }) => {
 
         <LabelContainer>
           <LabelStyle htmlFor="accepted-terms">
-            Eg havi lisið leiðreglurnar fyri verju av privatum upplýsingum.
+            Eg vátti við hesum, at upplýsingarnar omanfyri eru rættar og gevi loyvi til at visindavoka.fo kann deila upplýsingar um meg við fyriskiparan av tiltakinum.
           </LabelStyle>
           <CheckboxStyle id="accepted-terms" type="checkbox" name="accepted_terms" ref={register({ required: true })} />
           {errors.accepted_terms && <ErrorParagraph>Tú mást góðkenna treytirnar fyri at skráseta teg</ErrorParagraph>}

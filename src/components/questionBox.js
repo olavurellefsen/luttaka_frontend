@@ -1,14 +1,22 @@
 import { faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useRef } from 'react'
 import styled, { keyframes, css } from 'styled-components'
 
+import useOutsideClick from '../utils/useOutsideClick'
+
 const QuestionBox = ({ opened, setOpened, large_screen }) => {
+  const ref = useRef()
+
+  useOutsideClick(ref, () => {
+    if (opened === true)
+      setOpened(!opened)
+  })
 
   return (
     <ContainerStyle opened={opened}>
       <ExitButton large_screen={large_screen ? "true" : "false"} opened={opened.toString()} icon={faTimes} onClick={() => setOpened(!opened)} />
-      <CircleStyle name="circle info" opened={opened} large_screen={large_screen ? "true" : "false"}>
+      <CircleStyle ref={ref} name="circle info" opened={opened} large_screen={large_screen ? "true" : "false"}>
         <TextStyle>Hevur tú hugskot</TextStyle>
         <TextStyle>til granskingarevni</TextStyle>
         <TextStyle>ella vilt tú spyrja ein</TextStyle>
@@ -28,6 +36,7 @@ const ContainerStyle = styled.div`
   width: 100%;
   height: 100%;
   display: ${props => props.opened ? "flex" : "none"};
+  
 `
 
 const CircleStyle = styled.div`
