@@ -38,11 +38,12 @@ const SmallLogo = ({ isAuthenticated }) => {
 
 const slideInLeft = keyframes`
   from {
+    -webkit-transform: translate(100%, 250%);
     transform: translate(100%, 250%);
   }
 
   to {
-    // -webkit-transform: translate3d(-100%, 0, 0);
+    -webkit-transform: translate(-40%,-65%);
     transform: translate(-40%,-65%);
 `
 const LinkStyle = styled(Link)`
@@ -61,6 +62,6 @@ const ImageStyle = styled(Img)`
   animation: ${slideInLeft};
   animation-duration: 1.2s;
   animation-fill-mode: forwards;
-  
+
 `
 export default SmallLogo

@@ -1,9 +1,13 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import schedule from '../flower_components/flower_images/Skráin 2020.svg'
+import altSchedule from '../flower_components/flower_images/Skráin_green.svg'
 import news from '../flower_components/flower_images/Group 5.svg'
+import altNews from '../flower_components/flower_images/Tíðindi_red.svg'
 import storage from '../flower_components/flower_images/Group 6.svg'
+import altStorage from '../flower_components/flower_images/savn_yellow.svg'
 import join from '../flower_components/flower_images/Group 7.svg'
+import joinAlt from '../flower_components/flower_images/Tilmelding_alt.svg'
 import { media } from '../../utils/mediaTemplate'
 import { Link } from 'gatsby'
 
@@ -12,30 +16,67 @@ const PetalMenu = () => {
     {
       title: `Skráin 2020`,
       image: schedule,
-      to: "/schedule"
-    }, {
+      to: "/schedule",
+      alternaTiveImage: altSchedule
+
+    },
+    {
       title: `Tíðindi`,
       image: news,
-      to: "/news"
+      to: "/news",
+      alternaTiveImage: altNews
     },
     {
       title: "Savn",
       image: storage,
-      to: "/library"
+      to: "/library",
+      alternaTiveImage: altStorage
     },
     {
       title: `Tilmelding`,
       image: join,
-      to: "/signup"
+      to: "/signup",
+      alternaTiveImage: joinAlt
+
     }
   ]
+
+  const fetchWindowLocation = (path) => {
+    switch(path) {
+      case "/schedule":
+        return "green"
+      case "/news":
+        return "red"
+      case "/library":
+        return "yellow"
+      case "/videos":
+        return "yellow"
+      case "/lectures":
+        return "yellow"
+      case "/magazines":
+        return "yellow"
+      case "/media_awards":
+        return "yellow"
+      case "/media":
+        return "yellow"
+      case "/diverse":
+        return "yellow"
+      case "/signup":
+        return "blue"
+      default:
+        return ""
+    }
+  }
+
   return (
     <ContainerStyle>
       {petals.map((item, index) => {
+        const color = fetchWindowLocation(window.location.pathname)
+        const toColor = fetchWindowLocation(item.to)
         return (
-          <Link to={item.to} key={"petal" + index}>
-            <ImageStyle key={index} src={item.image} alt={item.title} />
-          </Link>
+          <LinkStyle to={item.to} key={"petal" + index} >
+            <ImageStyle key={index} src={color === toColor ? item.alternaTiveImage : item.image} alt={item.title} />
+          </LinkStyle>
         )
       })}
     </ContainerStyle>
@@ -77,7 +118,12 @@ const ContainerStyle = styled.div`
   `}
 `
 
+const LinkStyle = styled(Link)`
+
+`
+
 const ImageStyle = styled.img`
+  position: relative;
   opacity: 0;
   animation: ${FadeIn};
   animation-duration: 1.2s;
