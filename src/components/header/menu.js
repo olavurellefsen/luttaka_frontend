@@ -18,10 +18,6 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       onClick: () => navigate("/about")
     },
     {
-      name: "Mín skrá",
-      onClick: () => navigate()
-    },
-    {
       name: isAuthenticated ? `Rita út` : "Rita inn",
       onClick: isAuthenticated ? () => logout({}) : () => loginWithRedirect({})
     }
