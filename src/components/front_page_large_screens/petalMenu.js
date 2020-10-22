@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css, keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import schedule from '../flower_components/flower_images/Skráin 2020.svg'
 import altSchedule from '../flower_components/flower_images/Skráin_green.svg'
 import news from '../flower_components/flower_images/Group 5.svg'
