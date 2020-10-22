@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
-import SearchBar from '../components/searchBar'
+// import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
 
 
@@ -21,7 +21,7 @@ const Videos = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>Filmar</TitleStyle>
-        <SearchBar />
+        {/* <SearchBar /> */}
       <ContainerStyle>
         {videos.map((video, index) => {
           return (

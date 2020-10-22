@@ -3,9 +3,9 @@ import Layout from "../components/layout"
 import styled, { css, keyframes } from "styled-components"
 import MenuContainer from "../components/header/menuContainer"
 import PetalMenu from "../components/front_page_large_screens/petalMenu"
-import SearchBar from "../components/searchBar"
+// import SearchBar from "../components/searchBar"
 import { media } from "../utils/mediaTemplate"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
@@ -23,7 +23,7 @@ const LecturesPage = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>VÍSINDAVØKU SAVN - FRAMLØGUR</TitleStyle>
-        <SearchBar />
+        {/* <SearchBar /> */}
         {categories.map((category, index) => (
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {
