@@ -61,7 +61,6 @@ const SignupForm = ({ selectedItems }) => {
     //   olavursEmail.to = "oe@tokni"
     //   SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
-    //   alert("Srásetingin eydnaðist og tú nú verður send/ur víðari")
     //   navigate(`/registered`)
     // } else if (isSubmitted && selectedItems.length === 0) {
     //   alert("Vinaliga vel ein fyrilestur")

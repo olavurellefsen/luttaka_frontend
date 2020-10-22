@@ -1,12 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { navigate } from 'gatsby'
+import { navigate }  from 'gatsby'
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
+import { useLocation } from '@reach/router'
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
   const { logout, loginWithRedirect, user, isAuthenticated } = useAuth0()
+  const location = useLocation()
 
   const menuItems = [
     {
@@ -17,13 +19,13 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       name: `Um vísindavøkuna`,
       onClick: () => navigate("/about")
     },
-    {
-      name: "Mín skrá",
-      onClick: () => navigate()
-    },
+    // {
+    //   name: "Mín skrá",
+    //   onClick: () => navigate()
+    // },
     {
       name: isAuthenticated ? `Rita út` : "Rita inn",
-      onClick: isAuthenticated ? () => logout({}) : () => loginWithRedirect({})
+      onClick: isAuthenticated ? () => logout({returnTo: location.origin}) : () => loginWithRedirect({redirectUri: location.origin})
     }
   ]
 

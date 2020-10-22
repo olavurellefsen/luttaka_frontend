@@ -10,8 +10,10 @@ import join from '../flower_components/flower_images/Group 7.svg'
 import joinAlt from '../flower_components/flower_images/Tilmelding_alt.svg'
 import { media } from '../../utils/mediaTemplate'
 import { Link } from 'gatsby'
+import { useLocation } from '@reach/router'
 
 const PetalMenu = () => {
+  const location = useLocation()
   const petals = [
     {
       title: `Skráin 2020`,
@@ -41,7 +43,7 @@ const PetalMenu = () => {
     }
   ]
 
-  /* const fetchWindowLocation = (path) => {
+   const fetchWindowLocation = (path) => {
     switch(path) {
       case "/schedule":
         return "green"
@@ -66,16 +68,16 @@ const PetalMenu = () => {
       default:
         return ""
     }
-  } */
-
+  }
+  console.log("location", location.pathname)
   return (
     <ContainerStyle>
       {petals.map((item, index) => {
-        //const color = fetchWindowLocation(window.location.pathname)
-        //const toColor = fetchWindowLocation(item.to)
+        const color = fetchWindowLocation(location.pathname)
+        const toColor = fetchWindowLocation(item.to)
         return (
           <LinkStyle to={item.to} key={"petal" + index} >
-            <ImageStyle key={index} src={item.image} alt={item.title} />
+            <ImageStyle key={index} src={color === toColor ? item.alternaTiveImage : item.image} alt={item.title} />
           </LinkStyle>
         )
       })}

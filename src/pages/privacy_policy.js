@@ -9,7 +9,7 @@ import { media } from "../utils/mediaTemplate"
 import { useLocation, navigate  } from '@reach/router'
 
 const PrivacyPolicy = ({ data }) => {
-  const [accepted, setAccepted] = useState("")
+  const [accepted, setAccepted] = useState(false)
 
   const PrivacyPolicyText = data.allStrapiPrivacyPolicy.nodes[0]?.content
   const location = useLocation()
@@ -24,13 +24,15 @@ const PrivacyPolicy = ({ data }) => {
           <TitleStyle>Leiðreglur um privatlívspolitikk</TitleStyle>
           <DescriptionStyle source={PrivacyPolicyText} />
           <TextStyle>
-            Eg havi lisið leiðreglurnar fyri verju av privatum upplýsingum. Eg játti, at visindavoka.fo kann deila upplýsingar um meg við fyriskiparan av tiltakinum. <InputStyle type="checkbox" />
+            Eg havi lisið leiðreglurnar fyri verju av privatum upplýsingum. Eg játti, at visindavoka.fo kann deila upplýsingar um meg við fyriskiparan av tiltakinum.
           </TextStyle>
-        </BackgroundStyle>
+          <InputStyle type="checkbox" required={true} checked={accepted} value={accepted} onChange={(e) => setAccepted(e.currentTarget.checked)}/>
         <ButtonStyle onClick={() => {
-          navigate(`http://${process.env.GATBSY_AUTH0_DOMAIN}/continue${location.search}`)
+          if(accepted)
+            navigate(`http://${process.env.GATSBY_AUTH0_DOMAIN}/continue${location.search}`)
 
         }}>Víðari</ButtonStyle>
+        </BackgroundStyle>
       </Layout>
     </ContainerStyle>
   )
@@ -78,6 +80,8 @@ const DescriptionStyle = styled(ReactMarkdown)`
 
 const InputStyle = styled.input`
   font-size: 24px;
+  width: 24px;
+  height: 24px;
 `
 
 const TextStyle = styled.div`
