@@ -37,7 +37,7 @@ const LecturesPage = ({ data }) => {
             </HeaderStyle>
             {category.lectures.map((lecture, lectureIndex) => {
               return (
-                <LinkStyle to={`Lecture_${lecture.id}`}>
+                <LinkStyle key={lectureIndex} href={lecture.link}>
                   <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selectedCategory.current === index}>
                     <HeaderTitleStyle source={lecture.title} />
                     <ContentStyle>
@@ -163,7 +163,7 @@ const ListItemStyle = styled.div`
   `}
   `
 
-const LinkStyle = styled(Link)`
+const LinkStyle = styled.a`
   text-decoration: none;
   color: black;
   max-width: 540px;
@@ -181,6 +181,7 @@ query fetchCategoies {
         id
         title
         Date
+        link
         lecturer {
           name
           organisation
