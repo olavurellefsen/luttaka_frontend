@@ -27,7 +27,7 @@ const Diverse = ({ data }) => {
       <ContainerStyle>
         {/* {diverseItems.map((diverseItem, index) => {
           return (
-            <BackgroundStyle>
+            <BackgroundStyle key={index}>
               <LinkStyle href={diverseItem.node.link} key={index}>{diverseItem.node.title}
                 <ImageStyle
                   style={{ width: "100%" }}

@@ -26,9 +26,7 @@ module.exports = {
           `category`,
           'schedule-item',
           'video',
-          'award',
-          `media`,
-          `diverse`,
+          `media-awards`,
           `magazine`
         ],
         singleTypes: [`about`, `registered-text`],
@@ -36,7 +34,8 @@ module.exports = {
           typesToParse: {
             article: ['content'],
             about: ['content'],
-            "registered-text": ['content']
+            "registered-text": ['content'],
+            "media-awards": ['content']
         },
         queryLimit: 1000,
       }

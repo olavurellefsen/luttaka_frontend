@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
-import SendEmail from '../../utils/mail/SendEmail'
-import { navigate } from 'gatsby'
+// import SendEmail from '../../utils/mail/SendEmail'
+// import { navigate } from 'gatsby'
 
 
 const SignupForm = ({ selectedItems }) => {

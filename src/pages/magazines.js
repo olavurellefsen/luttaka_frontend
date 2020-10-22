@@ -1,7 +1,5 @@
 
-// import Image from 'gatsby-image'
 import React from 'react'
-// import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
@@ -11,7 +9,7 @@ import { media } from "../utils/mediaTemplate"
 
 const Magazines = ({ data }) => {
 
-  // const magazines = data.allStrapimagazine.edges
+  const magazines = data.allStrapiMagazine.edges
 
   return (
     <Layout>
@@ -19,25 +17,17 @@ const Magazines = ({ data }) => {
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
-      {/* <TitleStyle>Miðlaheiðurslønir</TitleStyle> */}
-      <TitleStyle>UPS!
-      Vit arbeiða við at fylla tilfar á.
-      Um eina lítla løtu verður tað heilt skjótt.
-</TitleStyle>
+      <TitleStyle>Vísindavøkubløð</TitleStyle>
       <ContainerStyle>
-        {/* {magazines.map((magazine, index) => {
+        {magazines.map((magazine, index) => {
           return (
-            <BackgroundStyle>
-              <LinkStyle href={magazine.node.link} key={index}>{magazine.node.title}
-                <ImageStyle
-                  style={{ width: "100%" }}
-                  fluid={magazine.node.thumbnail.childImageSharp.fluid}
-                  alt={magazine.node.title} />
+            <BackgroundStyle key={index}>
+              <LinkStyle href={magazine.node.link} key={index}>
+                {magazine.node.title}
               </LinkStyle>
-              <MarkDownContainer source={magazine.node.description} />
             </BackgroundStyle>
           )
-        })} */}
+        })}
       </ContainerStyle>
     </Layout>
   )
@@ -66,72 +56,49 @@ const PetalContainer = styled.div`
   `}
 
 `
-// const BackgroundStyle = styled.div`
-//   display: flex;
-//   justify-content:center;
-//   align-items: center;
-//   flex-direction: column;
-//   margin: 20px;
-//   background-color: #FFFFFF;
-//   width: 450px;
-// `
+const BackgroundStyle = styled.div`
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  background-color: #FFFFFF;
+  max-width: 350px;
+  width: 100%;
+`
 
 const TitleStyle = styled.h3`
   color: #58A449;
   font-size: 24px;
 `
 
-// const LinkStyle = styled.a`
-//   display: flex;
-//   flex: 1;
-//   flex-direction: column;
-//   text-decoration: none;
-//   background-color: #FFFF;
-//   color: black;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: 18px;
-//   margin: 20px;
-//   width: 430px;
-// `
-
-// const ImageStyle = styled(Image)`
-//   display: flex;
-//   flex: 1;
-//   margin: 20px;
-// `
-
-// const MarkDownContainer = styled(ReactMarkdown)`
-//   margin: 20px;
-//   background-color: white;
-//   width: 100%;
-//   p {
-//     margin: 10px;
-//   }
-// `
+const LinkStyle = styled.a`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  text-decoration: none;
+  background-color: #FFFF;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin: 20px;
+`
 
 export default Magazines
 
-// export const PageQuery = graphql`
-//  query fetchMagazines {
-//    allStrapiMagazine {
-//      edges {
-//        node {
-//          id
-//          title
-//          description
-//          link
-//          thumbnail {
-//            childImageSharp {
-//              fluid(maxWidth: 800, maxHeight: 400) {
-//                  ...GatsbyImageSharpFluid
-//              }
-//            }
-//          }
-//        }
-//      }
-//    }
-//  }
+export const PageQuery = graphql`
+ query fetchMagazines {
+   allStrapiMagazine {
+     edges {
+       node {
+         id
+         title
+         link
+       }
+     }
+   }
+ }
 
-//  `
+ `

@@ -25,7 +25,7 @@ const Videos = ({ data }) => {
       <ContainerStyle>
         {videos.map((video, index) => {
           return (
-            <BackgroundStyle>
+            <BackgroundStyle key={index}>
               <LinkStyle href={video.node.link} key={index}>{video.node.title}
                 <ImageStyle
                   style={{ width: "100%" }}
