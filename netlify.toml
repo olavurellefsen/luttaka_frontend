@@ -9,7 +9,7 @@
   GATSBY_PUBLIC_URL = https://develop--visindavoka.netlify.app/
 
 [context.master.environment]
-  GATSBY_REDIRECT_URI = https://vísindavøka.fo/
+  GATSBY_REDIRECT_URI = https://visindavoka.fo/
   GATSBY_AUTH0_CLIENTID = tGyFpWhfmerJZ61Zslmzp4WYQidlLRiv
   GATSBY_AUTH0_DOMAIN = luttaka.eu.auth0.com
-  GATSBY_PUBLIC_URL = https://vísindavøka.fo/
+  GATSBY_PUBLIC_URL = https://visindavoka.fo/
