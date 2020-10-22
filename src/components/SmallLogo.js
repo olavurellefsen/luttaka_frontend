@@ -1,7 +1,8 @@
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
-import styled, { keyframes } from "styled-components"
+// import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 import { media } from '../utils/mediaTemplate'
 
 /*
@@ -37,15 +38,15 @@ const SmallLogo = ({ isAuthenticated }) => {
 
 }
 
-const slideInLeft = keyframes`
-  from {
-    transform: translate(100%, 250%);
-  }
+// const slideInLeft = keyframes`
+//   from {
+//     transform: translate(100%, 250%);
+//   }
 
-  to {
-    // -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate(-40%,-65%);
-`
+//   to {
+//     // -webkit-transform: translate3d(-100%, 0, 0);
+//     transform: translate(-40%,-65%);
+// `
 const LinkStyle = styled(Link)`
   width: 300px;
   height: 300px;
