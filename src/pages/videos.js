@@ -32,7 +32,7 @@ const Videos = ({ data }) => {
                   fluid={video.node.thumbnail.childImageSharp.fluid}
                   alt={video.node.title} />
               </LinkStyle>
-              <DateContainer>{video.node.Date}</DateContainer>
+              <DateContainer>{video.node.date}</DateContainer>
               <MarkDownContainer source={video.node.description}/>
             </BackgroundStyle>
           )
@@ -126,7 +126,7 @@ export const PageQuery = graphql`
          title
          description
          link
-         Date
+         date
          thumbnail {
            childImageSharp {
              fluid(maxWidth: 800, maxHeight: 400) {
