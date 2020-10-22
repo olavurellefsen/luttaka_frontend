@@ -63,6 +63,7 @@ module.exports = {
         functionsOutput: `${__dirname}/functions`,
       },
     },
-    `gatsby-plugin-mailgo`
+    `gatsby-plugin-mailgo`,
+    `gatsby-plugin-netlify`
   ],
 }

@@ -75,6 +75,6 @@ const ImageStyle = styled(Img)`
   ${'' /* animation: ${slideInLeft}; */}
   animation-duration: 1.2s;
   animation-fill-mode: forwards;
-  
+
 `
 export default SmallLogo

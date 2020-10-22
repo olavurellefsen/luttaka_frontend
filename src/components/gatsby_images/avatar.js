@@ -38,9 +38,10 @@ const Button = styled.button`
   height: 170px;
   position: absolute;
   bottom: 0;
-  left: 40px;
+  left: 20px;
   border: none;
   background-color: #FEF9EC;
+  cursor: pointer;
   &:active {
     opacity: 0.3;
   }

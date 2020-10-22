@@ -9,10 +9,12 @@ import { graphql, Link } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
+import { useRef } from "react"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
   const [open, setOpen] = useState(false)
+  const selectedCategory = useRef(null)
   return (
     <Background>
       <Layout>
@@ -24,19 +26,24 @@ const LecturesPage = ({ data }) => {
         <SearchBar />
         {categories.map((category, index) => (
           <HeaderContainer key={index}>
-            <HeaderStyle onClick={() => setOpen(!open)} >
+            <HeaderStyle onClick={() => {
+              setOpen(!open)
+              selectedCategory.current = index
+            }} >
               <TextStyle>
                 {category.title}
               </TextStyle>
-              <IconStyle icon={open ? faChevronUp : faChevronDown} />
+              <IconStyle icon={open && selectedCategory.current === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
             {category.lectures.map((lecture, lectureIndex) => {
               return (
                 <LinkStyle to={`Lecture_${lecture.id}`}>
-                  <ListItemStyle name="listItemstyle" key={lectureIndex} open={open}>
+                  <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selectedCategory.current === index}>
                     <HeaderTitleStyle source={lecture.title} />
-                    <div>{lecture.lecturer.name}</div>
-                    <div>{lecture.lecturer.organisation}</div>
+                    <ContentStyle>
+                      <div>{lecture.Date}</div>
+                      <LecturedContainer><div>{lecture.lecturer.name}</div>, <div>{lecture.lecturer.organisation}</div></LecturedContainer>
+                    </ContentStyle>
                   </ListItemStyle>
                 </LinkStyle>
               )
@@ -86,7 +93,6 @@ const HeaderStyle = styled.div`
   justify-content: space-between;
   margin-top: 30px;
   background-color: #FFFFFF;
-  height: 65px;
   max-width: 540px;
   width: 100%;
   box-shadow: 0px 0px 5px #00000029
@@ -94,19 +100,32 @@ const HeaderStyle = styled.div`
 const HeaderTitleStyle = styled(ReactMarkdown)`
   margin: 0 20px;
   p {
-    font
+    font-weight: bold;
   }
+`
+const ContentStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 20px;
+  width: 100%;
+`
+
+const LecturedContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: 0 20px;
 `
 
 const TextStyle = styled.div`
-    margin: 20px;
-
-  `
+  margin: 20px;
+`
 
 const IconStyle = styled(FontAwesomeIcon)`
-    margin: 20px;
-    font-size: 24px;
-  `
+  margin: 20px;
+  font-size: 24px;
+`
 
 const slideDown = keyframes`
   from {
@@ -128,8 +147,8 @@ const ListItemStyle = styled.div`
   animation-fill-mode: forwards;
   max-width: 540px;
   width: 100%;
-  ${({ open }) =>
-    open && css
+  ${({ selected }) =>
+    selected && css
       `
       display: flex;
       align-items: flex-start;
@@ -137,7 +156,6 @@ const ListItemStyle = styled.div`
       flex-direction: column;
       margin-top: 30px;
       background-color: #FFFFFF;
-      height: 65px;
       max-width: 540px;
       width: 100%;
 
@@ -162,6 +180,7 @@ query fetchCategoies {
       lectures {
         id
         title
+        Date
         lecturer {
           name
           organisation
