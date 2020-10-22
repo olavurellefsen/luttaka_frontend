@@ -69,7 +69,7 @@ const PetalMenu = () => {
         return ""
     }
   }
-  console.log("location", location.pathname)
+  
   return (
     <ContainerStyle>
       {petals.map((item, index) => {
