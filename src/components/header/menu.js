@@ -2,11 +2,13 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { navigate } from 'gatsby'
-import React from 'react'
+import React, { useRef } from 'react'
 import styled, { css, keyframes } from 'styled-components'
+import useOutsideClick from '../../utils/useOutsideClick'
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
   const { logout, loginWithRedirect, user, isAuthenticated } = useAuth0()
+  const ref = useRef()
 
   const menuItems = [
     {
@@ -26,9 +28,12 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       onClick: isAuthenticated ? () => logout({}) : () => loginWithRedirect({})
     }
   ]
+  useOutsideClick(ref, () => {
+    setMenuOpen(!menuOpen)
+  })
 
   return (
-    <ContainerStyle menuOpen={menuOpen} >
+    <ContainerStyle  ref={ref} menuOpen={menuOpen} >
 
       {menuItems.map((item, index) => {
 
