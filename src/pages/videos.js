@@ -32,7 +32,7 @@ const Videos = ({ data }) => {
                   fluid={video.node.thumbnail.childImageSharp.fluid}
                   alt={video.node.title} />
               </LinkStyle>
-              <DateContainer>{video.node.date}</DateContainer>
+              <DateContainer>{video.node.Date}</DateContainer>
               <MarkDownContainer source={video.node.description}/>
             </BackgroundStyle>
           )
@@ -102,7 +102,9 @@ const ImageStyle = styled(Image)`
 `
 
 const DateContainer = styled.div`
-
+  display: flex;
+  align-self: flex-start;
+  margin-left: 10px;
 `
 const MarkDownContainer = styled(ReactMarkdown)`
   margin: 20px;
