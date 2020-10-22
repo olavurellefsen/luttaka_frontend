@@ -46,7 +46,7 @@ const ContentContainer = () => {
   ]
   return (
     <ContainerStyle>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <RowContainer>
         {content.map((item, index) => {
           return (

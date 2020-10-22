@@ -23,7 +23,7 @@ const LecturesPage = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>VÍSINDAVØKU SAVN - FRAMLØGUR</TitleStyle>
-        <SearchBar />
+        {/* <SearchBar /> */}
         {categories.map((category, index) => (
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {

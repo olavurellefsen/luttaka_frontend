@@ -9,7 +9,7 @@ const NewsContainer = ({ nodes }) => {
 
   return (
     <ContainerStyle>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <RowContainer>
 
         {nodes?.map((article, index) => {

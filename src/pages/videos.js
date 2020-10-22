@@ -21,7 +21,7 @@ const Videos = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>Filmar</TitleStyle>
-        <SearchBar />
+        {/* <SearchBar /> */}
       <ContainerStyle>
         {videos.map((video, index) => {
           return (
