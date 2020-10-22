@@ -2,6 +2,7 @@ import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled, { keyframes } from "styled-components"
+import { media } from '../utils/mediaTemplate'
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -46,10 +47,18 @@ const slideInLeft = keyframes`
     transform: translate(-40%,-65%);
 `
 const LinkStyle = styled(Link)`
-  position: absolute;
   width: 300px;
   height: 300px;
+  position: absolute;
   z-index: 1;
+  top: -195px;
+  left: -120px;
+  ${media.phone1`
+    width: 220px;
+    height: 220px;
+    top: -143px;
+    left: -88px;
+  `}
 `
 
 
@@ -57,8 +66,12 @@ const ImageStyle = styled(Img)`
   position: absolute;
   width: 300px;
   height: 300px;
+  ${media.phone1`
+    width: 220px;
+    height: 220px;
+  `}
   z-index: 1;
-  animation: ${slideInLeft};
+  ${'' /* animation: ${slideInLeft}; */}
   animation-duration: 1.2s;
   animation-fill-mode: forwards;
   
