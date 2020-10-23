@@ -12,6 +12,7 @@ import path8 from './flower_images/Path 8.svg'
 import Avatar from '../gatsby_images/avatar';
 import QuestionBox from '../questionBox';
 import { navigate } from 'gatsby';
+import { media } from '../../utils/mediaTemplate'
 
 const Flower = ({ opened, setOpened }) => {
   const petals = [
@@ -51,10 +52,10 @@ const Flower = ({ opened, setOpened }) => {
         })}
 
       </PetalContainer>
-      <StemStyle src={path4} right='50%' opened={opened} />
-      <StemStyle src={path6} right='50%' opened={opened} />
-      <StemStyle src={path7} right='113px;' opened={opened} />
-      <StemStyle src={path8} right='113px' opened={opened} />
+      <StemStyle src={path4} right='50%' opened={opened} altHeight="350px"/>
+      <StemStyle src={path6} right='50%' opened={opened} altHeight="284px" />
+      <StemStyle src={path7} right='113px;' opened={opened} altHeight="320px" altRight="126px" />
+      <StemStyle src={path8} right='113px' opened={opened} altheight="277px"/>
       <QuestionBox opened={opened} setOpened={setOpened} large_screen={false}/>
       <Avatar opened={opened} setOpened={setOpened} />
     </ContainerStyle>
@@ -89,6 +90,18 @@ const PetalContainer = styled.div`
     bottom: 155px;
     right: 0px;
   }
+
+
+  ${media.phone1`
+    div:nth-child(1) {
+    left: 50px;
+    bottom: 330px;
+   }
+     div:nth-child(2) {
+    bottom: 280px;
+    left: 200px;
+  }
+   `};
 `
 
 const fadeAway = keyframes`
@@ -110,6 +123,11 @@ const StemStyle = styled.img`
     animation: ${fadeAway};
     animation-duration: 2s;
     animation-fill-mode: forwards;
+  `}
+  ${media.phone1`
+    height: ${props => props.altHeight};
+    right: ${props => props.altRight};
+
   `}
 `
 
