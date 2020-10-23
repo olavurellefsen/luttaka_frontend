@@ -14,7 +14,7 @@ const ScheduleItem = ({
   includeCheckbox
 }) => {
   const [addDescription, setAddDescription] = useState(false)
-
+  
   return (
     <Container>
       <Content onClick={() => { setAddDescription(!addDescription) }}>
@@ -30,6 +30,7 @@ const ScheduleItem = ({
       {includeCheckbox && <CheckboxContainer>
         <Checkbox selectedItems={selectedItems} setSelectedItems={setSelectedItems} title={title} />
       </CheckboxContainer>}
+      {!includeCheckbox && <Full>Fult teknað</Full>}
     </Container>
   )
 }
@@ -41,6 +42,15 @@ const Container = styled.div`
   justify-content: space-between;
   min-width: 200px;
   margin: 0 20px;
+`
+const Full = styled.div`
+  position: absolute;
+  color: red;
+  opacity: 0.7;
+  transform: rotate(0deg);
+  margin-top: 0px;
+  margin-left: 60px;
+  font-size: 18px;
 `
 const Content = styled.div`
   display: flex;
