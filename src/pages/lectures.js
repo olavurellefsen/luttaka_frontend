@@ -16,7 +16,6 @@ const LecturesPage = ({ data }) => {
   const lectures = data.allStrapiLecture?.nodes
   const [open, setOpen] = useState(false)
   const selectedCategory = useRef(null)
-  console.log("data: ", data)
   return (
     <Background>
       <Layout>
@@ -44,7 +43,7 @@ const LecturesPage = ({ data }) => {
                     <HeaderTitleStyle source={lecture.title} />
                     <ContentStyle>
                       <div>{lecture.Date}</div>
-                      <LecturedContainer><div>{lecture.lecturer.name}</div>, <div>{lecture.lecturer.organisation}</div></LecturedContainer>
+                      <LecturedContainer><div>{lecture.lecturer.name}</div><div>{lecture.lecturer.organisation}</div></LecturedContainer>
                     </ContentStyle>
                   </ListItemStyle>
                 </LinkStyle>
@@ -116,6 +115,7 @@ const ContentStyle = styled.div`
 
 const LecturedContainer = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   width: 50%;
   margin: 0 20px;
@@ -187,7 +187,7 @@ query fetchCategoies {
       nodes {
         id
         title
-        Date
+        Date(formatString: "DD-MM-YYYY")
         link
         lecturer {
           name

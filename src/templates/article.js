@@ -133,7 +133,7 @@ export const query = graphql`
       title
       content
       description
-      date
+      date(formatString: "DD-MM-YYYY")
        image {
         childImageSharp {
             fluid(maxWidth: 1024, maxHeight: 512) {
