@@ -32,7 +32,7 @@ const Schedule = () => (
     <PetalContainer name="petal container">
           <PetalMenu />
         </PetalContainer>
-        <TitleStyle>Skrá 2020</TitleStyle>
+        <TitleStyle>SKRÁ 2020</TitleStyle>
     <StaticQuery
       query={backend_schedule}
       render={
@@ -66,6 +66,7 @@ const PetalContainer = styled.div`
 const TitleStyle = styled.h3`
   color: #58A449;
   display: none;
+  font-size: 24px;
   ${media.desktop3`
     display: block;
     margin-top: 100px;

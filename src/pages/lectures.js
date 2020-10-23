@@ -69,11 +69,12 @@ const PetalContainer = styled.div`
 
 `
 
-const TitleStyle = styled.h1`
+const TitleStyle = styled.h3`
   color: #58A449;
-  margin-top: 60px;
+  font-size: 24px;
   ${media.desktop3`
-    margin-top: 200px;
+    display: block;
+    margin-top: 100px;
   `}
 `
 
