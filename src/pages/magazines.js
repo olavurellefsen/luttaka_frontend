@@ -96,7 +96,7 @@ export default Magazines
 
 export const PageQuery = graphql`
  query fetchMagazines {
-   allStrapiMagazine {
+   allStrapiMagazine(sort: {fields: id, order: DESC}) {
      edges {
        node {
          id
