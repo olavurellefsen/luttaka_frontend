@@ -70,7 +70,7 @@ const ContainerStyle = styled.div`
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
-  z-index: 100;
+  z-index: 1;
 `
 
 const PetalContainer = styled.div`

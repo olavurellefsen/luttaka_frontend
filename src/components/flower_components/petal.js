@@ -24,7 +24,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  z-index: 4;
+  z-index: 1;
   cursor: pointer;
   ${({ opened }) =>
     opened && css
