@@ -1,8 +1,7 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Img from "gatsby-image"
 import { graphql, useStaticQuery } from 'gatsby';
-import { DataPipeline } from 'aws-sdk';
 const ContentBox = ({ item }) => {
 
   const data = useStaticQuery(graphql`
