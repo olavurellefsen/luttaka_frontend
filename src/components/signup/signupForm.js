@@ -105,7 +105,7 @@ const SignupForm = ({ selectedItems }) => {
           {errors.accepted_terms && <ErrorParagraph>Tú mást góðkenna treytirnar fyri at skráseta teg</ErrorParagraph>}
         </LabelContainer>
 
-        <SubmitButton type="submit" title="Skrásetingin opnar í morgin kl 12">Skráset</SubmitButton>
+        <SubmitButton type="submit" >Skráset</SubmitButton>
       </FormStyle>
     </ContainerStyle>
   )
