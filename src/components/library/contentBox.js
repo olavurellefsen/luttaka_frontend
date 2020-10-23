@@ -1,13 +1,31 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-const ContentBox = ({item}) => {
+import styled from 'styled-components';
+import Img from "gatsby-image"
+import { graphql, useStaticQuery } from 'gatsby';
+const ContentBox = ({ item }) => {
+
+  const data = useStaticQuery(graphql`
+    query {
+      placeholderImage: file(relativePath: { eq: "Vitanarfróði einlittur.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 80, maxHeight: 100) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+
   return (
     <ContainerStyle>
-      <ImageStyle src={item.image} alt={item.title} isAvatar={item.title === `Ymiskt putl` ? true : false}/>
+      {item.title !== "Ymiskt putl" ?
+        <ImageStyle fluid={item.image.childImageSharp.fluid} alt={item.title} />
+        : <AvatarImage fluid={data.placeholderImage.childImageSharp.fluid} alt={"Vitanar fróði"} />}
       {item.title}
     </ContainerStyle>
   );
 };
+
 const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,16 +44,15 @@ const ContainerStyle = styled.div`
   text-decoration: none;
 `
 
-const ImageStyle = styled.img`
-  width: 280px;
+const ImageStyle = styled(Img)`
+  width: 270px;
   height: 224px;
-  margin: 8px;
-  ${({ isAvatar }) =>
-  isAvatar && css
-      `
-        width: 200px;
-        height: 200px;
-  `}
+`
+
+const AvatarImage = styled(ImageStyle)`
+  width: 140px;
+  height: 170px;
+  margin-bottom 50px
 `
 
 export default ContentBox;
