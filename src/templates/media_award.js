@@ -31,9 +31,10 @@ const AwardTemplate = ({ data }) => {
                         <Img
                           fluid={image.url}
                           alt={alt}
+                          style={{border: "1px solid pink"}}
                         />
                       ) : (
-                          <img src={src} alt={alt} height="200" width="400" />
+                          <img src={src} alt={alt} height="200" width="400" style={{border: "1px solid red"}}/>
                         )}
                     </>
                   )
