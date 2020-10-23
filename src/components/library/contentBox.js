@@ -1,9 +1,12 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Img from "gatsby-image"
 const ContentBox = ({item}) => {
+
+
   return (
     <ContainerStyle>
-      <ImageStyle src={item.image} alt={item.title} isAvatar={item.title === `Ymiskt putl` ? true : false}/>
+      <ImageStyle fliuid={item.image.data.placeholderImage.childImageSharp.fluid} alt={item.title} isAvatar={item.title === `Ymiskt putl` ? true : false}/>
       {item.title}
     </ContainerStyle>
   );
@@ -26,7 +29,7 @@ const ContainerStyle = styled.div`
   text-decoration: none;
 `
 
-const ImageStyle = styled.img`
+const ImageStyle = styled(Img)`
   width: 280px;
   height: 224px;
   margin: 8px;

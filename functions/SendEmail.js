@@ -17,7 +17,7 @@ exports.handler = function (event) {
 
     const msg = {
       to: to,
-      from: `Vísindavøkan <info@tokni.com>`,
+      from: `Vísindavøka <info@visindavoka.fo>`,
       subject: subject,
       text: message,
       html: html,
