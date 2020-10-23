@@ -81,8 +81,6 @@ const ContentContainer = styled.div`
 
 const TitleStyle = styled.h2`
   font-size: 18px;
-  max-height: 70px;
-  overflow: hidden;
   margin: 20px;
   `
 
