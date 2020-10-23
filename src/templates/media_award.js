@@ -9,7 +9,7 @@ import Layout from '../components/layout'
 
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
-
+  console.log("award: ", award)
   return (
     <Layout>
       <ContainerStyle>
@@ -33,7 +33,7 @@ const AwardTemplate = ({ data }) => {
                           alt={alt}
                         />
                       ) : (
-                          <img src={src} alt={alt} />
+                          <img src={src} alt={alt} height="300" width="400" />
                         )}
                     </>
                   )
