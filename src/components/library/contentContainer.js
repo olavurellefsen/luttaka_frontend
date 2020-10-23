@@ -31,7 +31,7 @@ const ContentContainer = () => {
     {
       image: award,
       title: "Miðlaheiðursløn",
-      to: "/award"
+      to: "/awards"
     },
     {
       image: mediaImage,

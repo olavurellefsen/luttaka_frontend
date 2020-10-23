@@ -17,7 +17,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: process.env.API_URL || `http://localhost:1337`,
+        apiURL: process.env.API_URL || `https://vvadmin.tokni.fo`,
         contentTypes: [
           `article`,
           `schedule`,
@@ -26,6 +26,8 @@ module.exports = {
           `category`,
           'schedule-item',
           'video',
+          `media-awards`,
+          `magazine`
         ],
         singleTypes: [`about`, `registered-text`, `privacy-policy`],
         markdownImages: {
@@ -33,6 +35,7 @@ module.exports = {
             article: ['content'],
             about: ['content'],
             "registered-text": ['content'],
+            "media-awards": ['content'],
             "privacy-policy": ['content']
         },
         queryLimit: 1000,

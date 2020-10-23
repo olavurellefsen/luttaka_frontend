@@ -8,8 +8,7 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 // import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
-import { graphql } from "gatsby"
-
+import { graphql } from 'gatsby'
 
 const Videos = ({ data }) => {
 
@@ -26,7 +25,7 @@ const Videos = ({ data }) => {
       <ContainerStyle>
         {videos.map((video, index) => {
           return (
-            <BackgroundStyle>
+            <BackgroundStyle key={index}>
               <LinkStyle href={video.node.link} key={index}>{video.node.title}
                 <ImageStyle
                   style={{ width: "100%" }}

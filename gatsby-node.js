@@ -50,8 +50,32 @@ exports.createPages = ({ actions, graphql }) => {
     })
   });
 
+  const getMediaAwards = makeRequest(graphql, `
+{
+  allStrapiMediaAwards{
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+    `).then(result => {
+    // Create pages for each media awwards.
+    result.data.allStrapiMediaAwards.edges.forEach(({ node }) => {
+      createPage({
+        path: `awards/${node.id}`,
+        component: path.resolve(`src/templates/media_award.js`),
+        context: {
+          id: node.id,
+        },
+      })
+    })
+  });
+
   // Queries for articles and authors nodes to use in creating pages.
   return Promise.all([
-    getArticles
+    getArticles,
+    getMediaAwards
   ])
 };
