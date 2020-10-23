@@ -31,6 +31,7 @@ const ContainerStyle = styled.div`
 
 const PetalContainer = styled.div`
   display: flex;
+  font-size: 24px;
   ${media.desktop3`
     display: none;
   `}
@@ -42,8 +43,10 @@ const TitleStyle = styled.h3`
   display: none;
   ${media.desktop3`
     display: block;
+    margin-top: 100px;
   `}
   `
+  
 
 export default News
 

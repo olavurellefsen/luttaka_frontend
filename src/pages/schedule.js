@@ -70,7 +70,7 @@ const TitleStyle = styled.h3`
     display: block;
     margin-top: 100px;
   `}
-  `
+`
 
 const Location = styled.div`
   font-size: 20px;

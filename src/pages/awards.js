@@ -19,7 +19,7 @@ const Awards = ({ data }) => {
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
-      <TitleStyle>MIÐLAHEIÐURSLØNIR</TitleStyle>
+      <TitleStyle>MIÐLAHEIÐURSLØN</TitleStyle>
       <ContainerStyle>
         {mediaAwards.map((mediaItem, index) => {
           return (
@@ -54,6 +54,7 @@ const ContainerStyle = styled.div`
 
 const PetalContainer = styled.div`
   display: flex;
+  font-size: 24px;
   ${media.desktop3`
     display: none;
   `}
@@ -72,6 +73,10 @@ const BackgroundStyle = styled.div`
 const TitleStyle = styled.h3`
   color: #58A449;
   font-size: 24px;
+  ${media.desktop3`
+    display: block;
+    margin-top: 100px;
+  `}
 `
 
 const LinkStyle = styled.a`
