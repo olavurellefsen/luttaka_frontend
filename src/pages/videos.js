@@ -72,7 +72,12 @@ const BackgroundStyle = styled.div`
   flex-direction: column;
   margin: 20px;
   background-color: #FFFFFF;
-  width: 450px;
+  max-width: 450px;
+  ${media.phone1`
+    max-width: 330px;
+
+  `}
+  width: 100%;
 `
 
 const TitleStyle = styled.h3`
@@ -92,12 +97,12 @@ const LinkStyle = styled.a`
   justify-content: center;
   font-size: 18px;
   margin: 20px;
-  width: 430px;
+  max-width: 430px;
+
+  width: 100%;
 `
 
 const ImageStyle = styled(Image)`
-  display: flex;
-  flex: 1;
   margin: 20px;
 `
 
@@ -105,6 +110,7 @@ const DateContainer = styled.div`
   display: flex;
   align-self: flex-start;
   margin-left: 10px;
+  color: #74AB58;
 `
 const MarkDownContainer = styled(ReactMarkdown)`
   margin: 20px;
@@ -129,7 +135,7 @@ export const PageQuery = graphql`
          date(formatString: "DD-MM-YYYY")
          thumbnail {
            childImageSharp {
-             fluid(maxWidth: 800, maxHeight: 400) {
+             fluid(maxWidth: 850, maxHeight: 425) {
                  ...GatsbyImageSharpFluid
              }
            }
