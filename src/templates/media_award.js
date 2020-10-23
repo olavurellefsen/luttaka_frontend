@@ -33,7 +33,7 @@ const AwardTemplate = ({ data }) => {
                           alt={alt}
                         />
                       ) : (
-                          <img src={src} alt={alt} height="300" width="600" />
+                          <img src={src} alt={alt} height="200" width="400" />
                         )}
                     </>
                   )
