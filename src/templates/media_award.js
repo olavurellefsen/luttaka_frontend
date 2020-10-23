@@ -27,9 +27,9 @@ const AwardTemplate = ({ data }) => {
                   )
                   return (
                     <>
-                      {image && image.formats?.large.childImageSharp.fixed ? (
+                      {image && image.formats?.large.childImageSharp.fluid ? (
                         <Img
-                          fixed={image.url}
+                          fluid={image.url}
                           alt={alt}
                         />
                       ) : (
