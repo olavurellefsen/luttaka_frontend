@@ -4,9 +4,10 @@ import Img from "gatsby-image"
 const ContentBox = ({item}) => {
 
 
+  console.log("item", item)
   return (
     <ContainerStyle>
-      <ImageStyle fliuid={item.image.data.placeholderImage.childImageSharp.fluid} alt={item.title} isAvatar={item.title === `Ymiskt putl` ? true : false}/>
+      <ImageStyle fluid={item.image.childImageSharp.fluid} alt={item.title} isAvatar={item.title === `Ymiskt putl` ? true : false}/>
       {item.title}
     </ContainerStyle>
   );
