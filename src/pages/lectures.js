@@ -13,8 +13,10 @@ import { useRef } from "react"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
+  const lectures = data.allStrapiLecture?.nodes
   const [open, setOpen] = useState(false)
   const selectedCategory = useRef(null)
+  console.log("data: ", data)
   return (
     <Background>
       <Layout>
@@ -35,7 +37,7 @@ const LecturesPage = ({ data }) => {
               </TextStyle>
               <IconStyle icon={open && selectedCategory.current === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
-            {category.lectures.map((lecture, lectureIndex) => {
+            {lectures.map((lecture, lectureIndex) => {
               return (
                 <LinkStyle key={lectureIndex} href={lecture.link}>
                   <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selectedCategory.current === index}>
@@ -177,8 +179,12 @@ export const PageQuery = graphql`
 query fetchCategoies {
   allStrapiCategory(sort: {fields: id, order: ASC}) {
     nodes {
+      id
       title
-      lectures {
+    }
+  }
+  allStrapiLecture(sort: {fields: Date, order: DESC}) {
+      nodes {
         id
         title
         Date
@@ -186,7 +192,6 @@ query fetchCategoies {
         lecturer {
           name
           organisation
-        }
       }
     }
   }
