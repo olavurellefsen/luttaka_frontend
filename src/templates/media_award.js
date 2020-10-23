@@ -81,8 +81,9 @@ const ContentContainer = styled.div`
 
 const TitleStyle = styled.h2`
   font-size: 18px;
-  height: 70px;
+  max-height: 70px;
   overflow: hidden;
+  margin: 20px;
   `
 
 const GreenTitle = styled(TitleStyle)`
