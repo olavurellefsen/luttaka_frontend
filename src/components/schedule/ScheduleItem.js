@@ -1,27 +1,38 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import Checkbox from "./Checkbox"
 import ReactMarkDown from 'react-markdown';
 
-const ScheduleItem = ({ title, start_time, description, lecturer_name, lecturer_organisation, selectedItems, setSelectedItems}) => {
+const ScheduleItem = ({
+  title,
+  start_time,
+  description,
+  lecturer_name,
+  lecturer_organisation,
+  selectedItems,
+  setSelectedItems,
+  includeCheckbox
+}) => {
   const [addDescription, setAddDescription] = useState(false)
-  return(
-  <Container>
-    <Content onClick={()=>{setAddDescription(!addDescription)}}>
-      <StartTime>{start_time.substring(0,5)}</StartTime>
-      <Title>{title}</Title>
-      <Lecturer>
-        <LecturerName>{lecturer_name}</LecturerName>
-        {lecturer_name && <Seperator>,</Seperator>}
-        <LecturerOrganisation>{lecturer_organisation}</LecturerOrganisation>
-      </Lecturer>
-      {addDescription && <Description source={description} />}
-    </Content>
-    <CheckboxContainer>
-        <Checkbox selectedItems={selectedItems} setSelectedItems={setSelectedItems} title={title}/>
-    </CheckboxContainer>
-  </Container>
-)}
+
+  return (
+    <Container>
+      <Content onClick={() => { setAddDescription(!addDescription) }}>
+        <StartTime>{start_time.substring(0, 5)}</StartTime>
+        <Title>{title}</Title>
+        <Lecturer>
+          <LecturerName>{lecturer_name}</LecturerName>
+          {lecturer_name && <Seperator>,</Seperator>}
+          <LecturerOrganisation>{lecturer_organisation}</LecturerOrganisation>
+        </Lecturer>
+        {addDescription && <Description source={description} />}
+      </Content>
+      {includeCheckbox && <CheckboxContainer>
+        <Checkbox selectedItems={selectedItems} setSelectedItems={setSelectedItems} title={title} />
+      </CheckboxContainer>}
+    </Container>
+  )
+}
 
 const Container = styled.div`
   display: flex;

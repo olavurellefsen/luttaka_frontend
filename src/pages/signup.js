@@ -58,6 +58,7 @@ const Signup = () => {
                         description={item.description}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
+                        includeCheckbox={true}
                       />
                     )
                   })}
