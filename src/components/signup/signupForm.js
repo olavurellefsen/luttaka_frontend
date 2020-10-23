@@ -57,7 +57,7 @@ const SignupForm = ({ selectedItems }) => {
     if (isSubmitted && isSubmitSuccessful && emailDraft && selectedItems.length > 0) {
       SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
       let olavursEmail = emailDraft
-      olavursEmail.to = "oe@tokni"
+      olavursEmail.to = "oe@tokni.fo"
       SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
       navigate(`/registered`)
