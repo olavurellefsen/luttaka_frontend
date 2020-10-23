@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
-// import SendEmail from '../../utils/mail/SendEmail'
-// import { navigate } from 'gatsby'
+import SendEmail from '../../utils/mail/SendEmail'
+import { navigate } from 'gatsby'
 
 
 const SignupForm = ({ selectedItems }) => {
@@ -11,7 +11,6 @@ const SignupForm = ({ selectedItems }) => {
   const { isSubmitSuccessful, isSubmitted } = formState;
 
   const [emailDraft, setEmailDraft] = useState(``)
-
   const onSubmit = async data => {
 
     const {
@@ -55,16 +54,16 @@ const SignupForm = ({ selectedItems }) => {
   }
 
   useEffect(() => {
-    // if (isSubmitted && isSubmitSuccessful && emailDraft && selectedItems.length > 0) {
-    //   SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
-    //   let olavursEmail = emailDraft
-    //   olavursEmail.to = "oe@tokni"
-    //   SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
+    if (isSubmitted && isSubmitSuccessful && emailDraft && selectedItems.length > 0) {
+      SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, emailDraft)
+      let olavursEmail = emailDraft
+      olavursEmail.to = "oe@tokni.fo"
+      SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, olavursEmail)
 
-    //   navigate(`/registered`)
-    // } else if (isSubmitted && selectedItems.length === 0) {
-    //   alert("Vinaliga vel ein fyrilestur")
-    // }
+      navigate(`/registered`)
+    } else if (isSubmitted && selectedItems.length === 0) {
+      alert("Vinaliga vel ei fyrilest")
+    }
 
   }, [isSubmitted, isSubmitSuccessful, emailDraft, selectedItems])
 
@@ -106,7 +105,7 @@ const SignupForm = ({ selectedItems }) => {
           {errors.accepted_terms && <ErrorParagraph>Tú mást góðkenna treytirnar fyri at skráseta teg</ErrorParagraph>}
         </LabelContainer>
 
-        <SubmitButton type="submit" title="Skrásetingin opnar í morgin kl 12">Skráset</SubmitButton>
+        <SubmitButton type="submit" >Skráset</SubmitButton>
       </FormStyle>
     </ContainerStyle>
   )
@@ -181,7 +180,7 @@ const LabelContainer = styled.div`
 `
 
 const SubmitButton = styled.button`
-  background-color: gray;
+  background-color: #74AB58;
   color: white;
   width: 95%;
   height: 40px;
@@ -190,7 +189,7 @@ const SubmitButton = styled.button`
   &:active {
     opacity: 0.1;
   }
-  cursor: not-allowed;
+  cursor: pointer;
 `
 
 const CheckboxStyle = styled(InputStyle)`
