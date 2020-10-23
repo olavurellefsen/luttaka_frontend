@@ -13,13 +13,34 @@ body {
   font-family: Lato;
   overflow-x: hidden;
   margin: 0;
+  /* min-height: 800px; */
 }
 body > :first-child{
   width: 100vw;
   height: 100vh;
+  /* min-height: 800px; */
+
 }
+
 
 #gatsby-focus-wrapper {
   width: 100vw;
   height: 100vh;
+  /* min-height: 800px; */
+}
+
+
+html, body, #___gatsby {
+  height: 100%;
+  /* min-height: 800px; */
+}
+
+
+div[role="group"][tabindex] {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  /* min-height: 800px; */
+
 }

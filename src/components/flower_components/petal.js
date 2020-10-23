@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
+import { media } from '../../utils/mediaTemplate'
 
 const Petal = ({ color, index, name, imageSource, opened, navigate }) => {
   return (
@@ -23,7 +24,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  z-index: 4;
+  z-index: 1;
   cursor: pointer;
   ${({ opened }) =>
     opened && css
@@ -36,6 +37,9 @@ const ContainerStyle = styled.div`
 
 const ImgStyle = styled.img`
   height: 120px;
+  ${media.phone1`
+    height: 95px;
+  `}
 `
 
 export default Petal;

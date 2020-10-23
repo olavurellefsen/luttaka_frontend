@@ -64,7 +64,7 @@ const slideInLeft = keyframes`
 
 const ContainerStyle = styled.div`
   position: absolute;
-  z-index: 10;
+  z-index: 30;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   width: 250px;
