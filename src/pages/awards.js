@@ -19,7 +19,7 @@ const Awards = ({ data }) => {
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
-      <TitleStyle>Miðlaheiðurslønir</TitleStyle>
+      <TitleStyle>MIÐLAHEIÐURSLØNIR</TitleStyle>
       <ContainerStyle>
         {mediaAwards.map((mediaItem, index) => {
           return (

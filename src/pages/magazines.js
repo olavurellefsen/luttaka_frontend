@@ -18,7 +18,7 @@ const Magazines = ({ data }) => {
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
-      <TitleStyle>Vísindavøkubløð</TitleStyle>
+      <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
       <ContainerStyle>
         {magazines.map((magazine, index) => {
           return (

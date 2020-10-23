@@ -79,6 +79,7 @@ const PetalContainer = styled.div`
 const TitleStyle = styled.h3`
   color: #58A449;
   font-size: 24px;
+  margin-top: 130px;
 `
 
 // const LinkStyle = styled.a`

@@ -16,7 +16,7 @@ const News = ({ data }) => {
         <PetalContainer name="petal container">
           <PetalMenu />
         </PetalContainer>
-        <TitleStyle>Tíðindi</TitleStyle>
+        <TitleStyle>TÍÐINDI</TitleStyle>
         <NewsContainer nodes={data.allStrapiArticle.nodes} />
       </Layout>
     </ContainerStyle>

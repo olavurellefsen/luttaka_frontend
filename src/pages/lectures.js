@@ -22,7 +22,7 @@ const LecturesPage = ({ data }) => {
         <PetalContainer name="petal container">
           <PetalMenu />
         </PetalContainer>
-        <TitleStyle>VÍSINDAVØKU SAVN - FRAMLØGUR</TitleStyle>
+        <TitleStyle>FRAMLØGUR</TitleStyle>
         {/* <SearchBar /> */}
         {categories.map((category, index) => (
           <HeaderContainer key={index}>
