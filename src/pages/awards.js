@@ -67,7 +67,9 @@ const BackgroundStyle = styled.div`
   flex-direction: column;
   margin: 20px;
   background-color: #FFFFFF;
-  width: 450px;
+  max-width: 460px;
+  width: 90%;
+
 `
 
 const TitleStyle = styled.h3`
@@ -91,7 +93,8 @@ const LinkStyle = styled.a`
   justify-content: center;
   font-size: 18px;
   margin: 20px;
-  width: 430px;
+  max-width: 420px;
+  width: 100%;
 `
 
 // const ImageStyle = styled(Image)`

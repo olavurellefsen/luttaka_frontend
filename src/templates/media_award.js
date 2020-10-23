@@ -104,9 +104,12 @@ const MarkDownContainer = styled(ReactMarkdown)`
 
 const ParagraphImageStyle = styled.p`
   display: flex;
+    margin: 20px;
+
   img {
-    margin: auto;
+    width: 100%;
   }
+
 `
 
 export default AwardTemplate
