@@ -29,6 +29,8 @@ const BackgroundStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-betweem;
+  // min-height: 800px;
+
 `
 
 const Container = styled.div`
@@ -40,6 +42,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-self: center;
+  // min-height: 800px;
 `
 
 export default Layout

@@ -19,7 +19,10 @@ const ContainerStyle = styled.div`
   width: 100%;
   height: 100%;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+  justify-cotent: flex-end;
+  // min-height: 800px;
+  position: relative;
 `
 
 export default FrontPageComponent;
