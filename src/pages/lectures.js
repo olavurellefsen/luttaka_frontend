@@ -13,6 +13,7 @@ import { useRef } from "react"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
+  const lectures = data.allStrapiLecture?.nodes
   const [open, setOpen] = useState(false)
   const selectedCategory = useRef(null)
   return (
@@ -35,14 +36,14 @@ const LecturesPage = ({ data }) => {
               </TextStyle>
               <IconStyle icon={open && selectedCategory.current === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
-            {category.lectures.map((lecture, lectureIndex) => {
+            {lectures.map((lecture, lectureIndex) => {
               return (
                 <LinkStyle key={lectureIndex} href={lecture.link}>
                   <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selectedCategory.current === index}>
                     <HeaderTitleStyle source={lecture.title} />
                     <ContentStyle>
                       <div>{lecture.Date}</div>
-                      <LecturedContainer><div>{lecture.lecturer.name}</div>, <div>{lecture.lecturer.organisation}</div></LecturedContainer>
+                      <LecturedContainer><div>{lecture.lecturer.name}</div><div>{lecture.lecturer.organisation}</div></LecturedContainer>
                     </ContentStyle>
                   </ListItemStyle>
                 </LinkStyle>
@@ -114,6 +115,7 @@ const ContentStyle = styled.div`
 
 const LecturedContainer = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   width: 50%;
   margin: 0 20px;
@@ -177,16 +179,19 @@ export const PageQuery = graphql`
 query fetchCategoies {
   allStrapiCategory(sort: {fields: id, order: ASC}) {
     nodes {
+      id
       title
-      lectures {
+    }
+  }
+  allStrapiLecture(sort: {fields: Date, order: DESC}) {
+      nodes {
         id
         title
-        Date
+        Date(formatString: "DD-MM-YYYY")
         link
         lecturer {
           name
           organisation
-        }
       }
     }
   }

@@ -95,6 +95,7 @@ const LinkStyle = styled.a`
   margin: 20px;
   max-width: 420px;
   width: 100%;
+  min-height: 55px;
 `
 
 // const ImageStyle = styled(Image)`
@@ -116,7 +117,7 @@ export default Awards
 
 export const PageQuery = graphql`
  query fetchMediaAwards {
-   allStrapiMediaAwards{
+   allStrapiMediaAwards(sort: {fields: id, order: DESC}){
      edges {
        node {
          id
