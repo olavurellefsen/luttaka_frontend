@@ -18,6 +18,7 @@ const Signup = () => {
       id
       start_time
       title
+      FullyBooked
       lecturer {
         name
         organisation
@@ -58,7 +59,7 @@ const Signup = () => {
                         description={item.description}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
-                        includeCheckbox={true}
+                        includeCheckbox={item.FullyBooked === true ? false : true}
                       />
                     )
                   })}
