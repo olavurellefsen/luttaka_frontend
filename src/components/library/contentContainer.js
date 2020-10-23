@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ContentBox from './contentBox';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 // import SearchBar from '../searchBar';
+import avatar from '../gatsby_images/avatar'
+
 
 const ContentContainer = () => {
 
@@ -14,17 +16,14 @@ query PhotosQuery {
       node {
         childImageSharp {
           fluid(maxWidth:  280, maxHeight: 224) {
-                originalName
               ...GatsbyImageSharpFluid
-
           }
         }
       }
     }
   }
 }
-
-  `)
+`)
 
 
 
@@ -55,7 +54,7 @@ query PhotosQuery {
       to: "/media"
     },
     {
-      image: data.images.edges[0].node,
+      image: avatar,
       title: "Ymiskt putl",
       to: "/diverse"
     },
