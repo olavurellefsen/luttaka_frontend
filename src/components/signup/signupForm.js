@@ -29,7 +29,7 @@ const SignupForm = ({ selectedItems }) => {
     }
     if (orderedList.length > 0) {
       setEmailDraft({
-        to: `kr@tokni.com`,
+        to: `gransking@gransking.fo`,
         subject: `Nýggj skráseting`,
         html: `<h1>Ein nýggjur luttakari er skrásettur</h1> <br/>
                 <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
