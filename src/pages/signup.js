@@ -60,6 +60,7 @@ const Signup = () => {
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
                         includeCheckbox={item.FullyBooked === true ? false : true}
+                        FullyBooked={item.FullyBooked}
                       />
                     )
                   })}

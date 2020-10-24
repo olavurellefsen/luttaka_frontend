@@ -19,6 +19,7 @@ const backend_schedule = graphql`
         organisation
       }
       description
+      FullyBooked
     }
   }
 }`
@@ -48,6 +49,8 @@ const Schedule = () => (
                 lecturer_name={item.lecturer?.name}
                 lecturer_organisation={item.lecturer?.organisation}
                 description={item.description}
+                includeCheckbox={false}
+                FullyBooked={item.FullyBooked}
               />
             )})}
           </ScheduleItemList>
