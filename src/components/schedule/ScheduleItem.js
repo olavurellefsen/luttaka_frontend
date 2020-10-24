@@ -30,7 +30,7 @@ const ScheduleItem = ({
       {includeCheckbox && <CheckboxContainer>
         <Checkbox selectedItems={selectedItems} setSelectedItems={setSelectedItems} title={title} />
       </CheckboxContainer>}
-      {!includeCheckbox && <Full>Fult teknað</Full>}
+      
     </Container>
   )
 }
@@ -43,7 +43,7 @@ const Container = styled.div`
   min-width: 200px;
   margin: 0 20px;
 `
-const Full = styled.div`
+/* const Full = styled.div`
   position: absolute;
   color: red;
   opacity: 0.7;
@@ -51,7 +51,7 @@ const Full = styled.div`
   margin-top: 0px;
   margin-left: 60px;
   font-size: 18px;
-`
+` */
 const Content = styled.div`
   display: flex;
   flex: 1;
