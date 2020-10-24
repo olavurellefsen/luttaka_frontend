@@ -27,9 +27,9 @@ const ScheduleItem = ({
         </Lecturer>
         {addDescription && <Description source={description} />}
       </Content>
-      {includeCheckbox && <CheckboxContainer>
+      <CheckboxContainer>
         <Checkbox selectedItems={selectedItems} setSelectedItems={setSelectedItems} title={title} />
-      </CheckboxContainer>}
+      </CheckboxContainer>
       
     </Container>
   )
