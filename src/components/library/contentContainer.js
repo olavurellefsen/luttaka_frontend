@@ -14,6 +14,7 @@ query PhotosQuery {
     totalCount
     edges {
       node {
+        name
         childImageSharp {
           fluid(maxWidth:  280, maxHeight: 224) {
               ...GatsbyImageSharpFluid
@@ -25,31 +26,31 @@ query PhotosQuery {
 }
 `)
 
-
+  console.log("hey", data.images.edges.filter((item) => item.node.name === "movies"))
 
   const content = [
     {
-      image: data.images.edges[1].node,
+      image: data.images.edges.filter((item) => item.node.name === "movies")[0].node,
       title: "Filmar",
       to: "/videos"
     },
     {
-      image: data.images.edges[4].node,
+      image: data.images.edges.filter((item) => item.node.name === "lecture")[0].node,
       title: "Framløgur",
       to: "/lectures"
     },
     {
-      image: data.images.edges[2].node,
+      image: data.images.edges.filter((item) => item.node.name === "magazine")[0].node,
       title: "Vísindavøkubløð",
       to: "/magazines"
     },
     {
-      image: data.images.edges[3].node,
+      image: data.images.edges.filter((item) => item.node.name === "award")[0].node,
       title: "Miðlaheiðursløn",
       to: "/awards"
     },
     {
-      image: data.images.edges[5].node,
+      image: data.images.edges.filter((item) => item.node.name === "media")[0].node,
       title: "Í miðlunum",
       to: "/media"
     },
