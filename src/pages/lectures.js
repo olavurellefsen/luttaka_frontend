@@ -9,13 +9,12 @@ import { graphql } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
-import { useRef } from "react"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
-  const lectures = data.allStrapiLecture?.nodes
   const [open, setOpen] = useState(false)
-  const selectedCategory = useRef(null)
+  const [selCat, setSelCat] = useState(null)
+
   return (
     <Background>
       <Layout>
@@ -28,18 +27,32 @@ const LecturesPage = ({ data }) => {
         {categories.map((category, index) => (
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {
-              setOpen(!open)
-              selectedCategory.current = index
+              if(selCat === index) {
+                  setSelCat(null)
+                  setOpen(false)
+                }
+              else {
+                setOpen(true)
+                setSelCat(index)
+              }
             }} >
               <TextStyle>
                 {category.title}
               </TextStyle>
-              <IconStyle icon={open && selectedCategory.current === index ? faChevronUp : faChevronDown} />
+              <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
-            {lectures.map((lecture, lectureIndex) => {
+            {category.lectures.sort((a, b) => {
+              const [dayA, monthA, yearA] = a.Date.split("-")
+              const aDate = new Date(yearA, monthA-1, dayA)
+
+              const [dayB, monthB, yearB] = b.Date.split("-")
+              const bDate = new Date(yearB, monthB-1, dayB)
+
+              return bDate - aDate
+            }).map((lecture, lectureIndex) => {
               return (
                 <LinkStyle key={lectureIndex} href={lecture.link}>
-                  <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selectedCategory.current === index}>
+                  <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selCat === index}>
                     <HeaderTitleStyle source={lecture.title} />
                     <ContentStyle>
                       <div>{lecture.Date}</div>
@@ -73,6 +86,7 @@ const PetalContainer = styled.div`
 const TitleStyle = styled.h3`
   color: #58A449;
   font-size: 24px;
+  cursor: pointer;
   ${media.desktop3`
     display: block;
     margin-top: 100px;
@@ -97,7 +111,8 @@ const HeaderStyle = styled.div`
   background-color: #FFFFFF;
   max-width: 540px;
   width: 100%;
-  box-shadow: 0px 0px 5px #00000029
+  box-shadow: 0px 0px 5px #00000029;
+  cursor: pointer;
 `
 const HeaderTitleStyle = styled(ReactMarkdown)`
   margin: 0 20px;
@@ -181,17 +196,16 @@ query fetchCategoies {
     nodes {
       id
       title
-    }
-  }
-  allStrapiLecture(sort: {fields: Date, order: DESC}) {
-      nodes {
+      lectures {
         id
         title
-        Date(formatString: "DD-MM-YYYY")
         link
-        lecturer {
+        Date(formatString: "DD-MM-YYYY")
+        lecturer{
+          id
           name
           organisation
+        }
       }
     }
   }
