@@ -1,14 +1,16 @@
 import { graphql } from 'gatsby'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import NewsContainer from '../components/news/newsContainer'
+import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
 
 
 const News = ({ data }) => {
+  const [input, setInput] = useState(``)
   return (
     <ContainerStyle>
       <Layout>
@@ -16,8 +18,9 @@ const News = ({ data }) => {
         <PetalContainer name="petal container">
           <PetalMenu />
         </PetalContainer>
+        <SearchBar setInput={setInput} />
         <TitleStyle>TÍÐINDI</TitleStyle>
-        <NewsContainer nodes={data.allStrapiArticle.nodes} />
+        <NewsContainer nodes={data.allStrapiArticle.nodes} input={input}/>
       </Layout>
     </ContainerStyle>
   )
@@ -47,7 +50,7 @@ const TitleStyle = styled.h3`
     margin-top: 100px;
   `}
   `
-  
+
 
 export default News
 

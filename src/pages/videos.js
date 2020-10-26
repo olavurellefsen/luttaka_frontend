@@ -1,19 +1,19 @@
 
 import Image from 'gatsby-image'
-import React from 'react'
+import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
-// import SearchBar from '../components/searchBar'
+import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
 
 const Videos = ({ data }) => {
 
   const videos = data.allStrapiVideo.edges
-
+  const [input, setInput] = useState(``)
   return (
       <Layout>
         <MenuContainer />
@@ -21,9 +21,9 @@ const Videos = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>FILMAR</TitleStyle>
-        {/* <SearchBar /> */}
+        <SearchBar setInput={setInput} />
       <ContainerStyle>
-        {videos.map((video, index) => {
+        {videos.filter((video) => video.node.title.toLowerCase().match(input.toLowerCase())).map((video, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle href={video.node.link} key={index}>{video.node.title}

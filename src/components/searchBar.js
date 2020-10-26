@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SearchBar = () => {
+const SearchBar = ({ setInput}) => {
 
   return (
     <ContainerStyle>
-      <InputStyle placeholder="Leita" />
+      <InputStyle placeholder="Leita" onChange={(e) => setInput(e.target.value)}/>
     </ContainerStyle>
   );
 };

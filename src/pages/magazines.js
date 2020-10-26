@@ -1,26 +1,28 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
+import SearchBar from '../components/searchBar'
 
 
 const Magazines = ({ data }) => {
 
   const magazines = data.allStrapiMagazine.edges
-
+  const [input, setInput] = useState(``)
   return (
     <Layout>
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
+      <SearchBar setInput={setInput}/>
       <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
       <ContainerStyle>
-        {magazines.map((magazine, index) => {
+        {magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).map((magazine, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle href={magazine.node.link} key={index}>

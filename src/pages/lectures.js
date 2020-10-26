@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 import styled, { css, keyframes } from "styled-components"
 import MenuContainer from "../components/header/menuContainer"
 import PetalMenu from "../components/front_page_large_screens/petalMenu"
-// import SearchBar from "../components/searchBar"
+import SearchBar from "../components/searchBar"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from "gatsby"
 import ReactMarkdown from "react-markdown"
@@ -15,6 +15,7 @@ const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
   const lectures = data.allStrapiLecture?.nodes
   const [open, setOpen] = useState(false)
+  const [input, setInput] = useState(``)
   const selectedCategory = useRef(null)
   return (
     <Background>
@@ -24,7 +25,7 @@ const LecturesPage = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>FRAMLØGUR</TitleStyle>
-        {/* <SearchBar /> */}
+        <SearchBar setInput={setInput} />
         {categories.map((category, index) => (
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {
@@ -36,7 +37,7 @@ const LecturesPage = ({ data }) => {
               </TextStyle>
               <IconStyle icon={open && selectedCategory.current === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
-            {lectures.map((lecture, lectureIndex) => {
+            {lectures.filter((lecture) => lecture.title.toLowerCase().match(input.toLowerCase())).map((lecture, lectureIndex) => {
               return (
                 <LinkStyle key={lectureIndex} href={lecture.link}>
                   <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selectedCategory.current === index}>
