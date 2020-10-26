@@ -42,27 +42,30 @@ const LecturesPage = ({ data }) => {
               </TextStyle>
               <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
-            {category.lectures.sort((a, b) => {
-              const [dayA, monthA, yearA] = a.Date.split("-")
-              const aDate = new Date(yearA, monthA-1, dayA)
+            {category.lectures.filter(
+              (lectureItem) => 
+                lectureItem.title.toLowerCase().match(input.toLowerCase())).sort((a, b) => {
+                  const [dayA, monthA, yearA] = a.Date.split("-")
+                  const aDate = new Date(yearA, monthA-1, dayA)
 
-              const [dayB, monthB, yearB] = b.Date.split("-")
-              const bDate = new Date(yearB, monthB-1, dayB)
+                  const [dayB, monthB, yearB] = b.Date.split("-")
+                  const bDate = new Date(yearB, monthB-1, dayB)
 
-              return bDate - aDate
-            }).map((lecture, lectureIndex) => {
-              return (
-                <LinkStyle key={lectureIndex} href={lecture.link}>
-                  <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selCat === index}>
-                    <HeaderTitleStyle source={lecture.title} />
-                    <ContentStyle>
-                      <div>{lecture.Date}</div>
-                      <LecturedContainer><div>{lecture.lecturer.name}</div><div>{lecture.lecturer.organisation}</div></LecturedContainer>
-                    </ContentStyle>
-                  </ListItemStyle>
-                </LinkStyle>
-              )
-            })}
+                  return bDate - aDate
+                }).map((lecture, lectureIndex) => {
+                  return (
+                    <LinkStyle key={lectureIndex} href={lecture.link}>
+                      <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selCat === index}>
+                        <HeaderTitleStyle source={lecture.title} />
+                        <ContentStyle>
+                          <div>{lecture.Date}</div>
+                          <LecturedContainer><div>{lecture.lecturer.name}</div><div>{lecture.lecturer.organisation}</div></LecturedContainer>
+                        </ContentStyle>
+                      </ListItemStyle>
+                    </LinkStyle>
+                  )
+                })
+            }
           </HeaderContainer>
         ))}
       </Layout>

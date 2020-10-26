@@ -24,7 +24,9 @@ const Awards = ({ data }) => {
       <SearchBar setInput={setInput} />
       <TitleStyle>MIÐLAHEIÐURSLØN</TitleStyle>
       <ContainerStyle>
-        {mediaAwards.filter((mediaItem) => mediaItem.node.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
+        {mediaAwards.filter(
+          (mediaItem) => 
+            mediaItem.node.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
           return (
             <BackgroundStyle>
               <LinkStyle href={`awards/${mediaItem.node.id}`} key={index}>
