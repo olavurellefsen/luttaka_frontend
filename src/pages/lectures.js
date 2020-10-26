@@ -13,7 +13,6 @@ import { useRef } from "react"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
-  const lectures = data.allStrapiLecture?.nodes
   const [open, setOpen] = useState(false)
   const selectedCategory = useRef(null)
   return (
@@ -36,7 +35,15 @@ const LecturesPage = ({ data }) => {
               </TextStyle>
               <IconStyle icon={open && selectedCategory.current === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
-            {lectures.map((lecture, lectureIndex) => {
+            {category.lectures.sort((a, b) => {
+              const [dayA, monthA, yearA] = a.Date.split("-")
+              const aDate = new Date(yearA, monthA-1, dayA)
+
+              const [dayB, monthB, yearB] = b.Date.split("-")
+              const bDate = new Date(yearB, monthB-1, dayB)
+
+              return bDate - aDate
+            }).map((lecture, lectureIndex) => {
               return (
                 <LinkStyle key={lectureIndex} href={lecture.link}>
                   <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selectedCategory.current === index}>
@@ -181,17 +188,16 @@ query fetchCategoies {
     nodes {
       id
       title
-    }
-  }
-  allStrapiLecture(sort: {fields: Date, order: DESC}) {
-      nodes {
+      lectures {
         id
         title
-        Date(formatString: "DD-MM-YYYY")
         link
-        lecturer {
+        Date(formatString: "DD-MM-YYYY")
+        lecturer{
+          id
           name
           organisation
+        }
       }
     }
   }
