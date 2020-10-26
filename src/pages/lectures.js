@@ -167,10 +167,13 @@ const ListItemStyle = styled.div`
   `
 
 const LinkStyle = styled.a`
-  text-decoration: none;
   color: black;
   max-width: 540px;
   width: 100%;
+  text-decoration: none;
+  &:visited {
+      color: rgba(128, 128, 128, 0.1);
+  }
 `
 
 export default LecturesPage
