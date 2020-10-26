@@ -26,7 +26,6 @@ query PhotosQuery {
 }
 `)
 
-  console.log("hey", data.images.edges.filter((item) => item.node.name === "movies"))
 
   const content = [
     {
