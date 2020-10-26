@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 // import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
@@ -7,11 +7,13 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
+import SearchBar from '../components/searchBar'
 
 
 const Awards = ({ data }) => {
 
   const mediaAwards = data.allStrapiMediaAwards.edges
+  const [input, setInput] = useState(``)
 
   return (
     <Layout>
@@ -19,9 +21,12 @@ const Awards = ({ data }) => {
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
+      <SearchBar setInput={setInput} />
       <TitleStyle>MIÐLAHEIÐURSLØN</TitleStyle>
       <ContainerStyle>
-        {mediaAwards.map((mediaItem, index) => {
+        {mediaAwards.filter(
+          (mediaItem) => 
+            mediaItem.node.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
           return (
             <BackgroundStyle>
               <LinkStyle href={`awards/${mediaItem.node.id}`} key={index}>

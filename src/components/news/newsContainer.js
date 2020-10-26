@@ -5,13 +5,13 @@ import { media } from "../../utils/mediaTemplate"
 // import SearchBar from '../searchBar'
 import Img from "gatsby-image"
 
-const NewsContainer = ({ nodes }) => {
+const NewsContainer = ({ nodes, input }) => {
 
   return (
     <ContainerStyle>
       {/* <SearchBar /> */}
       <RowContainer>
-        {nodes?.map((article, index) => {
+        {nodes?.filter((article) => article.title.toLowerCase().match(input.toLowerCase())).map((article, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle to={article.id}>

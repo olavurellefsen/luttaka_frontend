@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 import styled, { css, keyframes } from "styled-components"
 import MenuContainer from "../components/header/menuContainer"
 import PetalMenu from "../components/front_page_large_screens/petalMenu"
-// import SearchBar from "../components/searchBar"
+import SearchBar from "../components/searchBar"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from "gatsby"
 import ReactMarkdown from "react-markdown"
@@ -13,6 +13,7 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
   const [open, setOpen] = useState(false)
+  const [input, setInput] = useState(``)
   const [selCat, setSelCat] = useState(null)
 
   return (
@@ -23,7 +24,7 @@ const LecturesPage = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>FRAMLØGUR</TitleStyle>
-        {/* <SearchBar /> */}
+        <SearchBar setInput={setInput} />
         {categories.map((category, index) => (
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {
@@ -41,27 +42,30 @@ const LecturesPage = ({ data }) => {
               </TextStyle>
               <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />
             </HeaderStyle>
-            {category.lectures.sort((a, b) => {
-              const [dayA, monthA, yearA] = a.Date.split("-")
-              const aDate = new Date(yearA, monthA-1, dayA)
+            {category.lectures.filter(
+              (lectureItem) => 
+                lectureItem.title.toLowerCase().match(input.toLowerCase())).sort((a, b) => {
+                  const [dayA, monthA, yearA] = a.Date.split("-")
+                  const aDate = new Date(yearA, monthA-1, dayA)
 
-              const [dayB, monthB, yearB] = b.Date.split("-")
-              const bDate = new Date(yearB, monthB-1, dayB)
+                  const [dayB, monthB, yearB] = b.Date.split("-")
+                  const bDate = new Date(yearB, monthB-1, dayB)
 
-              return bDate - aDate
-            }).map((lecture, lectureIndex) => {
-              return (
-                <LinkStyle key={lectureIndex} href={lecture.link}>
-                  <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selCat === index}>
-                    <HeaderTitleStyle source={lecture.title} />
-                    <ContentStyle>
-                      <div>{lecture.Date}</div>
-                      <LecturedContainer><div>{lecture.lecturer.name}</div><div>{lecture.lecturer.organisation}</div></LecturedContainer>
-                    </ContentStyle>
-                  </ListItemStyle>
-                </LinkStyle>
-              )
-            })}
+                  return bDate - aDate
+                }).map((lecture, lectureIndex) => {
+                  return (
+                    <LinkStyle key={lectureIndex} href={lecture.link}>
+                      <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selCat === index}>
+                        <HeaderTitleStyle source={lecture.title} />
+                        <ContentStyle>
+                          <div>{lecture.Date}</div>
+                          <LecturedContainer><div>{lecture.lecturer.name}</div><div>{lecture.lecturer.organisation}</div></LecturedContainer>
+                        </ContentStyle>
+                      </ListItemStyle>
+                    </LinkStyle>
+                  )
+                })
+            }
           </HeaderContainer>
         ))}
       </Layout>

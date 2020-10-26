@@ -6,10 +6,8 @@ import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 
-
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
-
   return (
     <Layout>
       <ContainerStyle>
