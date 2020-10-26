@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import Checkbox from "./Checkbox"
 import ReactMarkDown from 'react-markdown';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const ScheduleItem = ({
   title,
@@ -19,11 +21,15 @@ const ScheduleItem = ({
     <Container>
       <Content onClick={() => { setAddDescription(!addDescription) }}>
         <StartTime>{start_time.substring(0, 5)}</StartTime>
-        <Title>{title}</Title>
+        <TitleContainer>
+          <Title>{title}</Title>
+          {description && <FontAwesomeIcon icon={addDescription ? faChevronUp : faChevronDown} />}
+        </TitleContainer>
         <Lecturer>
           <LecturerName>{lecturer_name}</LecturerName>
           {lecturer_name && <Seperator>,</Seperator>}
           <LecturerOrganisation>{lecturer_organisation}</LecturerOrganisation>
+
         </Lecturer>
         {addDescription && <Description source={description} />}
       </Content>
@@ -68,6 +74,13 @@ const StartTime = styled.div`
   color: #58A449;
   font-size: 18px;
 `
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
 const Title = styled.div`
   color: #222222;
   font-size: 18px;
