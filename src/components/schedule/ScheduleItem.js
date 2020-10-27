@@ -23,7 +23,7 @@ const ScheduleItem = ({
         <StartTime>{start_time.substring(0, 5)}</StartTime>
         <TitleContainer>
           <Title>{title}</Title>
-          {description && <FontAwesomeIcon icon={addDescription ? faChevronUp : faChevronDown} />}
+          {description && description !== "" && <FontAwesomeIcon icon={addDescription ? faChevronUp : faChevronDown} />}
         </TitleContainer>
         <Lecturer>
           <LecturerName>{lecturer_name}</LecturerName>

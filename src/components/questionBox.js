@@ -23,7 +23,7 @@ const QuestionBox = ({ opened, setOpened, large_screen }) => {
         <TextStyle>granskara eitthvørt?</TextStyle>
         <br />
         <TextStyle>Skriva til okkara</TextStyle>
-        <a href="mailto:annika@gransking.fo" aria-label="email link"><EmailButton aria-label="email icon" icon={faEnvelope}/></a>
+        <a href="mailto:gransking@gransking.fo" aria-label="email link"><EmailButton aria-label="email icon" icon={faEnvelope}/></a>
       </CircleStyle>
     </ContainerStyle>
   )
