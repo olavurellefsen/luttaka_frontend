@@ -25,7 +25,14 @@ const LecturesPage = ({ data }) => {
         </PetalContainer>
         <TitleStyle>FRAMLØGUR</TitleStyle>
         <SearchBar setInput={setInput} />
-        {categories.map((category, index) => (
+        {categories.map((category, index) => {
+          console.log("number of hits:", category.lectures.filter(
+              (lectureItem) => 
+                lectureItem.title.toLowerCase().match(input.toLowerCase())).length)
+            if(category.lectures.filter(
+              (lectureItem) => 
+                lectureItem.title.toLowerCase().match(input.toLowerCase())).length)
+          return(
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {
               if(selCat === index) {
@@ -40,7 +47,7 @@ const LecturesPage = ({ data }) => {
               <TextStyle>
                 {category.title}
               </TextStyle>
-              <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />
+              {!input && <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />}
             </HeaderStyle>
             {category.lectures.filter(
               (lectureItem) => 
@@ -55,7 +62,7 @@ const LecturesPage = ({ data }) => {
                 }).map((lecture, lectureIndex) => {
                   return (
                     <LinkStyle key={lectureIndex} href={lecture.link}>
-                      <ListItemStyle name="listItemstyle" key={lectureIndex} selected={open && selCat === index}>
+                      <ListItemStyle name="listItemstyle" key={lectureIndex} selected={input || (open && selCat === index)}>
                         <HeaderTitleStyle source={lecture.title} />
                         <ContentStyle>
                           <div>{lecture.Date}</div>
@@ -67,7 +74,7 @@ const LecturesPage = ({ data }) => {
                 })
             }
           </HeaderContainer>
-        ))}
+        )})}
       </Layout>
     </Background>
   )
