@@ -26,39 +26,46 @@ const backend_schedule = graphql`
 
 
 const Schedule = () => (
-  <Layout>
-    <SEO title="schedule" />
+  <Background>
+    <Layout>
+      <SEO title="SKRÁ 2020" />
 
-    <MenuContainer />
-    <PetalContainer name="petal container">
-          <PetalMenu />
-        </PetalContainer>
-        <TitleStyle>SKRÁ 2020</TitleStyle>
-    <StaticQuery
-      query={backend_schedule}
-      render={
-        data=>(
-          <ScheduleItemList>
-            <Location>Kongshøll</Location>
-            {data.allStrapiScheduleItem.nodes.map(item => {
-              return(
-              <ScheduleItem
-                key={item.id}
-                title={item.title}
-                start_time={item.start_time}
-                lecturer_name={item.lecturer?.name}
-                lecturer_organisation={item.lecturer?.organisation}
-                description={item.description}
-                includeCheckbox={false}
-                FullyBooked={item.FullyBooked}
-              />
-            )})}
-          </ScheduleItemList>
-        )
-      }
-    />
-  </Layout>
+      <MenuContainer />
+      <PetalContainer name="petal container">
+            <PetalMenu />
+          </PetalContainer>
+          <TitleStyle>SKRÁ 2020</TitleStyle>
+      <StaticQuery
+        query={backend_schedule}
+        render={
+          data=>(
+            <ScheduleItemList>
+              <Location>Kongshøll</Location>
+              {data.allStrapiScheduleItem.nodes.map(item => {
+                return(
+                <ScheduleItem
+                  key={item.id}
+                  title={item.title}
+                  start_time={item.start_time}
+                  lecturer_name={item.lecturer?.name}
+                  lecturer_organisation={item.lecturer?.organisation}
+                  description={item.description}
+                  includeCheckbox={false}
+                  FullyBooked={item.FullyBooked}
+                />
+              )})}
+            </ScheduleItemList>
+          )
+        }
+      />
+    </Layout>
+  </Background>
 )
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`
 
 const PetalContainer = styled.div`
   display: flex;

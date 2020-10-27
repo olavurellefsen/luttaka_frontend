@@ -110,7 +110,7 @@ const ContainerStyle = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 280px;
-  animation: ${SlideUp};
+  ${'' /* animation: ${SlideUp}; */}
   animation-duration: 1.2s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
@@ -126,8 +126,8 @@ const LinkStyle = styled(Link)`
 
 const ImageStyle = styled.img`
   position: relative;
-  opacity: 0;
-  animation: ${FadeIn};
+  opacity: 1;
+  ${'' /* animation: ${FadeIn}; */}
   animation-duration: 1.2s;
   animation-fill-mode: forwards;
   z-index: 1;

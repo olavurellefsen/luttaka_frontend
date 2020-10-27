@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from "../components/seo"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
 import SearchBar from '../components/searchBar'
@@ -15,13 +16,14 @@ const Magazines = ({ data }) => {
   const [input, setInput] = useState(``)
   return (
     <Layout>
+      <SEO title="VÍSINDAVØKUBLØÐ" />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
-      <SearchBar setInput={setInput}/>
       <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
-      <ContainerStyle>
+      <SearchBar setInput={setInput}/>
+      <ContainerStyle name="MAgizeContainer">
         {magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).map((magazine, index) => {
           return (
             <BackgroundStyle key={index}>
@@ -32,24 +34,23 @@ const Magazines = ({ data }) => {
           )
         })}
       </ContainerStyle>
+      {
+        magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).length === 0 
+        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+      }
     </Layout>
   )
 }
 
 const ContainerStyle = styled.div`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   flex-direction: column;
   flex-wrap: no-wrap;
   margin: 20px;
-  max-width: 1200px;
+  max-width: 500px;
   width: 100%;
-  ${media.desktop3`
-    max-width: 600px;
-
-    flex-direction: column;
-  `}
 `
 
 const PetalContainer = styled.div`
@@ -58,17 +59,17 @@ const PetalContainer = styled.div`
   ${media.desktop3`
     display: none;
   `}
-
 `
 const BackgroundStyle = styled.div`
   display: flex;
   justify-content:center;
-  align-items: center;
+  align-items: stretch;
   flex-direction: column;
-  margin: 20px;
   background-color: #FFFFFF;
-  max-width: 350px;
-  width: 100%;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+
 `
 
 const TitleStyle = styled.h3`
@@ -91,7 +92,11 @@ const LinkStyle = styled.a`
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  margin: 20px;
+  padding: 20px;
+`
+
+const EmptySearch = styled.div`
+  font-size: 20px;
 `
 
 export default Magazines

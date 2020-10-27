@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from "../components/seo"
 import { media } from "../utils/mediaTemplate"
 
 
@@ -15,6 +16,7 @@ const Diverse = ({ data }) => {
 
   return (
     <Layout>
+      <SEO title="YMISKT" />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />

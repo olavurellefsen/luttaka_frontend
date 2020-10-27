@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from "../components/seo"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
 import SearchBar from '../components/searchBar'
@@ -17,12 +18,13 @@ const Awards = ({ data }) => {
 
   return (
     <Layout>
+      <SEO title="MIÐLAHEIÐURSLØN" />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
-      <SearchBar setInput={setInput} />
       <TitleStyle>MIÐLAHEIÐURSLØN</TitleStyle>
+      <SearchBar setInput={setInput} />
       <ContainerStyle>
         {mediaAwards.filter(
           (mediaItem) => 
@@ -37,24 +39,25 @@ const Awards = ({ data }) => {
           )
         })}
       </ContainerStyle>
+      {
+        mediaAwards.filter(
+          (mediaItem) => 
+            mediaItem.node.title.toLowerCase().match(input.toLowerCase())).length === 0 
+        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+      }
     </Layout>
   )
 }
 
 const ContainerStyle = styled.div`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
   margin: 20px;
-  max-width: 1200px;
+  max-width: 500px;
   width: 100%;
-  ${media.desktop3`
-    max-width: 600px;
-
-    flex-direction: column;
-  `}
 `
 
 const PetalContainer = styled.div`
@@ -68,12 +71,12 @@ const PetalContainer = styled.div`
 const BackgroundStyle = styled.div`
   display: flex;
   justify-content:center;
-  align-items: center;
+  align-items: stretch;
   flex-direction: column;
-  margin: 20px;
   background-color: #FFFFFF;
-  max-width: 460px;
-  width: 90%;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
 
 `
 
@@ -97,10 +100,13 @@ const LinkStyle = styled.a`
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  margin: 20px;
-  max-width: 420px;
+  padding: 20px;
+  ${'' /* max-width: 420px;
   width: 100%;
-  min-height: 55px;
+  min-height: 55px; */}
+`
+const EmptySearch = styled.div`
+  font-size: 20px;
 `
 
 // const ImageStyle = styled(Image)`

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from "../components/seo"
 import NewsContainer from '../components/news/newsContainer'
 import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
@@ -14,12 +15,13 @@ const News = ({ data }) => {
   return (
     <ContainerStyle>
       <Layout>
+        <SEO title="TÍÐINDI" />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
         </PetalContainer>
-        <SearchBar setInput={setInput} />
         <TitleStyle>TÍÐINDI</TitleStyle>
+        <SearchBar setInput={setInput} />
         <NewsContainer nodes={data.allStrapiArticle.nodes} input={input}/>
       </Layout>
     </ContainerStyle>

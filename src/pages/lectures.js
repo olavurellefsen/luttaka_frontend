@@ -99,7 +99,9 @@ const LecturesPage = ({ data }) => {
 const Background = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  align-items: stretch;
+  margin: auto;
+  max-width: 500px;
 `
 
 const PetalContainer = styled.div`
@@ -123,23 +125,25 @@ const TitleStyle = styled.h3`
 const HeaderContainer = styled.div`
   display: flex;
   flex: 1;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   flex-direction: column;
-  max-width: 1000px;
   width: 100%;
+  max-width: 500px;
 `
 
 const HeaderStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 30px;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
   background-color: #FFFFFF;
-  max-width: 540px;
-  width: 100%;
+  max-width: 500px;
   box-shadow: 0px 0px 5px #00000029;
   cursor: pointer;
+  z-index: 10;
 `
 const HeaderTitleStyle = styled(ReactMarkdown)`
   margin: 0 20px;
@@ -176,7 +180,7 @@ const slideDown = keyframes`
   from {
     display: none;
     opacity: 0.3;
-    transform: translateY(-100%);
+    transform: translateY(-70%);
   }
   to {
     display: flex;
@@ -188,10 +192,9 @@ const slideDown = keyframes`
 const ListItemStyle = styled.div`
   display: none;
   animation: ${slideDown};
-  animation-duration: 2s;
+  animation-duration: 0.6s;
   animation-fill-mode: forwards;
-  max-width: 540px;
-  width: 100%;
+  z-index: -1;
   ${({ selected }) =>
     selected && css
       `
@@ -199,18 +202,16 @@ const ListItemStyle = styled.div`
       align-items: flex-start;
       justify-content: center;
       flex-direction: column;
-      margin-top: 30px;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
       background-color: #FFFFFF;
-      max-width: 540px;
-      width: 100%;
-
-
   `}
   `
 
 const LinkStyle = styled.a`
   color: black;
-  max-width: 540px;
+  max-width: 500px;
   width: 100%;
   text-decoration: none;
   &:visited {

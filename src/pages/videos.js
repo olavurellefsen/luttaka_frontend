@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from "../components/seo"
 import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
@@ -16,6 +17,7 @@ const Videos = ({ data }) => {
   const [input, setInput] = useState(``)
   return (
       <Layout>
+        <SEO title="FILMAR" />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />

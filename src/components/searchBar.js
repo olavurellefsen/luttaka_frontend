@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { media } from './../utils/mediaTemplate';
 
 const SearchBar = ({ setInput}) => {
   return (
@@ -19,14 +20,18 @@ const SearchBar = ({ setInput}) => {
 const ContainerStyle = styled.div`
   margin:20px;
   position: relative;
+  width: 360px;
+  ${media.phone2`
+    width: 350px;
+  `}
+  ${media.phone1`
+    width: 250px;
+  `}
 `
 
 const InputStyle = styled.input`
-
   height: 40px;
-  max-width: 940px;
-  min-width: 325px;
-  width: 100%;  
+  width: 95%;  
   border-radius: 28px;
   opacity: 1;
   padding-left: 15px;
@@ -40,7 +45,7 @@ const InputStyle = styled.input`
 const Icon = styled.div`
   position: absolute;
   top: 15px;
-  right: 1px;
+  right: 5%;
 `
 
 export default SearchBar;
