@@ -25,7 +25,14 @@ const LecturesPage = ({ data }) => {
         </PetalContainer>
         <TitleStyle>FRAMLØGUR</TitleStyle>
         <SearchBar setInput={setInput} />
-        {categories.map((category, index) => {return(
+        {categories.map((category, index) => {
+          console.log("number of hits:", category.lectures.filter(
+              (lectureItem) => 
+                lectureItem.title.toLowerCase().match(input.toLowerCase())).length)
+            if(category.lectures.filter(
+              (lectureItem) => 
+                lectureItem.title.toLowerCase().match(input.toLowerCase())).length)
+          return(
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {
               if(selCat === index) {
