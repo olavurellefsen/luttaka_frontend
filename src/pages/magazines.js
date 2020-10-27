@@ -40,8 +40,8 @@ const ContainerStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: no-wrap;
   margin: 20px;
   max-width: 1200px;
   width: 100%;

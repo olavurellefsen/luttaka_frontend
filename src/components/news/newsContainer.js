@@ -11,7 +11,10 @@ const NewsContainer = ({ nodes, input }) => {
     <ContainerStyle>
       {/* <SearchBar /> */}
       <RowContainer>
-        {nodes?.filter((article) => article.title.toLowerCase().match(input.toLowerCase())).map((article, index) => {
+        {nodes?.filter((article) => {
+          return(article.title.toLowerCase().match(input.toLowerCase()) ||
+          article.date?.toLowerCase().match(input.toLowerCase()))
+        }).map((article, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle to={article.id}>

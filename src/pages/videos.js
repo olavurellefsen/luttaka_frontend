@@ -23,7 +23,11 @@ const Videos = ({ data }) => {
         <TitleStyle>FILMAR</TitleStyle>
         <SearchBar setInput={setInput} />
       <ContainerStyle>
-        {videos.filter((video) => video.node.title.toLowerCase().match(input.toLowerCase())).map((video, index) => {
+        {videos.filter((video) => {
+              return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
+            
+            video.node.date?.toLowerCase().match(input.toLowerCase()))}
+          ).map((video, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle href={video.node.link} key={index}>{video.node.title}

@@ -9,7 +9,6 @@ import { graphql } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
-import { renderToStaticMarkup } from 'react-dom/server';
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
@@ -35,7 +34,6 @@ const LecturesPage = ({ data }) => {
         {categories.map((category, index) => {
             if(category.lectures.filter(
               (lectureItem) => {
-              console.log("lectureItem: ", lectureItem)
               return(
                 lectureItem.title.toLowerCase().match(input.toLowerCase()) || 
                 lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
@@ -89,7 +87,10 @@ const LecturesPage = ({ data }) => {
                 })
             }
           </HeaderContainer>
-        )})}
+        )
+        else
+          return(null)
+        })}
       </Layout>
     </Background>
   )
