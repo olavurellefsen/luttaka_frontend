@@ -9,6 +9,7 @@ import { graphql } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
+import { renderToStaticMarkup } from 'react-dom/server';
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
@@ -16,6 +17,12 @@ const LecturesPage = ({ data }) => {
   const [input, setInput] = useState(``)
   const [selCat, setSelCat] = useState(null)
 
+  /* const searchFunction = (item) => {
+    let ret = null
+    ret = lectureItem.title.toLowerCase().match(input.toLowerCase())
+    return ret
+  }
+ */
   return (
     <Background>
       <Layout>
@@ -26,12 +33,16 @@ const LecturesPage = ({ data }) => {
         <TitleStyle>FRAMLØGUR</TitleStyle>
         <SearchBar setInput={setInput} />
         {categories.map((category, index) => {
-          console.log("number of hits:", category.lectures.filter(
-              (lectureItem) => 
-                lectureItem.title.toLowerCase().match(input.toLowerCase())).length)
             if(category.lectures.filter(
-              (lectureItem) => 
-                lectureItem.title.toLowerCase().match(input.toLowerCase())).length)
+              (lectureItem) => {
+              console.log("lectureItem: ", lectureItem)
+              return(
+                lectureItem.title.toLowerCase().match(input.toLowerCase()) || 
+                lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.Date.toLowerCase().match(input.toLowerCase())
+                )
+              }).length )
           return(
           <HeaderContainer key={index}>
             <HeaderStyle onClick={() => {
@@ -51,7 +62,11 @@ const LecturesPage = ({ data }) => {
             </HeaderStyle>
             {category.lectures.filter(
               (lectureItem) => 
-                lectureItem.title.toLowerCase().match(input.toLowerCase())).sort((a, b) => {
+                lectureItem.title.toLowerCase().match(input.toLowerCase()) || 
+                lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.Date.toLowerCase().match(input.toLowerCase())
+                ).sort((a, b) => {
                   const [dayA, monthA, yearA] = a.Date.split("-")
                   const aDate = new Date(yearA, monthA-1, dayA)
 
