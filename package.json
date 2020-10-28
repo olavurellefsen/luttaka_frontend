@@ -53,7 +53,9 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "lambda-serve": "netlify-lambda serve functions",
-    "lambda-build": "netlify-lambda build functions"
+    "lambda-build": "netlify-lambda build functions",
+    "clean-dev": "gatsby clean && gatsby develop",
+    "clean-build":  "gatsby clean && gatsby build"
   },
   "repository": {
     "type": "git",
