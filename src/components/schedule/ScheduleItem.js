@@ -21,6 +21,7 @@ const ScheduleItem = ({
     <Container>
       <Content onClick={() => { setAddDescription(!addDescription) }}>
         <StartTime>{start_time.substring(0, 5)}</StartTime>
+        {FullyBooked && <Full>Fult teknað</Full>}
         <TitleContainer>
           <Title>{title}</Title>
           {description && description !== "" && <FontAwesomeIcon icon={addDescription ? faChevronUp : faChevronDown} />}
@@ -36,7 +37,7 @@ const ScheduleItem = ({
       {includeCheckbox && <CheckboxContainer>
         <Checkbox selectedItems={selectedItems} setSelectedItems={setSelectedItems} title={title} />
       </CheckboxContainer>}
-      {FullyBooked && <Full>Fult teknað</Full>}
+      
     </Container>
   )
 }
@@ -50,11 +51,11 @@ const Container = styled.div`
   margin: 0 20px;
 `
 const Full = styled.div`
-  position: absolute;
+  position: relative;
   color: red;
   opacity: 0.7;
   transform: rotate(0deg);
-  margin-top: 0px;
+  margin-top: -22px;
   margin-left: 60px;
   font-size: 18px;
 `
