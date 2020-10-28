@@ -22,6 +22,20 @@ const LecturesPage = ({ data }) => {
     return ret
   }
  */
+
+let tmp = null
+let emptySearch = 0
+categories.forEach((cat)=>{
+  tmp = cat.lectures.filter(
+    (lectureItem) => 
+      lectureItem.title.toLowerCase().match(input.toLowerCase()) || 
+      lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
+      lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
+      lectureItem.Date.toLowerCase().match(input.toLowerCase())
+      ).length === 0 
+  if (!tmp) emptySearch++
+})
+
   return (
     <Background>
       <Layout>
@@ -91,6 +105,9 @@ const LecturesPage = ({ data }) => {
         else
           return(null)
         })}
+        {
+          emptySearch===0 && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+      }
       </Layout>
     </Background>
   )
@@ -100,7 +117,9 @@ const Background = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  margin: auto;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 500px;
 `
 
@@ -111,7 +130,9 @@ const PetalContainer = styled.div`
   `}
 
 `
-
+const EmptySearch = styled.div`
+  font-size: 20px;
+`
 const TitleStyle = styled.h3`
   color: #58A449;
   font-size: 24px;

@@ -14,6 +14,7 @@ const Media = ({ data }) => {
   // const media = data.allStrapiAward.edges
 
   return (
+    <Background>
     <Layout>
       <MenuContainer />
       <PetalContainer name="petal container">
@@ -40,8 +41,14 @@ const Media = ({ data }) => {
         })} */}
       </ContainerStyle>
     </Layout>
+    </Background>
   )
 }
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`
 
 const ContainerStyle = styled.div`
   display: flex;
@@ -50,6 +57,7 @@ const ContainerStyle = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   margin: 20px;
+  margin-top: 0px
   max-width: 1200px;
   width: 100%;
   ${media.desktop3`

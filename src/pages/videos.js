@@ -16,6 +16,7 @@ const Videos = ({ data }) => {
   const videos = data.allStrapiVideo.edges
   const [input, setInput] = useState(``)
   return (
+    <Background>
       <Layout>
         <SEO title="FILMAR" />
         <MenuContainer />
@@ -30,11 +31,13 @@ const Videos = ({ data }) => {
             
             video.node.date?.toLowerCase().match(input.toLowerCase()))}
           ).map((video, index) => {
+            console.log("title: ", video.node.title)
+            console.log("title: " + JSON.stringify(video.node.title))
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle href={video.node.link} key={index}>{video.node.title}
+              <LinkStyle href={video.node.link} key={index}>
+                <VideoTitle>{video.node.title}</VideoTitle>
                 <ImageStyle
-                  style={{ width: "100%" }}
                   fluid={video.node.thumbnail.childImageSharp.fluid}
                   alt={video.node.title} />
               </LinkStyle>
@@ -44,24 +47,40 @@ const Videos = ({ data }) => {
           )
         })}
       </ContainerStyle>
+      {
+        videos.filter((video) => {
+              return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
+            
+            video.node.date?.toLowerCase().match(input.toLowerCase()))}
+          ).length === 0 
+        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+      }
       </Layout>
+    </Background>
   )
 }
 
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 const ContainerStyle = styled.div`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 20px;
+  ${'' /* margin: 20px; */}
+  margin-top: 0px;
   max-width: 1200px;
-  width: 100%;
   ${media.desktop3`
     max-width: 600px;
 
     flex-direction: column;
   `}
+`
+const EmptySearch = styled.div`
+  font-size: 20px;
 `
 
 const PetalContainer = styled.div`
@@ -69,21 +88,18 @@ const PetalContainer = styled.div`
   ${media.desktop3`
     display: none;
   `}
-
 `
 const BackgroundStyle = styled.div`
   display: flex;
-  justify-content:center;
-  align-items: center;
+  justify-content: center;
+  align-items: stretch;
   flex-direction: column;
-  margin: 20px;
   background-color: #FFFFFF;
   max-width: 450px;
   ${media.phone1`
     max-width: 330px;
-
   `}
-  width: 100%;
+  margin: 10px;
 `
 
 const TitleStyle = styled.h3`
@@ -102,18 +118,26 @@ const LinkStyle = styled.a`
   text-decoration: none;
   background-color: #FFFF;
   color: black;
+  align-items: center;
+  justify-content: center;
+  ${'' /* font-size: 18px; */}
+  ${'' /* padding-top: 20px; */}
+  ${'' /* padding-bottom: 20px; */}
+  margin-left: 10px;
+  margin-right: 10px;
+`
+const VideoTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  margin: 20px;
-  max-width: 430px;
-
-  width: 100%;
+  ${'' /* height: 20px; */}
+  font-size: 20px;
+  padding: 20px;
 `
-
 const ImageStyle = styled(Image)`
   margin: 20px;
+  margin-top: 0px;
+  width: 100%;
 `
 
 const DateContainer = styled.div`
@@ -121,9 +145,12 @@ const DateContainer = styled.div`
   align-self: flex-start;
   margin-left: 10px;
   color: #74AB58;
+  height: 30px;
+
 `
 const MarkDownContainer = styled(ReactMarkdown)`
-  margin: 20px;
+  ${'' /* s */}
+  padding-bottom: 20px;
   background-color: white;
   width: 100%;
   p {

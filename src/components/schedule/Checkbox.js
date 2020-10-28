@@ -36,10 +36,6 @@ const Container = styled.label`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  ${'' /* margin:10px;
-  padding: 10px;
-  height: 10px;
-  border: 1px solid blue; */}
 
   &:hover {
     background-color: #ccc;

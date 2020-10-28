@@ -15,6 +15,7 @@ const Magazines = ({ data }) => {
   const magazines = data.allStrapiMagazine.edges
   const [input, setInput] = useState(``)
   return (
+    <Background>
     <Layout>
       <SEO title="VÍSINDAVØKUBLØÐ" />
       <MenuContainer />
@@ -39,8 +40,14 @@ const Magazines = ({ data }) => {
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
+    </Background>
   )
 }
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`
 
 const ContainerStyle = styled.div`
   display: flex;
@@ -49,6 +56,7 @@ const ContainerStyle = styled.div`
   flex-direction: column;
   flex-wrap: no-wrap;
   margin: 20px;
+  margin-top: 0px;
   max-width: 500px;
   width: 100%;
 `

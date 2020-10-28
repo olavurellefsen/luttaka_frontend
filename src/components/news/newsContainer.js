@@ -35,6 +35,13 @@ const NewsContainer = ({ nodes, input }) => {
           )
         })}
       </RowContainer>
+      {
+        nodes?.filter((article) => {
+          return(article.title.toLowerCase().match(input.toLowerCase()) ||
+          article.date?.toLowerCase().match(input.toLowerCase()))
+        }).length === 0 
+        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+      }
     </ContainerStyle>
   )
 }
@@ -45,16 +52,18 @@ const ContainerStyle = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1000px;
+  max-width: 1200px;
 `
-
+const EmptySearch = styled.div`
+  font-size: 20px;
+`
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   margin: 20px;
-  width: 100%;
+  margin-top: 0px;
 `
 
 const BackgroundStyle = styled.div`

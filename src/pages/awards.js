@@ -17,6 +17,7 @@ const Awards = ({ data }) => {
   const [input, setInput] = useState(``)
 
   return (
+    <Background>
     <Layout>
       <SEO title="MIÐLAHEIÐURSLØN" />
       <MenuContainer />
@@ -46,8 +47,15 @@ const Awards = ({ data }) => {
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
+    </Background>
   )
 }
+
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`
 
 const ContainerStyle = styled.div`
   display: flex;
@@ -56,6 +64,7 @@ const ContainerStyle = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   margin: 20px;
+  margin-top: 0px;
   max-width: 500px;
   width: 100%;
 `

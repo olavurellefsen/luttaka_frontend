@@ -15,6 +15,7 @@ const Diverse = ({ data }) => {
   // const diverse = data.allStrapiDiverse.edges
 
   return (
+    <Background>
     <Layout>
       <SEO title="YMISKT" />
       <MenuContainer />
@@ -42,9 +43,14 @@ const Diverse = ({ data }) => {
         })} */}
       </ContainerStyle>
     </Layout>
+    </Background>
   )
 }
-
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+`
 const ContainerStyle = styled.div`
   display: flex;
   align-items: center;

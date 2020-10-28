@@ -57,7 +57,7 @@ const PetalMenu = () => {
         return "yellow"
       case "/magazines":
         return "yellow"
-      case "/media_awards":
+      case "/awards":
         return "yellow"
       case "/media":
         return "yellow"
