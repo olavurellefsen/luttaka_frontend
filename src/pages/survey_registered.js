@@ -1,4 +1,4 @@
-import { graphql, navigate } from 'gatsby'
+import { graphql } from 'gatsby'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
@@ -7,8 +7,8 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from '../utils/mediaTemplate'
 
-const Evauluation = ({data}) => {
-  const content = data.allStrapiEftirmeting.nodes[0]?.tilfar
+const SurveyRegistered = ({ data }) => {
+  const registrationText = data.allStrapiSurveyRegistered.nodes[0].content
 
   return (
     <ContainerStyle>
@@ -18,8 +18,7 @@ const Evauluation = ({data}) => {
           <PetalMenu />
         </PetalContainer>
         <BackgroundStyle>
-          <DescriptionStyle source={content} />
-          <button onClick={() => navigate(`/survey`)}>Nøgdsemiskanning</button>
+          <DescriptionStyle source={registrationText} />
         </BackgroundStyle>
       </Layout>
     </ContainerStyle>
@@ -32,48 +31,43 @@ const ContainerStyle = styled.div`
   margin: 20px;
 `
 
-const PetalContainer = styled.div`
-  display: flex;
-  ${media.desktop3`
-    display: none;
-  `}
-`
-
-const TitleStyle = styled.h1`
-  color: #58A449;
-`
-
 const BackgroundStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: white;
   width: 100%;
   max-width: 1000px;
   margin-top: 60px;
-  background-color: white;
   ${media.desktop3`
     margin-top: 200px;
   `}
-   div > * {
+    iv > * {
     margin: 20px;
   }
 `
 
+
 const DescriptionStyle = styled(ReactMarkdown)`
   margin: 20px;
-  h1 {
-    color: #58A449;
-  }
+`
+
+const PetalContainer = styled.div`
+  display: flex;
+  ${media.desktop3`
+    display: none;
+  `}
 
 `
-export default Evauluation
+
+export default SurveyRegistered;
 
 export const PageQuery = graphql`
-query fetchEvalutation {
-  allStrapiEftirmeting {
+query FetchSurveyRegistered {
+  allStrapiSurveyRegistered {
     nodes {
-      tilfar
+      content
     }
   }
 }

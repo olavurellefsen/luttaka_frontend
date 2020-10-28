@@ -1,6 +1,6 @@
 import { gql, useMutation, useSubscription } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
-import { graphql } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -108,6 +108,8 @@ const Survey = ({ data }) => {
           hvorjum_tiltokum: which_events_participated.toString(),
           samlad_meting: meting,
         }
+      }).then(() => {
+        navigate(`/survey_registered`)
       })
 
     }

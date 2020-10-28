@@ -34,9 +34,8 @@ module.exports = {
           `registered-text`,
           `privacy-policy`,
           `eftirmeting`,
-          `survey`,
           `survey-already-registered`,
-          `survey-registred`
+          `survey-registered`
         ],
         markdownImages: {
           typesToParse: {
