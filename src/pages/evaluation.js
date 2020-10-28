@@ -9,7 +9,7 @@ import { media } from '../utils/mediaTemplate'
 
 const Evauluation = ({data}) => {
   const content = data.allStrapiEftirmeting.nodes[0]?.tilfar
-  console.log("content", content)
+
   return (
     <ContainerStyle>
       <Layout>

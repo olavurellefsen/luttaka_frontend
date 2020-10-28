@@ -29,7 +29,15 @@ module.exports = {
           `media-awards`,
           `magazine`
         ],
-        singleTypes: [`about`, `registered-text`, `privacy-policy`, `eftirmeting`],
+        singleTypes: [
+          `about`,
+          `registered-text`,
+          `privacy-policy`,
+          `eftirmeting`,
+          `survey`,
+          `survey-already-registered`,
+          `survey-registred`
+        ],
         markdownImages: {
           typesToParse: {
             article: ['content'],
@@ -38,12 +46,13 @@ module.exports = {
             "media-awards": ['content'],
             "privacy-policy": ['content'],
             "eftirmeting": ['tilfar'],
-
-        },
-        queryLimit: 1000,
+            "survey-already-registered": ['content'],
+            "survey-registered": ['content']
+          },
+          queryLimit: 1000,
+        }
       }
-    }
-  },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
