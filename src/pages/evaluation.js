@@ -39,10 +39,6 @@ const PetalContainer = styled.div`
   `}
 `
 
-const TitleStyle = styled.h1`
-  color: #58A449;
-`
-
 const BackgroundStyle = styled.div`
   display: flex;
   align-items: center;
