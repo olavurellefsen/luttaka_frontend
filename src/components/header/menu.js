@@ -21,6 +21,10 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       name: `Um vísindavøkuna`,
       onClick: () => navigate("/about")
     },
+    {
+      name: `Eftirmeting`,
+      onClick: () => navigate("/evaluation")
+    },
     // {
     //   name: "Mín skrá",
     //   onClick: () => navigate()
