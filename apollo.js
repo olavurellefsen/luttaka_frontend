@@ -6,6 +6,7 @@ import { getMainDefinition } from '@apollo/client/utilities'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { useAuth0 } from '@auth0/auth0-react'
 import PropTypes from "prop-types"
+import fetch from 'isomorphic-fetch'
 
 export const GraphQLProvider = ({ children }) => {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0()

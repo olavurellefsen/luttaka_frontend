@@ -27,9 +27,9 @@
     "gatsby-plugin-sharp": "^2.6.14",
     "gatsby-plugin-styled-components": "^3.3.10",
     "gatsby-source-filesystem": "^2.3.14",
-    "gatsby-source-graphql": "^2.7.6",
     "gatsby-source-strapi": "^0.0.12",
     "gatsby-transformer-sharp": "^2.5.7",
+    "isomorphic-fetch": "^3.0.0",
     "netlify-lambda": "^2.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -57,7 +57,7 @@
     "lambda-serve": "netlify-lambda serve functions",
     "lambda-build": "netlify-lambda build functions",
     "clean-dev": "gatsby clean && gatsby develop",
-    "clean-build":  "gatsby clean && gatsby build"
+    "clean-build": "gatsby clean && gatsby build"
   },
   "repository": {
     "type": "git",
