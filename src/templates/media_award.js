@@ -9,7 +9,8 @@ import SEO from '../components/seo'
 
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
-  const imageSrc = {src: award.content.split("(")[1]?.split(")")}
+  const imageSrc = {src: award.content.split("(")[1]?.split(")")[0]}
+
   return (
     <Layout>
       <SEO title="MIÐLAHEIÐURSLØN" description={`Miðlaheiðursløn: ${award.title}`} image={imageSrc}/>
