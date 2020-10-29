@@ -85,5 +85,11 @@ module.exports = {
         trackingId: `UA-181039206-1`,
       },
     },
+    /* {
+      resolve: 'gatsby-plugin-apollo',
+      options: {
+        uri: 'https://example.com/graphql'
+      }
+    }, */
   ],
 }
