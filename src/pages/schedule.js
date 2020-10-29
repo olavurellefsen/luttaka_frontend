@@ -28,8 +28,7 @@ const backend_schedule = graphql`
 const Schedule = () => (
   <Background>
     <Layout>
-      <SEO title="SKRÁ 2020" />
-
+      <SEO title="SKRÁ 2020" description="Skráin fyri vísindavøkuna 2020"/>
       <MenuContainer />
       <PetalContainer name="petal container">
             <PetalMenu />

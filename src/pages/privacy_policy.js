@@ -7,6 +7,7 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
 import { useLocation, navigate  } from '@reach/router'
+import SEO from '../components/seo'
 
 const PrivacyPolicy = ({ data }) => {
   const [accepted, setAccepted] = useState(false)
@@ -16,6 +17,7 @@ const PrivacyPolicy = ({ data }) => {
   return (
     <ContainerStyle>
       <Layout>
+        <SEO title="Privtlívspolitikkur" description="Privatlívspolitkkur hjá vísindavøkuni" />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />

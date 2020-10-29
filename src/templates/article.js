@@ -5,6 +5,7 @@ import Img from "gatsby-image"
 import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from '../components/seo'
 
 
 const ArticleTemplate = ({ data }) => {
@@ -12,6 +13,7 @@ const ArticleTemplate = ({ data }) => {
 
   return (
     <Layout>
+      <SEO title={`Tíðindi: ${article.title}`}/>
       <ContainerStyle>
       <MenuContainer opened={false} />
         <LinkStyle to="/news" ><GreenTitle>Tíðindi</GreenTitle></LinkStyle>

@@ -9,6 +9,7 @@ import { graphql } from "gatsby"
 import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
+import SEO from "../components/seo"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
@@ -27,18 +28,19 @@ let tmp = null
 let emptySearch = 0
 categories.forEach((cat)=>{
   tmp = cat.lectures.filter(
-    (lectureItem) => 
-      lectureItem.title.toLowerCase().match(input.toLowerCase()) || 
+    (lectureItem) =>
+      lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
       lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
       lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
       lectureItem.Date.toLowerCase().match(input.toLowerCase())
-      ).length === 0 
+      ).length === 0
   if (!tmp) emptySearch++
 })
 
   return (
     <Background>
       <Layout>
+        <SEO title="FRAMLØGUR" description="Yvirlit yvir framlgøur" />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
@@ -49,7 +51,7 @@ categories.forEach((cat)=>{
             if(category.lectures.filter(
               (lectureItem) => {
               return(
-                lectureItem.title.toLowerCase().match(input.toLowerCase()) || 
+                lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.Date.toLowerCase().match(input.toLowerCase())
@@ -73,8 +75,8 @@ categories.forEach((cat)=>{
               {!input && <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />}
             </HeaderStyle>
             {category.lectures.filter(
-              (lectureItem) => 
-                lectureItem.title.toLowerCase().match(input.toLowerCase()) || 
+              (lectureItem) =>
+                lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.Date.toLowerCase().match(input.toLowerCase())

@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import schedule from '../flower_components/flower_images/Skráin 2020.svg'
 import altSchedule from '../flower_components/flower_images/Skráin_green.svg'
 import news from '../flower_components/flower_images/Group 5.svg'
@@ -69,7 +69,7 @@ const PetalMenu = () => {
         return ""
     }
   }
-  
+
   return (
     <ContainerStyle>
       {petals.map((item, index) => {
@@ -85,24 +85,24 @@ const PetalMenu = () => {
   )
 }
 
-const SlideUp = keyframes`
-  from {
-    transform: translateY(-120%);
-  }
-  to {
-    transform: translateY(15%);
-  }
+// const SlideUp = keyframes`
+//   from {
+//     transform: translateY(-120%);
+//   }
+//   to {
+//     transform: translateY(15%);
+//   }
 
-`
+// `
 
-const FadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-      opacity: 1
-  }
-`
+// const FadeIn = keyframes`
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//       opacity: 1
+//   }
+// `
 
 const ContainerStyle = styled.div`
   display: flex;

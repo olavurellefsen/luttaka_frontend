@@ -19,7 +19,7 @@ const Awards = ({ data }) => {
   return (
     <Background>
     <Layout>
-      <SEO title="MIÐLAHEIÐURSLØN" />
+      <SEO title="MIÐLAHEIÐURSLØN" description="Yvirlit yvir miðlaheiðurslønir"/>
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
@@ -28,7 +28,7 @@ const Awards = ({ data }) => {
       <SearchBar setInput={setInput} />
       <ContainerStyle>
         {mediaAwards.filter(
-          (mediaItem) => 
+          (mediaItem) =>
             mediaItem.node.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
           return (
             <BackgroundStyle>
@@ -42,8 +42,8 @@ const Awards = ({ data }) => {
       </ContainerStyle>
       {
         mediaAwards.filter(
-          (mediaItem) => 
-            mediaItem.node.title.toLowerCase().match(input.toLowerCase())).length === 0 
+          (mediaItem) =>
+            mediaItem.node.title.toLowerCase().match(input.toLowerCase())).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
