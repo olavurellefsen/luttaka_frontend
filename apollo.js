@@ -15,7 +15,7 @@ export const GraphQLProvider = ({ children }) => {
     fetch,
   })
 
-  const wsLink = new WebSocketLink({
+  const wsLink = process.browser ? new WebSocketLink({
     uri: process.env.GATSBY_X_HASURA_WSS_URI || ``,
     options: {
       reconnect: true,
@@ -32,7 +32,7 @@ export const GraphQLProvider = ({ children }) => {
         }
       },
     },
-  })
+  }) : null
 
   const splitLink = split(
     ({ query }) => {
