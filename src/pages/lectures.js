@@ -40,7 +40,7 @@ categories.forEach((cat)=>{
   return (
     <Background>
       <Layout>
-        <SEO title="FRAMLØGUR" description="Yvirlit yvir framlgøur" />
+        <SEO title="FRAMLØGUR" description="Yvirlit yvir framløgur" />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
