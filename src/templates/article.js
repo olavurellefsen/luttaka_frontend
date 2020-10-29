@@ -13,7 +13,7 @@ const ArticleTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={`Tíðindi: ${article.title}`}/>
+      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} image={article.image.childImageSharp.resize}/>
       <ContainerStyle>
       <MenuContainer opened={false} />
         <LinkStyle to="/news" ><GreenTitle>Tíðindi</GreenTitle></LinkStyle>
@@ -141,6 +141,11 @@ export const query = graphql`
             fluid(maxWidth: 1024, maxHeight: 512) {
               ...GatsbyImageSharpFluid
              }
+             resize(width: 800) {
+              src
+              height
+              width
+            }
           }
         }
     }
