@@ -34,17 +34,15 @@ export const GraphQLProvider = ({ children }) => {
     },
   }) : null
 
-  const splitLink = split(
+  const splitLink = process.browser ? split( //only create the split in the browser
+    // split based on operation type
     ({ query }) => {
-      const definition = getMainDefinition(query)
-      return (
-        definition.kind === `OperationDefinition` &&
-        definition.operation === `subscription`
-      )
+      const { kind, operation } = getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsLink,
-    httpLink
-  )
+    httpLink,
+  ) : httpLink
 
   const authLink = setContext(async (_, { headers }) => {
     if (isAuthenticated) {
