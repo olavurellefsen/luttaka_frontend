@@ -17,7 +17,7 @@ const Magazines = ({ data }) => {
   return (
     <Background>
     <Layout>
-      <SEO title="VÍSINDAVØKUBLØÐ" />
+      <SEO title="VÍSINDAVØKUBLØÐ" description="Yvirlit yvir vísindavøkubløð"/>
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
@@ -36,7 +36,7 @@ const Magazines = ({ data }) => {
         })}
       </ContainerStyle>
       {
-        magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).length === 0 
+        magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>

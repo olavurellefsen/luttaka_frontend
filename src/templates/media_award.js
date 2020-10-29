@@ -5,11 +5,13 @@ import Img from "gatsby-image"
 import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from '../components/seo'
 
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
   return (
     <Layout>
+      <SEO title="MIÐLAHEIÐURSLØN" description={`Miðlaheiðursløn: ${award.title}`} />
       <ContainerStyle>
         <MenuContainer opened={false} />
         <LinkStyle to="/awards" ><GreenTitle>Savn</GreenTitle></LinkStyle>

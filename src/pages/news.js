@@ -15,7 +15,7 @@ const News = ({ data }) => {
   return (
     <ContainerStyle>
       <Layout>
-        <SEO title="TÍÐINDI" />
+        <SEO title="TÍÐINDI" description="Yvirlit yvir tíðindum" />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
