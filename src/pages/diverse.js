@@ -29,7 +29,7 @@ const Diverse = ({ data }) => {
         {diverse.map((diverseItem, index) => {
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle href={diverseItem.node.link} key={index}>
+              <LinkStyle target="_blank" href={diverseItem.node.link} key={index}>
                 <LinkTitle>{diverseItem.node.title}</LinkTitle>
                 <MarkDownContainer>{diverseItem.node.content}</MarkDownContainer>
                 <LinkContent>{diverseItem.content}</LinkContent>

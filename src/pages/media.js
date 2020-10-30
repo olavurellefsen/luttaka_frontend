@@ -26,7 +26,7 @@ const Media = ({ data }) => {
         {media.map((mediaItem, index) => {
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle href={mediaItem.node.link} key={index}>
+              <LinkStyle target="_blank" href={mediaItem.node.link} key={index}>
                 <LinkTitle>{mediaItem.node.title}</LinkTitle>
                 <MarkDownContainer>{mediaItem.node.content}</MarkDownContainer>
                 <LinkContent>{mediaItem.content}</LinkContent>
