@@ -1,8 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Luttaka`,
-    description: `Event application`,
+    title: `Vísindavøka`,
+    description: `Vísindavøka`,
     author: `@gatsbyjs & @strapi`,
+    siteUrl: process.env.GATSBY_PUBLIC_URL || `localhost:8000`
   },
   plugins: [
     `gatsby-plugin-styled-components`,

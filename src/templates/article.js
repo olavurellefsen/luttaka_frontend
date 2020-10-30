@@ -6,16 +6,17 @@ import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-
+import { useLocation } from '@reach/router'
 
 const ArticleTemplate = ({ data }) => {
   const article = data.strapiArticle
+  const location = useLocation()
 
   return (
     <Layout>
-      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} image={article.image.childImageSharp.resize}/>
+      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} href={location.href} image={article.image.childImageSharp.resize} />
       <ContainerStyle>
-      <MenuContainer opened={false} />
+        <MenuContainer opened={false} />
         <LinkStyle to="/news" ><GreenTitle>Tíðindi</GreenTitle></LinkStyle>
         <StyledContainer>
           <ContentContainer>
@@ -141,7 +142,7 @@ export const query = graphql`
             fluid(maxWidth: 1024, maxHeight: 512) {
               ...GatsbyImageSharpFluid
              }
-             resize(width: 800) {
+             resize(width: 1024) {
               src
               height
               width
