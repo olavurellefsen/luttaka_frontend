@@ -1,10 +1,13 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import Img from 'gatsby-image'
+import { media } from '../utils/mediaTemplate'
+
 const NewsBox = () => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(true)
   const data = useStaticQuery(graphql`
 query fetchNews {
   allStrapiArticle(sort: {fields: date, order: DESC}) {
@@ -15,8 +18,8 @@ query fetchNews {
       description
       image {
         childImageSharp {
-            fluid(maxWidth: 400, maxHeight: 200) {
-              ...GatsbyImageSharpFluid
+            fixed(width: 60, height: 60) {
+              ...GatsbyImageSharpFixed
              }
           }
         }
@@ -40,36 +43,43 @@ query fetchNews {
     `des`,
   ]
   return (
-    <ContainerStyle>
+    <ContainerStyle show={show ? "flex" : "none"}>
       <TitleStyle>
         <div>NÝGGJASTU TÌÐINDI</div>
-        <IconStyle icon={faTimes}/>
+        <IconStyle icon={faTimes} onClick={() => { setShow(false) }}/>
       </TitleStyle>
       {articles.nodes.map((item, index) => {
         const dateString = item.date.split("-")
+        console.log("item", item)
         return (
-          <NewsItemContainer key={index}>
+          <NewsItemContainer key={index} >
             <DateStyle>{dateString[0]}<div>{months[dateString[1] - 1].toUpperCase()}</div></DateStyle>
-            <div>
-              <NewsTitleStyle>{item.title}</NewsTitleStyle>
-              <Img />
-            </div>
+          <LinkStyle to={`news/${item.id}`}>
+              <NewsTitleStyle>{item.title.slice(0, 42)+ `...`}</NewsTitleStyle>
+              <Img fixed={item.image.childImageSharp.fixed}/>
+            </LinkStyle>
           </NewsItemContainer>
         )
       })}
     </ContainerStyle>
   )
 }
+
+
 const ContainerStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-
   background: #F5F5F5 0% 0% no-repeat padding-box;
   height: 325px;
   overflow-y: scroll;
   overflow-x: hidden;
+  margin-right: 50px;
+  ${media.desktop3`
+    display: none;
+  `}
+  display: ${props => props.show}
 `
 
 const TitleStyle = styled.div`
@@ -87,7 +97,6 @@ const NewsItemContainer = styled.div`
   align-items: center;
   background-color: white;
   margin: 20px;
-  height: 50px;
   width: 90%;
 `
 const DateStyle = styled.div`
@@ -95,8 +104,8 @@ const DateStyle = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-right: 1px solid red;
 `
 
@@ -104,7 +113,16 @@ const NewsTitleStyle = styled.div`
   margin: 0 10px;
 `
 
+const LinkStyle = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex-direction: row;
+  width: 100%;
+`
 const IconStyle = styled(FontAwesomeIcon)`
+cursor: pointer;
 
 `
 export default NewsBox
