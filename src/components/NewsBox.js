@@ -50,7 +50,6 @@ query fetchNews {
       </TitleStyle>
       {articles.nodes.map((item, index) => {
         const dateString = item.date.split("-")
-        console.log("item", item)
         return (
           <NewsItemContainer key={index} >
             <DateStyle>{dateString[0]}<div>{months[dateString[1] - 1].toUpperCase()}</div></DateStyle>
