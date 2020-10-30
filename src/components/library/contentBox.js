@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Img from "gatsby-image"
 import { graphql, useStaticQuery } from 'gatsby';
+import {media} from '../../utils/mediaTemplate'
+
 const ContentBox = ({ item }) => {
 
   const data = useStaticQuery(graphql`
@@ -20,8 +22,8 @@ const ContentBox = ({ item }) => {
     <ContainerStyle>
       {item.title !== "Ymiskt putl" ?
         <ImageStyle fluid={item.image.childImageSharp.fluid} alt={item.title} />
-        : <AvatarImage fluid={data.placeholderImage.childImageSharp.fluid} alt={"Vitanar fróði"} />}
-      {item.title}
+        : <AvatarImage imgStyle={{objectFit: "contain"}} fluid={data.placeholderImage.childImageSharp.fluid} alt={"Vitanar fróði"} />}
+      <TitleStyle>{item.title}</TitleStyle>
     </ContainerStyle>
   );
 };
@@ -49,10 +51,18 @@ const ImageStyle = styled(Img)`
   height: 224px;
 `
 
+const TitleStyle = styled.div`
+  margin-top: 5px;
+`
+
 const AvatarImage = styled(ImageStyle)`
-  width: 140px;
-  height: 170px;
-  margin-bottom 50px
+  width: 100px;
+  height: 140px;
+  margin-top: 80px
+  // ${media.phone1`
+  //   width: 110px;
+  //   height: 120px;
+  // `}
 `
 
 export default ContentBox;

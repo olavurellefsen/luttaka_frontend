@@ -74,8 +74,7 @@ const StyledContainer = styled.div`
   flex-direction: row;
   margin: 20px;
   background-color: #FFFFFF;
-  max-width: 1100px;
-
+  max-width: 900px;
 `
 
 const ContentContainer = styled.div`
@@ -137,7 +136,7 @@ export const query = graphql`
       date(formatString: "DD-MM-YYYY")
        image {
         childImageSharp {
-            fluid(maxWidth: 1024, maxHeight: 512) {
+            fluid(maxWidth: 895, maxHeight: 406) {
               ...GatsbyImageSharpFluid
              }
              resize(width: 1024) {

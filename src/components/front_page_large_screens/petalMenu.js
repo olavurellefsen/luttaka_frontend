@@ -128,8 +128,8 @@ const ImageStyle = styled.img`
   position: relative;
   opacity: 1;
   ${'' /* animation: ${FadeIn}; */}
-  animation-duration: 1.2s;
-  animation-fill-mode: forwards;
+  // animation-duration: 1.2s;
+  // animation-fill-mode: forwards;
   z-index: 1;
 `
 

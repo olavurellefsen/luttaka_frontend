@@ -10,6 +10,7 @@ const React = require("react")
 
 const { Auth0Provider } = require("@auth0/auth0-react");
 const { navigate } = require("gatsby");
+const { GraphQLProvider } = require("./apollo");
 
 
 const onRedirectCallback = appState => {
@@ -27,9 +28,11 @@ exports.wrapPageElement = ({ element }) => {
       clientId={process.env.GATSBY_AUTH0_CLIENTID}
       redirectUri={process.env.GATSBY_REDIRECT_URI}
       onRedirectCallback={onRedirectCallback}
-    // audience="hasura"
+      audience="hasura"
     >
-      {element}
+      <GraphQLProvider>
+        {element}
+      </GraphQLProvider>
     </Auth0Provider>
   )
 }

@@ -15,19 +15,28 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
   const menuItems = [
     {
       name: isAuthenticated ? user.name : "Ikki innritaður",
-      onClick: () => navigate()
+      onClick: () => navigate(),
+      onlyShowIfAuth: false
     },
     {
       name: `Um vísindavøkuna`,
-      onClick: () => navigate("/about")
+      onClick: () => navigate("/about"),
+      onlyShowIfAuth: false
+    },
+    {
+      name: isAuthenticated ? `Eftirmeting` : null,
+      onClick: () => navigate("/evaluation"),
+      onlyShowIfAuth: true
     },
     // {
     //   name: "Mín skrá",
-    //   onClick: () => navigate()
+    //   onClick: () => navigate(),
+    //   onlyShowIfAuth: false
     // },
     {
       name: isAuthenticated ? `Rita út` : "Rita inn",
-      onClick: isAuthenticated ? () => logout({returnTo: location.origin}) : () => loginWithRedirect({redirectUri: location.origin})
+      onClick: isAuthenticated ? () => logout({returnTo: location.origin}) : () => loginWithRedirect({redirectUri: location.origin}),
+      onlyShowIfAuth: false
     }
   ]
   useOutsideClick(ref, () => {
@@ -38,8 +47,10 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
     <ContainerStyle  ref={ref} menuOpen={menuOpen} >
 
       {menuItems.map((item, index) => {
-
-        return <MenuItemStyle onClick={() => item.onClick()} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
+        if (!item.onlyShowIfAuth || isAuthenticated)
+          return <MenuItemStyle onClick={() => item.onClick()} key={index}>{index === 0 ? <IconStyle icon={faUser} /> : null}<TextStyle>{item.name}</TextStyle></MenuItemStyle>
+        else
+          return null
       })}
       <ExitButton icon={faTimes} onClick={() => {
         setMenuOpen(!menuOpen)

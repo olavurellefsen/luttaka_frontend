@@ -28,7 +28,7 @@ const Magazines = ({ data }) => {
         {magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).map((magazine, index) => {
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle href={magazine.node.link} key={index}>
+              <LinkStyle target="_blank" href={magazine.node.link} key={index}>
                 {magazine.node.title}
               </LinkStyle>
             </BackgroundStyle>

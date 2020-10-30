@@ -28,21 +28,33 @@ module.exports = {
           'schedule-item',
           'video',
           `media-awards`,
-          `magazine`
+          `magazine`,
+          `media-2-s`,
+          `diverses`,
         ],
-        singleTypes: [`about`, `registered-text`, `privacy-policy`],
+        singleTypes: [
+          `about`,
+          `registered-text`,
+          `privacy-policy`,
+          `eftirmeting`,
+          `survey-already-registered`,
+          `survey-registered`
+        ],
         markdownImages: {
           typesToParse: {
             article: ['content'],
             about: ['content'],
             "registered-text": ['content'],
             "media-awards": ['content'],
-            "privacy-policy": ['content']
-        },
-        queryLimit: 1000,
+            "privacy-policy": ['content'],
+            "eftirmeting": ['tilfar'],
+            "survey-already-registered": ['content'],
+            "survey-registered": ['content']
+          },
+          queryLimit: 1000,
+        }
       }
-    }
-  },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -75,6 +87,12 @@ module.exports = {
       options: {
         trackingId: `UA-181039206-1`,
       },
+    },
+    {
+      resolve: 'gatsby-plugin-apollo',
+      options: {
+        uri: 'https://discrete-glowworm-95.hasura.app/v1/graphql'
+      }
     },
   ],
 }
