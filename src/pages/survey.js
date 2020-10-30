@@ -370,6 +370,7 @@ const LabelStyle = styled.label`
 const LabelStyleRank = styled(LabelStyle)`
   justify-content: space-between;
   width: 70%;
+  margin-bottom: 5px;
 `
 
 const InputStyle = styled.input`
