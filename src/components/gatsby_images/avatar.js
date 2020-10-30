@@ -2,6 +2,8 @@ import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import Img from "gatsby-image"
+import { media } from '../../utils/mediaTemplate'
+
 
 const Avatar = ({ opened, setOpened}) => {
 
@@ -19,7 +21,7 @@ const Avatar = ({ opened, setOpened}) => {
 
   return <Button onClick={() => setOpened(!opened)}><ImageStyle
     style={{ maxHeight: "100%", position: "absolute" }}
-    // imgStyle={{ objectFit: "contain" }}
+    imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
     name="Fróði avatar"
   /></Button>
@@ -32,10 +34,14 @@ const ImageStyle = styled(Img)`
   height: 170px;
   position: absolute;
   bottom: 0;
+  ${media.phone1`
+    width: 110px;
+    height: 120px;
+  `}
 `
 const Button = styled.button`
   width: 130px;
-  height: 170px;
+  height: 130px;
   position: absolute;
   bottom: 0;
   left: 20px;
@@ -45,5 +51,9 @@ const Button = styled.button`
   &:active {
     opacity: 0.3;
   }
+  ${media.phone1`
+    width: 110px;
+    height: 120px;
+  `}
 `
 export default Avatar
