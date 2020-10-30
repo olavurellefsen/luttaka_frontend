@@ -14,7 +14,7 @@ import { graphql } from "gatsby"
 const Diverse = ({ data }) => {
 
   const diverse = data.allStrapiDiverses.edges
-
+console.log("divers: ", diverse)
   return (
     <Background>
     <Layout>
@@ -30,6 +30,7 @@ const Diverse = ({ data }) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={diverseItem.node.link} key={index}>
+                <LinkDate>{diverseItem.node.date}</LinkDate>
                 <LinkTitle>{diverseItem.node.title}</LinkTitle>
                 <MarkDownContainer>{diverseItem.node.content}</MarkDownContainer>
                 <LinkContent>{diverseItem.content}</LinkContent>
@@ -74,7 +75,7 @@ const BackgroundStyle = styled.div`
   align-items: stretch;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 15px;
   margin-right: 15px;
 
@@ -109,6 +110,12 @@ const LinkTitle = styled.div`
 `
 const LinkContent = styled.div`
 `
+const LinkDate = styled.div`
+  align-self: flex-start;
+  color: #58A449;
+  font-size: 14px;
+`
+
 
 /* const ImageStyle = styled(Image)`
   display: flex;
@@ -121,7 +128,7 @@ const MarkDownContainer = styled(ReactMarkdown)`
   width: 100%;
   color: black;
   p {
-    margin: 10px;
+    margin-bottom: 10px;
   }
 `
 
@@ -129,14 +136,14 @@ export default Diverse
 
 export const PageQuery = graphql`
   query fetchDiverses {
-    allStrapiDiverses{
+    allStrapiDiverses(sort: {fields: date, order: DESC}){
       edges {
         node {
           id
           title
           content
           link
-          date
+          date(formatString: "DD-MM-YYYY")
         }
       }
     }

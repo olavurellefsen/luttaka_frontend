@@ -27,6 +27,7 @@ const Media = ({ data }) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={mediaItem.node.link} key={index}>
+                <LinkDate>{mediaItem.node.date}</LinkDate>
                 <LinkTitle>{mediaItem.node.title}</LinkTitle>
                 <MarkDownContainer>{mediaItem.node.content}</MarkDownContainer>
                 <LinkContent>{mediaItem.content}</LinkContent>
@@ -71,7 +72,7 @@ const BackgroundStyle = styled.div`
   align-items: stretch;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 15px;
   margin-right: 15px;
 
@@ -106,7 +107,11 @@ const LinkTitle = styled.div`
 `
 const LinkContent = styled.div`
 `
-
+const LinkDate = styled.div`
+  align-self: flex-start;
+  color: #58A449;
+  font-size: 14px;
+`
 /* const ImageStyle = styled(Image)`
   display: flex;
   flex: 1;
@@ -118,7 +123,7 @@ const MarkDownContainer = styled(ReactMarkdown)`
   width: 100%;
   color: black;
   p {
-    margin: 10px;
+    margin-bottom: 10px;
   }
 `
 
@@ -126,7 +131,7 @@ export default Media
 
 export const PageQuery = graphql`
   query fetchMedia2 {
-    allStrapiMedia2S{
+    allStrapiMedia2S(sort: {fields: date, order: DESC}){
       edges {
         node {
           id
@@ -137,7 +142,7 @@ export const PageQuery = graphql`
             organisation
           }
           link
-          date
+          date(formatString: "DD-MM-YYYY")
         }
       }
     }

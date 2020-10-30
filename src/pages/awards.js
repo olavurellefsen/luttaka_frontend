@@ -79,7 +79,7 @@ const PetalContainer = styled.div`
 `
 const BackgroundStyle = styled.div`
   display: flex;
-  justify-content:center;
+  justify-content:flex-start;
   align-items: stretch;
   flex-direction: column;
   background-color: #FFFFFF;
@@ -106,7 +106,7 @@ const LinkStyle = styled.a`
   background-color: #FFFF;
   color: black;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-size: 18px;
   padding: 20px;

@@ -12,6 +12,7 @@ import { media } from '../utils/mediaTemplate'
 
 const Survey = ({ data }) => {
   const { user } = useAuth0()
+  console.log("dfata: ", data)
   const { register, handleSubmit, watch, clearErrors, errors } = useForm()
   const { data: surveyData, loading } = useSubscription(gql`
   subscription FetchEmail($email: String!) {
@@ -158,7 +159,7 @@ const Survey = ({ data }) => {
       </ContainerStyle>
     )
   }
-
+  
   return (
     <ContainerStyle>
       <Layout>
@@ -427,5 +428,16 @@ query fetchAlreadyRegistered {
       tilfar
     }
   }
+  allStrapiDiverses{
+      edges {
+        node {
+          id
+          title
+          content
+          link
+          date
+        }
+      }
+    }
 }
 `
