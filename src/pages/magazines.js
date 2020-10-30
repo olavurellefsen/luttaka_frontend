@@ -11,8 +11,8 @@ import SearchBar from '../components/searchBar'
 
 
 const Magazines = ({ data }) => {
-
-  const magazines = data.allStrapiMagazine.edges
+console.log("data: ", data)
+  const magazines = data.allStrapiMagazine.nodes
   const [input, setInput] = useState(``)
   return (
     <Background>
@@ -25,18 +25,18 @@ const Magazines = ({ data }) => {
       <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
       <SearchBar setInput={setInput}/>
       <ContainerStyle name="MAgizeContainer">
-        {magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).map((magazine, index) => {
+        {magazines.filter((magazine) => magazine.title.toLowerCase().match(input.toLowerCase())).map((magazine, index) => {
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle target="_blank" href={magazine.node.link} key={index}>
-                {magazine.node.title}
+              <LinkStyle target="_blank" href={magazine.link} key={index}>
+                {magazine.title}
               </LinkStyle>
             </BackgroundStyle>
           )
         })}
       </ContainerStyle>
       {
-        magazines.filter((magazine) => magazine.node.title.toLowerCase().match(input.toLowerCase())).length === 0
+        magazines.filter((magazine) => magazine.title.toLowerCase().match(input.toLowerCase())).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
@@ -111,14 +111,13 @@ export default Magazines
 
 export const PageQuery = graphql`
  query fetchMagazines {
-   allStrapiMagazine(sort: {fields: id, order: DESC}) {
-     edges {
-       node {
-         id
-         title
-         link
-       }
-     }
+   allStrapiMagazine(sort: {fields: date, order: DESC}) {
+      nodes {
+        id
+        title
+        link
+        date
+      }
    }
  }
 

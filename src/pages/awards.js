@@ -13,7 +13,7 @@ import SearchBar from '../components/searchBar'
 
 const Awards = ({ data }) => {
 
-  const mediaAwards = data.allStrapiMediaAwards.edges
+  const mediaAwards = data.allStrapiMediaAwards.nodes
   const [input, setInput] = useState(``)
 
   return (
@@ -29,11 +29,11 @@ const Awards = ({ data }) => {
       <ContainerStyle>
         {mediaAwards.filter(
           (mediaItem) =>
-            mediaItem.node.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
+            mediaItem.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
           return (
             <BackgroundStyle>
-              <LinkStyle href={`awards/${mediaItem.node.id}`} key={index}>
-                {mediaItem.node.title}
+              <LinkStyle href={`awards/${mediaItem.id}`} key={index}>
+                {mediaItem.title}
               </LinkStyle>
               {/* <MarkDownContainer source={mediaItem.node.content} /> */}
             </BackgroundStyle>
@@ -43,7 +43,7 @@ const Awards = ({ data }) => {
       {
         mediaAwards.filter(
           (mediaItem) =>
-            mediaItem.node.title.toLowerCase().match(input.toLowerCase())).length === 0
+            mediaItem.title.toLowerCase().match(input.toLowerCase())).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
@@ -137,14 +137,13 @@ export default Awards
 
 export const PageQuery = graphql`
  query fetchMediaAwards {
-   allStrapiMediaAwards(sort: {fields: id, order: DESC}){
-     edges {
-       node {
+   allStrapiMediaAwards(sort: {fields: date, order: DESC}){
+       nodes {
          id
          title
          link
          content
-       }
+         date
      }
    }
  }
