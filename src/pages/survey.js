@@ -210,6 +210,7 @@ const Survey = ({ data }) => {
 
           <InputContainer>
             <FormTitle>2. Hvørjum tiltøkum luttókst tú í?<RedText>*</RedText></FormTitle>
+            <div style={{ fontSize: "13px", marginBottom: "10px" }}>Vel øll tiltøkini, sum tú vitjaði ella fylgdi á netinum.</div>
             <LabelStyle>
               <InputStyle type="checkbox" name="which_events_participated" value="Vísindavøku á ferð" ref={register()} />
           Vísindavøku á ferð
@@ -236,15 +237,16 @@ const Survey = ({ data }) => {
             </LabelStyle>
           </InputContainer>
           <InputContainer>
-            3. Hvat var tað besta?
+            <FormTitle>3. Hvat var tað besta?</FormTitle>
         <TextAreaStyle name="the_best" ref={register({ required: false })} />
           </InputContainer>
           <InputContainer>
-            4. Hvat saknaði tú?
+            <FormTitle> 4. Hvat saknaði tú?</FormTitle>
         <TextAreaStyle name="missed" ref={register({ required: false })} />
           </InputContainer>
           <InputContainer>
-            5.Hvørji tiltøk skulu vit hava komandi ár? Vel 6 sum tað hægsta og 1 tað lægsta.
+            <FormTitle>5.Hvørji tiltøk skulu vit hava komandi ár?</FormTitle>
+            <div style={{fontSize: "13px", marginBottom: "10px"}}> Raðfest tiltøkini, har 1 er fyrsta val, 2 er annað o.s.fr.</div>
              {
               errors?.visinda_voku_a_ferd?.type === "validate" &&
               <RedText style={{ margin: "0 5px" }}>Syrg fyri at onki tal er líka.</RedText>
@@ -277,12 +279,12 @@ const Survey = ({ data }) => {
           <InputContainer>
             <FormTitle>6. Hvat evni vilt tú hoyra meira um næstu ferð? <RedText>*</RedText></FormTitle>
             <ColumnStyle>
-              <p></p>
-              <p>Als ikki</p>
-              <p>Kanska</p>
-              <p>ja</p>
-              <p>Ja, gjarna</p>
-              <p>Absolut</p>
+              <ParagraphStyle></ParagraphStyle>
+              <ParagraphStyle>Als ikki</ParagraphStyle>
+              <ParagraphStyle>Kanska</ParagraphStyle>
+              <ParagraphStyle>ja</ParagraphStyle>
+              <ParagraphStyle>Ja, gjarna</ParagraphStyle>
+              <ParagraphStyle>Absolut</ParagraphStyle>
               <LabelStyle htmlFor="heilsa">Heilsu</LabelStyle>
               <InputStyle type="radio" name="heilsa" value="Als ikki" ref={register({ required: true })} />
               <InputStyle type="radio" name="heilsa" value="Kanska" ref={register({ required: true })} />
@@ -316,7 +318,8 @@ const Survey = ({ data }) => {
             </ColumnStyle>
           </InputContainer>
           <InputContainer>
-            <FormTitle> 7. Samlað meting <RedText>*</RedText></FormTitle>
+            <FormTitle> 7. Samlað meting<RedText>*</RedText></FormTitle>
+            <div style={{fontSize: "13px", marginBottom: "10px"}}>1-10 (har 10 er best)</div>
             <input type="number" min="1" max="10" name="meting" ref={register({ required: true })} />
           </InputContainer>
           <button type="submit">Góðkenn</button>
@@ -369,7 +372,10 @@ const LabelStyleRank = styled(LabelStyle)`
   width: 70%;
 `
 
-const InputStyle = styled.input``
+const InputStyle = styled.input`
+  width: 20px;
+  height: 20px;
+`
 
 const TextAreaStyle = styled.textarea`
     width: 90%;
@@ -401,7 +407,11 @@ const FormTitle = styled.div`
   display: flex;
   flex-idrection: row;
   color: #58A449;
+  margin-bottom: 5px;
   `
+
+const ParagraphStyle = styled.p`
+`
 
 const RedText = styled.div`
   color: red;
