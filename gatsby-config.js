@@ -28,7 +28,9 @@ module.exports = {
           'schedule-item',
           'video',
           `media-awards`,
-          `magazine`
+          `magazine`,
+          `media-2-s`,
+          `diverses`,
         ],
         singleTypes: [
           `about`,
