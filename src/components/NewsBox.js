@@ -119,6 +119,13 @@ const LinkStyle = styled(Link)`
   align-self: stretch;
   flex-direction: row;
   width: 100%;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  &:visited {
+    color: gray;
+    font-weight: 200;
+  }
 `
 const IconStyle = styled(FontAwesomeIcon)`
 cursor: pointer;
