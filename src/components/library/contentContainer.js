@@ -65,8 +65,8 @@ query PhotosQuery {
       <RowContainer>
         {content.map((item, index) => {
           return (
-            <LinkStyle to={item.to}>
-              <ContentBox key={index} item={item} />
+            <LinkStyle key={index} to={item.to}>
+              <ContentBox item={item} />
             </LinkStyle>
           )
         })}
