@@ -6,15 +6,14 @@ import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { useLocation } from '@reach/router'
 
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
   const imageSrc = {src: award.content.split("(")[1]?.split(")")[0], height: 612, width: 1024}
-  const location = useLocation()
+
   return (
     <Layout>
-      <SEO title="MIÐLAHEIÐURSLØN" description={`Miðlaheiðursløn: ${award.title}`} image={imageSrc} href={location.href} />
+      <SEO title="MIÐLAHEIÐURSLØN" description={`Miðlaheiðursløn: ${award.title}`} image={imageSrc} />
       <ContainerStyle>
         <MenuContainer opened={false} />
         <LinkStyle to="/awards" ><GreenTitle>Savn</GreenTitle></LinkStyle>
