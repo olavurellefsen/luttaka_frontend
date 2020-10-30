@@ -28,14 +28,14 @@ const Videos = ({ data }) => {
       <ContainerStyle>
         {videos.filter((video) => {
               return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
-            
+
             video.node.date?.toLowerCase().match(input.toLowerCase()))}
           ).map((video, index) => {
             console.log("title: ", video.node.title)
             console.log("title: " + JSON.stringify(video.node.title))
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle href={video.node.link} key={index}>
+              <LinkStyle target="_blank" href={video.node.link} key={index}>
                 <VideoTitle>{video.node.title}</VideoTitle>
                 <ImageStyle
                   fluid={video.node.thumbnail.childImageSharp.fluid}
@@ -50,9 +50,9 @@ const Videos = ({ data }) => {
       {
         videos.filter((video) => {
               return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
-            
+
             video.node.date?.toLowerCase().match(input.toLowerCase()))}
-          ).length === 0 
+          ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
       </Layout>
