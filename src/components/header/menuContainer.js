@@ -20,10 +20,10 @@ const MenuContainer = ({ opened }) => {
 
 const ContainerStyle = styled.div`
   width: 100%;
-  // display: flex;
-  // align-self: flex-start;
-  // justify-content: center;
-  // align-items: center;
+  ${'' /* display: flex;
+  align-self: flex-start;
+  justify-content: center;
+  align-items: center; */}
 `
 
 export default MenuContainer

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import Menu from './menu'
+import { media } from './../../utils/mediaTemplate';
 
 const HeaderButton = ({ isAuthenticated, askQuestionedOpened }) => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -26,9 +27,14 @@ const slideInLeft = keyframes`
 const ContainerStyle = styled.div`
   position: absolute;
   z-index: 9;
-  top: 50px;
+  ${media.tablet`
+    right: 15px;
+  `}
+  top: 30px;
+  right: -20px;
   width: 100%;
   display: ${props => props.askQuestionedOpened ? "none" : "block" };
+  
 `
 
 const IconStyle = styled(FontAwesomeIcon)`
@@ -39,7 +45,6 @@ const IconStyle = styled(FontAwesomeIcon)`
   animation-duration: 0.8s;
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;
-
 
 `
 
