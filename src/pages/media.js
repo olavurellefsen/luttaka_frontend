@@ -110,13 +110,13 @@ const LinkStyle = styled.a`
   font-size: 16px;
   padding: 20px;
 `
+
 const LinkTitle = styled.div`
   font-size: 18px;
   font-weight: bold;
   align-self: flex-start;
 `
-const LinkContent = styled.div`
-`
+
 const LinkDate = styled.div`
   align-self: flex-start;
   color: #58A449;
