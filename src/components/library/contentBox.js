@@ -32,7 +32,7 @@ const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 296px;
   height: 312px;
   background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -47,12 +47,14 @@ const ContainerStyle = styled.div`
 `
 
 const ImageStyle = styled(Img)`
+  margin-top: 14px;
   width: 270px;
   height: 224px;
 `
 
 const TitleStyle = styled.div`
-  margin-top: 5px;
+  margin-top: auto;
+  margin-bottom: auto;
 `
 
 const AvatarImage = styled(ImageStyle)`
