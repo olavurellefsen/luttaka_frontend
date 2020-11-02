@@ -23,11 +23,11 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       onClick: () => navigate("/about"),
       onlyShowIfAuth: false
     },
-    {
+    /* {
       name: isAuthenticated ? `Eftirmeting` : null,
       onClick: () => navigate("/evaluation"),
       onlyShowIfAuth: true
-    },
+    }, */
     // {
     //   name: "Mín skrá",
     //   onClick: () => navigate(),
