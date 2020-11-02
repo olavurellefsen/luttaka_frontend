@@ -285,7 +285,7 @@ query fetchemail($email: String!) {
             </LabelStyle>
           </InputContainer>
           <InputContainer>
-            <FormTitle>3. Hvat var tað besta?</FormTitle>
+            <FormTitle>3. Hvat var tað besta?<RedText>*</RedText></FormTitle>
             <TextAreaStyle name="the_best" ref={register({ required: true })} />
           </InputContainer>
           <InputContainer>
@@ -293,7 +293,7 @@ query fetchemail($email: String!) {
             <TextAreaStyle name="missed" ref={register({ required: false })} />
           </InputContainer>
           <InputContainer>
-            <FormTitle>5.Hvørji tiltøk skulu vit hava komandi ár?</FormTitle>
+            <FormTitle>5.Hvørji tiltøk skulu vit hava komandi ár?<RedText>*</RedText></FormTitle>
             <div style={{ fontSize: "13px", marginBottom: "10px" }}> Raðfest tiltøkini, har 1 er fyrsta val, 2 er annað o.s.fr.</div>
             {
               errors?.visinda_voku_a_ferd?.type === "validate" &&
@@ -359,7 +359,7 @@ query fetchemail($email: String!) {
             <input type="number" min="1" max="10" name="meting" ref={register({ required: true })} />
           </InputContainer>
           <InputContainer>
-            <FormTitle>Upplýs teldupostin, um tú vilt vera við í lutakastinum</FormTitle>
+            <FormTitle>Um tú ynskir at vera við í lutakastinum mást tú skriva tín teldupost her</FormTitle>
             <input type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
           <SubmitButton type="submit">Góðkenn</SubmitButton>
