@@ -1,6 +1,6 @@
 
 //import Image from 'gatsby-image'
-import React from 'react'
+import React, {useState} from 'react'
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
@@ -9,11 +9,13 @@ import Layout from '../components/layout'
 import SEO from "../components/seo"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from "gatsby"
+import SearchBar from '../components/searchBar'
 
 
 const Diverse = ({ data }) => {
 
-  const diverse = data.allStrapiDiverses.edges
+  const diverse = data.allStrapiDiverses.nodes
+  const [input, setInput] = useState(``)
 
   return (
     <Background>
@@ -24,20 +26,28 @@ const Diverse = ({ data }) => {
         <PetalMenu />
       </PetalContainer>
       <TitleStyle>YMISKT PUTL</TitleStyle>
-     
+     <SearchBar setInput={setInput}/>
       <ContainerStyle>
-        {diverse.map((diverseItem, index) => {
+        {diverse.filter(
+          (diverseItem) =>
+            diverseItem.title.toLowerCase().match(input.toLowerCase())).map((diverseItem, index) => {
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle target="_blank" href={diverseItem.node.link} key={index}>
-                <LinkTitle>{diverseItem.node.title}</LinkTitle>
-                <MarkDownContainer>{diverseItem.node.content}</MarkDownContainer>
-                <LinkContent>{diverseItem.content}</LinkContent>
+              <LinkStyle target="_blank" href={diverseItem.link} key={index}>
+                <LinkDate>{diverseItem.date}</LinkDate>
+                <LinkTitle>{diverseItem.title}</LinkTitle>
+                <MarkDownContainer>{diverseItem.content}</MarkDownContainer>
               </LinkStyle>
             </BackgroundStyle>
           )
         })}
       </ContainerStyle>
+      {
+        diverse.filter(
+          (diverseItem) =>
+            diverseItem.title.toLowerCase().match(input.toLowerCase())).length === 0
+        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+      }
     </Layout>
     </Background>
   )
@@ -46,6 +56,9 @@ const Background = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px;
+`
+const EmptySearch = styled.div`
+  font-size: 20px;
 `
 
 const ContainerStyle = styled.div`
@@ -74,7 +87,7 @@ const BackgroundStyle = styled.div`
   align-items: stretch;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 15px;
   margin-right: 15px;
 
@@ -109,6 +122,12 @@ const LinkTitle = styled.div`
 `
 const LinkContent = styled.div`
 `
+const LinkDate = styled.div`
+  align-self: flex-start;
+  color: #58A449;
+  font-size: 14px;
+`
+
 
 /* const ImageStyle = styled(Image)`
   display: flex;
@@ -121,7 +140,7 @@ const MarkDownContainer = styled(ReactMarkdown)`
   width: 100%;
   color: black;
   p {
-    margin: 10px;
+    margin-bottom: 10px;
   }
 `
 
@@ -129,16 +148,14 @@ export default Diverse
 
 export const PageQuery = graphql`
   query fetchDiverses {
-    allStrapiDiverses{
-      edges {
-        node {
+    allStrapiDiverses(sort: {fields: date, order: DESC}){
+        nodes {
           id
           title
           content
           link
-          date
+          date(formatString: "DD-MM-YYYY")
         }
-      }
     }
   }
 `

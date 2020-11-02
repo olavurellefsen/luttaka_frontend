@@ -1,6 +1,6 @@
 
 //import Image from 'gatsby-image'
-import React from 'react'
+import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
@@ -8,12 +8,13 @@ import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
 import { graphql } from "gatsby"
+import SearchBar from '../components/searchBar'
 
 
 const Media = ({ data }) => {
 
-  const media = data.allStrapiMedia2S.edges
-
+  const media = data.allStrapiMedia2S.nodes
+  const [input, setInput] = useState(``)
   return (
     <Background>
     <Layout>
@@ -22,19 +23,28 @@ const Media = ({ data }) => {
         <PetalMenu />
       </PetalContainer>
       <TitleStyle>Í MIÐLUNUM</TitleStyle>
+      <SearchBar setInput={setInput}/>
       <ContainerStyle>
-        {media.map((mediaItem, index) => {
+        {media.filter(
+          (mediaItem) =>
+            mediaItem.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
           return (
             <BackgroundStyle key={index}>
-              <LinkStyle target="_blank" href={mediaItem.node.link} key={index}>
-                <LinkTitle>{mediaItem.node.title}</LinkTitle>
-                <MarkDownContainer>{mediaItem.node.content}</MarkDownContainer>
-                <LinkContent>{mediaItem.content}</LinkContent>
+              <LinkStyle target="_blank" href={mediaItem.link} key={index}>
+                <LinkDate>{mediaItem.date}</LinkDate>
+                <LinkTitle>{mediaItem.title}</LinkTitle>
+                <MarkDownContainer>{mediaItem.content}</MarkDownContainer>
               </LinkStyle>
             </BackgroundStyle>
           )
         })}
       </ContainerStyle>
+      {
+        media.filter(
+          (mediaItem) =>
+            mediaItem.title.toLowerCase().match(input.toLowerCase())).length === 0
+        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+      }
     </Layout>
     </Background>
   )
@@ -44,7 +54,9 @@ const Background = styled.div`
   flex-direction: column;
   margin: 20px;
 `
-
+const EmptySearch = styled.div`
+  font-size: 20px;
+`
 const ContainerStyle = styled.div`
   display: flex;
   align-items: stretch;
@@ -71,10 +83,9 @@ const BackgroundStyle = styled.div`
   align-items: stretch;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 15px;
   margin-right: 15px;
-
 `
 
 const TitleStyle = styled.h3`
@@ -106,7 +117,11 @@ const LinkTitle = styled.div`
 `
 const LinkContent = styled.div`
 `
-
+const LinkDate = styled.div`
+  align-self: flex-start;
+  color: #58A449;
+  font-size: 14px;
+`
 /* const ImageStyle = styled(Image)`
   display: flex;
   flex: 1;
@@ -118,7 +133,7 @@ const MarkDownContainer = styled(ReactMarkdown)`
   width: 100%;
   color: black;
   p {
-    margin: 10px;
+    margin-bottom: 10px;
   }
 `
 
@@ -126,9 +141,8 @@ export default Media
 
 export const PageQuery = graphql`
   query fetchMedia2 {
-    allStrapiMedia2S{
-      edges {
-        node {
+    allStrapiMedia2S(sort: {fields: date, order: DESC}){
+        nodes {
           id
           title
           content
@@ -137,9 +151,8 @@ export const PageQuery = graphql`
             organisation
           }
           link
-          date
+          date(formatString: "DD-MM-YYYY")
         }
-      }
     }
   }
 `

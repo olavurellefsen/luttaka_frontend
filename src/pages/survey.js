@@ -8,6 +8,7 @@ import PetalMenu from '../components/front_page_large_screens/petalMenu';
 import MenuContainer from '../components/header/menuContainer';
 import Layout from '../components/layout';
 import { media } from '../utils/mediaTemplate'
+import { ProtectedRoute } from '../utils/protectedRoute'
 
 
 const Survey = ({ data }) => {
@@ -158,8 +159,9 @@ const Survey = ({ data }) => {
       </ContainerStyle>
     )
   }
-
+  
   return (
+  <ProtectedRoute>
     <ContainerStyle>
       <Layout>
         <MenuContainer />
@@ -326,6 +328,7 @@ const Survey = ({ data }) => {
         </FormStyle>
       </Layout>
     </ContainerStyle>
+  </ProtectedRoute>
   )
 }
 const ContainerStyle = styled.div`
@@ -427,5 +430,16 @@ query fetchAlreadyRegistered {
       tilfar
     }
   }
+  allStrapiDiverses{
+      edges {
+        node {
+          id
+          title
+          content
+          link
+          date
+        }
+      }
+    }
 }
 `
