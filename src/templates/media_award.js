@@ -35,7 +35,7 @@ const AwardTemplate = ({ data }) => {
                           alt={alt}
                         />
                       ) : (
-                          <img src={src} alt={alt} style={{maxWidth: "100vw"}} />
+                          <img src={src} alt={alt} style={{maxWidth: "100%"}} />
                         )}
                     </>
                   )
@@ -105,11 +105,7 @@ const MarkDownContainer = styled(ReactMarkdown)`
 
 const ParagraphImageStyle = styled.p`
   display: flex;
-    margin: 20px;
-
-  img {
-    width: 100%;
-  }
+  margin: 20px;
 
 `
 
