@@ -30,8 +30,8 @@ const ContainerStyle = styled.div`
   ${media.tablet`
     right: 15px;
   `}
-  top: 30px;
-  right: -20px;
+  top: 50px;
+  right: -0px;
   width: 100%;
   display: ${props => props.askQuestionedOpened ? "none" : "block" };
   
