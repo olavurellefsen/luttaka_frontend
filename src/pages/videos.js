@@ -31,8 +31,6 @@ const Videos = ({ data }) => {
 
             video.node.date?.toLowerCase().match(input.toLowerCase()))}
           ).map((video, index) => {
-            console.log("title: ", video.node.title)
-            console.log("title: " + JSON.stringify(video.node.title))
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={video.node.link} key={index}>
