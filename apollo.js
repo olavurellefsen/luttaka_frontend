@@ -15,7 +15,7 @@ export const GraphQLProvider = ({ children }) => {
     fetch,
   })
 
-  const wsLink = process.browser ? new WebSocketLink({
+  const wsLink = typeof window !== "undefined" ? new WebSocketLink({
     uri: process.env.GATSBY_X_HASURA_WSS_URI || ``,
     options: {
       reconnect: true,
@@ -34,7 +34,7 @@ export const GraphQLProvider = ({ children }) => {
     },
   }) : null
 
-  const splitLink = process.browser ? split( //only create the split in the browser
+  const splitLink = typeof window !== "undefined" ? split( //only create the split in the browser
     // split based on operation type
     ({ query }) => {
       const { kind, operation } = getMainDefinition(query);
