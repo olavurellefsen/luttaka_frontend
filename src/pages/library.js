@@ -15,7 +15,7 @@ const LibraryPage = () => {
   return (
     <Background>
       <Layout>
-        <SEO title="SAVN" description="Savnið "/>
+        <SEO title="SAVN" />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />

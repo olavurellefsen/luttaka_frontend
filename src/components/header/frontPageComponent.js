@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Flower from '../flower_components/flower'
-import NewsBox from '../NewsBox'
 import MenuContainer from './menuContainer'
 
 const FrontPageComponent = () => {
@@ -11,7 +10,6 @@ const FrontPageComponent = () => {
     <ContainerStyle>
       <MenuContainer opened={opened} setOpened={setOpened} />
       <Flower opened={opened} setOpened={setOpened} />
-      <NewsBox />
     </ContainerStyle>
   )
 }
@@ -22,7 +20,7 @@ const ContainerStyle = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-cotent: flex-end;
   // min-height: 800px;
   position: relative;
 `

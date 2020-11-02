@@ -18,7 +18,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: process.env.API_URL || `https://visindavoka-backend.herokuapp.com`,
+        apiURL: process.env.API_URL || `https://vvadmin.tokni.fo`,
         contentTypes: [
           `article`,
           `schedule`,
