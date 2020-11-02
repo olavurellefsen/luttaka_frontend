@@ -61,12 +61,12 @@ const DescriptionStyle = styled(ReactMarkdown)`
   h1 {
     color: #58A449;
   }
-
 `
 
 const SubmitButton = styled.button`
   background-color: #74AB58;
   color: white;
+  font-size: 16px;
   width: 300px;
   height: 40px;
   margin: 5px 0;

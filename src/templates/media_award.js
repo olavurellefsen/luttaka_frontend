@@ -9,7 +9,7 @@ import SEO from '../components/seo'
 
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
-  const imageSrc = {src: award.content.split("(")[1]?.split(")")[0], height: 612, width: 1024}
+  const imageSrc = {src: award.content.split("(")[1]?.split(")")[0], height: 512, width: 1024}
 
   return (
     <Layout>
@@ -33,9 +33,10 @@ const AwardTemplate = ({ data }) => {
                         <Img
                           fluid={image.url}
                           alt={alt}
+                          imgStyle={{width: "100%"}}
                         />
                       ) : (
-                          <img src={src} alt={alt} style={{maxWidth: "100%"}} />
+                          <img src={src} alt={alt} style={{width: "100%"}} />
                         )}
                     </>
                   )

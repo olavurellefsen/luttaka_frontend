@@ -9,10 +9,11 @@ import SEO from '../components/seo'
 
 const ArticleTemplate = ({ data }) => {
   const article = data.strapiArticle
-  console.log("hey", article.image.childImageSharp.resize.src)
+  const imageSrc = { src: article.image.childImageSharp.fluid.src, height: 512, width: 1024 }
+  console.log("imageSrc", imageSrc)
   return (
     <Layout>
-      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} image={article.image.childImageSharp.resize} />
+      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} image={imageSrc} />
       <ContainerStyle>
         <MenuContainer opened={false} />
         <LinkStyle to="/news" ><GreenTitle>Tíðindi</GreenTitle></LinkStyle>
@@ -138,13 +139,9 @@ export const query = graphql`
         childImageSharp {
             fluid(maxWidth: 895, maxHeight: 406) {
               ...GatsbyImageSharpFluid
+               src
              }
-             resize(width: 1024) {
-              src
-              height
-              width
             }
-          }
         }
     }
   }
