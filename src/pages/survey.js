@@ -23,7 +23,7 @@ const Survey = ({ data }) => {
   const watchDifferentInput = watch("er")
   const [createSurveyAnwser] = useMutation(gql`
   mutation CreateSurvey(
-    $email: String!,
+    $email: String,
     $ert_tu: String!,
     $hvat_evni: String!,
     $hvat_saknadi: String,
@@ -45,7 +45,7 @@ const Survey = ({ data }) => {
 }
   `)
 
-  const [fetchUser, { data: survey_data, error}] = useLazyQuery(gql`
+  const [fetchUser, { data: survey_data}] = useLazyQuery(gql`
 query fetchemail($email: String!) {
   survey(where: {email: {_eq: $email}}) {
     id
@@ -53,7 +53,6 @@ query fetchemail($email: String!) {
 }
   `, {
     onCompleted() {
-      console.log("dsfsdf", survey_data)
       if (survey_data.survey.length === 0) {
 
         createSurveyAnwser({
@@ -135,7 +134,6 @@ query fetchemail($email: String!) {
         hugvisindi: hugvisindi,
         meting: meting,
       })
-      console.log("answer", answer)
       await fetchUser({
         variables: {
           email: email ? email : ``
@@ -189,7 +187,6 @@ query fetchemail($email: String!) {
     )
   }
 
-  console.log("data", watchDifferentInput )
   return (
     <ContainerStyle>
       <Layout>
@@ -363,7 +360,7 @@ query fetchemail($email: String!) {
           </InputContainer>
           <InputContainer>
             <FormTitle>Upplýs teldupostin, um tú vilt vera við í lutakastinum</FormTitle>
-            <input type="text" name="email" ref={register({ required: true })} />
+            <input type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
           <SubmitButton type="submit">Góðkenn</SubmitButton>
         </FormStyle>
