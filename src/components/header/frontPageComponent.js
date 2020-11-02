@@ -11,7 +11,7 @@ const FrontPageComponent = () => {
   return (
     <ContainerStyle>
       <MenuContainer opened={opened} setOpened={setOpened} />
-      <Avatar display="flex"/>
+      <Avatar  opened={opened} setOpened={setOpened}/>
       <Flower opened={opened} setOpened={setOpened} />
       <NewsBox />
     </ContainerStyle>
