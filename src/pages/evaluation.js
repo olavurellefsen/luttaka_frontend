@@ -61,7 +61,10 @@ const DescriptionStyle = styled(ReactMarkdown)`
   h1 {
     color: #58A449;
   }
+`
 
+const ButtonStyle = styled.button`
+  
 `
 export default Evauluation
 

@@ -30,11 +30,14 @@ const Avatar = ({ opened, setOpened}) => {
 
 
 const ImageStyle = styled(Img)`
+  display: none;
   width: 130px;
   height: 170px;
   position: absolute;
   bottom: 0;
-  left: 0;
+  ${media.desktop3`
+    display: flex;
+  `}
   ${media.phone1`
     width: 110px;
     height: 120px;
