@@ -106,11 +106,7 @@ const MarkDownContainer = styled(ReactMarkdown)`
 
 const ParagraphImageStyle = styled.p`
   display: flex;
-    margin: 20px;
-
-  img {
-    width: 100%;
-  }
+  margin: 20px;
 
 `
 

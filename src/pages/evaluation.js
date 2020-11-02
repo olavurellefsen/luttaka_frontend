@@ -19,7 +19,7 @@ const Evauluation = ({data}) => {
         </PetalContainer>
         <BackgroundStyle>
           <DescriptionStyle source={content} />
-          <button onClick={() => navigate(`/survey`)}>Nøgdsemiskanning</button>
+          <SubmitButton onClick={() => navigate(`/survey`)}>Nøgdsemiskanning</SubmitButton>
         </BackgroundStyle>
       </Layout>
     </ContainerStyle>
@@ -65,6 +65,19 @@ const DescriptionStyle = styled(ReactMarkdown)`
 
 const ButtonStyle = styled.button`
   
+`
+
+const SubmitButton = styled.button`
+  background-color: #74AB58;
+  color: white;
+  width: 300px;
+  height: 40px;
+  margin: 5px 0;
+  border: none;
+  &:active {
+    opacity: 0.1;
+  }
+  cursor: pointer;
 `
 export default Evauluation
 
