@@ -185,6 +185,7 @@ const SubmitButton = styled.button`
   width: 95%;
   height: 40px;
   margin: 5px 0;
+  font-size: 16px;
   border: none;
   &:active {
     opacity: 0.1;
