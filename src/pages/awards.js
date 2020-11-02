@@ -15,7 +15,7 @@ const Awards = ({ data }) => {
 
   const mediaAwards = data.allStrapiMediaAwards.nodes
   const [input, setInput] = useState(``)
-  console.log("media_awards: ", mediaAwards)
+
   return (
     <Background>
     <Layout>
@@ -30,7 +30,7 @@ const Awards = ({ data }) => {
         {mediaAwards.filter(
           (mediaItem) =>
             mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
-            mediaItem.content.toLowerCase().match(input.toLowerCase()) 
+            mediaItem.content.toLowerCase().match(input.toLowerCase())
             ).map((mediaItem, index) => {
           return (
             <BackgroundStyle>
@@ -46,7 +46,7 @@ const Awards = ({ data }) => {
         mediaAwards.filter(
           (mediaItem) =>
             mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
-            mediaItem.content.toLowerCase().match(input.toLowerCase()) 
+            mediaItem.content.toLowerCase().match(input.toLowerCase())
           ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }

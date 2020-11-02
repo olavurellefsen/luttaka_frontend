@@ -16,7 +16,7 @@ const Diverse = ({ data }) => {
 
   const diverse = data.allStrapiDiverses.nodes
   const [input, setInput] = useState(``)
-  
+
   return (
     <Background>
     <Layout>
@@ -30,8 +30,9 @@ const Diverse = ({ data }) => {
       <ContainerStyle>
         {diverse.filter(
           (diverseItem) =>
-            diverseItem.title.toLowerCase().match(input.toLowerCase()) || 
-            diverseItem.content?.toLowerCase().match(input.toLowerCase())
+            diverseItem.title.toLowerCase().match(input.toLowerCase()) ||
+            diverseItem.content?.toLowerCase().match(input.toLowerCase()) ||
+            diverseItem.date?.match(input)
             ).map((diverseItem, index) => {
           return (
             <BackgroundStyle key={index}>
@@ -48,7 +49,9 @@ const Diverse = ({ data }) => {
         diverse.filter(
           (diverseItem) =>
             diverseItem.title.toLowerCase().match(input.toLowerCase()) ||
-            diverseItem.content?.toLowerCase().match(input.toLowerCase())
+            diverseItem.content?.toLowerCase().match(input.toLowerCase()) ||
+            diverseItem.date?.match(input)
+
             ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
