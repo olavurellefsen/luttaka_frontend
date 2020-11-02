@@ -63,10 +63,6 @@ const DescriptionStyle = styled(ReactMarkdown)`
   }
 `
 
-const ButtonStyle = styled.button`
-
-`
-
 const SubmitButton = styled.button`
   background-color: #74AB58;
   color: white;
