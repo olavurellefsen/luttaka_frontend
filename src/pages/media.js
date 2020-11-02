@@ -27,7 +27,9 @@ const Media = ({ data }) => {
       <ContainerStyle>
         {media.filter(
           (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
+            mediaItem.title?.toLowerCase().match(input.toLowerCase()) ||
+            mediaItem.content?.toLowerCase().match(input.toLowerCase())
+            ).map((mediaItem, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={mediaItem.link} key={index}>
@@ -42,7 +44,9 @@ const Media = ({ data }) => {
       {
         media.filter(
           (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).length === 0
+            mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
+            mediaItem.content?.toLowerCase().match(input.toLowerCase())
+            ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>

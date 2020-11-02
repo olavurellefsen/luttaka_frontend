@@ -29,10 +29,11 @@ let emptySearch = 0
 categories.forEach((cat)=>{
   tmp = cat.lectures.filter(
     (lectureItem) =>
-      lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
-      lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
-      lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
-      lectureItem.Date.toLowerCase().match(input.toLowerCase())
+      lectureItem.title?.toLowerCase().match(input.toLowerCase()) ||
+      lectureItem.lecturer?.name?.toLowerCase().match(input.toLowerCase()) ||
+      lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
+      lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
+      lectureItem.content?.toLowerCase().match(input.toLowerCase())
       ).length === 0
   if (!tmp) emptySearch++
 })
@@ -51,10 +52,12 @@ categories.forEach((cat)=>{
             if(category.lectures.filter(
               (lectureItem) => {
               return(
-                lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.Date.toLowerCase().match(input.toLowerCase())
+                lectureItem.title?.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.lecturer?.name?.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.content?.toLowerCase().match(input.toLowerCase())
+                
                 )
               }).length )
           return(
@@ -79,7 +82,8 @@ categories.forEach((cat)=>{
                 lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.Date.toLowerCase().match(input.toLowerCase())
+                lectureItem.Date.toLowerCase().match(input.toLowerCase()) ||
+                lectureItem.content?.toLowerCase().match(input.toLowerCase())
                 ).sort((a, b) => {
                   const [dayA, monthA, yearA] = a.Date.split("-")
                   const aDate = new Date(yearA, monthA-1, dayA)
