@@ -6,15 +6,13 @@ import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { useLocation } from '@reach/router'
 
 const ArticleTemplate = ({ data }) => {
   const article = data.strapiArticle
-  const location = useLocation()
-
+  console.log("hey", article.image.childImageSharp.resize.src)
   return (
     <Layout>
-      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} href={location.href} image={article.image.childImageSharp.resize} />
+      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} image={article.image.childImageSharp.resize} />
       <ContainerStyle>
         <MenuContainer opened={false} />
         <LinkStyle to="/news" ><GreenTitle>Tíðindi</GreenTitle></LinkStyle>
