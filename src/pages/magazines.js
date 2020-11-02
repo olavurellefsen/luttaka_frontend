@@ -24,7 +24,10 @@ const Magazines = ({ data }) => {
       <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
       <SearchBar setInput={setInput}/>
       <ContainerStyle name="MAgizeContainer">
-        {magazines.filter((magazine) => magazine.title.toLowerCase().match(input.toLowerCase())).map((magazine, index) => {
+        {magazines.filter((magazine) => 
+          magazine.title?.toLowerCase().match(input.toLowerCase()) ||
+          magazine.content?.toLowerCase().match(input.toLowerCase())
+          ).map((magazine, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={magazine.link} key={index}>
@@ -35,7 +38,10 @@ const Magazines = ({ data }) => {
         })}
       </ContainerStyle>
       {
-        magazines.filter((magazine) => magazine.title.toLowerCase().match(input.toLowerCase())).length === 0
+        magazines.filter((magazine) => 
+          magazine.title.toLowerCase().match(input.toLowerCase()) ||
+          magazine.content?.toLowerCase().match(input.toLowerCase())
+          ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>

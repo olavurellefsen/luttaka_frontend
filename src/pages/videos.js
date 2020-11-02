@@ -27,9 +27,13 @@ const Videos = ({ data }) => {
         <SearchBar setInput={setInput} />
       <ContainerStyle>
         {videos.filter((video) => {
-              return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
-
-            video.node.date?.toLowerCase().match(input.toLowerCase()))}
+              return(
+                video.node.title.toLowerCase().match(input.toLowerCase()) ||
+                video.node.date?.toLowerCase().match(input.toLowerCase()) ||
+                video.node.content?.toLowerCase().match(input.toLowerCase())
+            )
+            
+            }
           ).map((video, index) => {
           return (
             <BackgroundStyle key={index}>
@@ -47,9 +51,11 @@ const Videos = ({ data }) => {
       </ContainerStyle>
       {
         videos.filter((video) => {
-              return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
-
-            video.node.date?.toLowerCase().match(input.toLowerCase()))}
+              return(
+                video.node.title.toLowerCase().match(input.toLowerCase()) ||
+                video.node.date?.toLowerCase().match(input.toLowerCase()) ||
+                video.node.content?.toLowerCase().match(input.toLowerCase())
+              )}
           ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }

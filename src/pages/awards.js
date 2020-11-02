@@ -29,7 +29,9 @@ const Awards = ({ data }) => {
       <ContainerStyle>
         {mediaAwards.filter(
           (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
+            mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
+            mediaItem.content.toLowerCase().match(input.toLowerCase())
+            ).map((mediaItem, index) => {
           return (
             <BackgroundStyle>
               <LinkStyle href={`awards/${mediaItem.id}`} key={index}>
@@ -43,7 +45,9 @@ const Awards = ({ data }) => {
       {
         mediaAwards.filter(
           (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).length === 0
+            mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
+            mediaItem.content.toLowerCase().match(input.toLowerCase())
+          ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
