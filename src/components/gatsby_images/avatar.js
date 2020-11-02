@@ -34,6 +34,7 @@ const ImageStyle = styled(Img)`
   height: 170px;
   position: absolute;
   bottom: 0;
+  left: 0;
   ${media.phone1`
     width: 110px;
     height: 120px;
