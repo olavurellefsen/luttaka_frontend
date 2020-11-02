@@ -9,7 +9,6 @@ import { media } from "../utils/mediaTemplate"
 
 const About = ({ data }) => {
   const aboutText = data.allStrapiAbout.nodes[0]?.content
-  console.log("aboutText", aboutText)
   return (
     <ContainerStyle>
       <Layout>
