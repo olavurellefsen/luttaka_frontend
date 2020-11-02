@@ -120,8 +120,8 @@ const LinkTitle = styled.div`
   font-weight: bold;
   align-self: flex-start;
 `
-/* const LinkContent = styled.div`
-` */
+const LinkContent = styled.div`
+`
 const LinkDate = styled.div`
   align-self: flex-start;
   color: #58A449;

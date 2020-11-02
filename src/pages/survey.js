@@ -13,6 +13,7 @@ import { ProtectedRoute } from '../utils/protectedRoute'
 
 const Survey = ({ data }) => {
   const { user } = useAuth0()
+  console.log("dfata: ", data)
   const { register, handleSubmit, watch, clearErrors, errors } = useForm()
   const { data: surveyData, loading } = useSubscription(gql`
   subscription FetchEmail($email: String!) {

@@ -9,9 +9,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import {useLocation} from "@reach/router"
 
-function SEO({ description, lang, meta, image: metaImage, title, pathname  }) {
+function SEO({ description, lang, meta, image: metaImage, title, pathname, href  }) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -24,15 +23,14 @@ function SEO({ description, lang, meta, image: metaImage, title, pathname  }) {
       }
     `
   )
-  const location = useLocation()
+
   const metaDescription = description || site.siteMetadata.description
-  const isMediaAward = location.pathname.split(`/`)[1] === "awards" ? true : false
   const image =
     metaImage && metaImage.src
-      ? `${isMediaAward ? `` : location.origin}${metaImage.src}`
+      ? `${href}${metaImage.src}`
       : null
 
-  const canonical = pathname ? `${location.origin}${pathname}` : null
+  const canonical = pathname ? `${href}${pathname}` : null
 
   return (
     <Helmet
@@ -89,7 +87,7 @@ function SEO({ description, lang, meta, image: metaImage, title, pathname  }) {
           ? [
             {
               property: "og:image",
-              content: image ? image : metaImage.src,
+              content: image
             },
             {
               property: "og:image:width",
@@ -132,6 +130,7 @@ SEO.propTypes = {
     width: PropTypes.number.isRequired,
   }),
   pathname: PropTypes.string,
+  href: PropTypes.string,
 }
 
 export default SEO
