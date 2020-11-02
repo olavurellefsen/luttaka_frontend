@@ -9,7 +9,6 @@ import path4 from './flower_images/Path 4.svg'
 import path6 from './flower_images/Path 6.svg'
 import path7 from './flower_images/Path 7.svg'
 import path8 from './flower_images/Path 8.svg'
-import Avatar from '../gatsby_images/avatar';
 import QuestionBox from '../questionBox';
 import { navigate } from 'gatsby';
 import { media } from '../../utils/mediaTemplate'
@@ -57,7 +56,6 @@ const Flower = ({ opened, setOpened }) => {
       <StemStyle src={path7} right='113px;' opened={opened} altHeight="320px" altRight="126px" />
       <StemStyle src={path8} right='113px' opened={opened} altheight="277px"/>
       <QuestionBox opened={opened} setOpened={setOpened} large_screen={false}/>
-      <Avatar opened={opened} setOpened={setOpened} />
     </ContainerStyle>
   );
 };

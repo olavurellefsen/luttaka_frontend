@@ -5,7 +5,7 @@ import Img from "gatsby-image"
 import { media } from '../../utils/mediaTemplate'
 
 
-const Avatar = ({ opened, setOpened}) => {
+const Avatar = ({ opened, setOpened, display}) => {
 
   const data = useStaticQuery(graphql`
     query {
@@ -20,6 +20,7 @@ const Avatar = ({ opened, setOpened}) => {
   `)
 
   return <Button onClick={() => setOpened(!opened)}><ImageStyle
+    display={display}
     style={{ maxHeight: "100%", position: "absolute" }}
     imgStyle={{ objectFit: "contain" }}
     fluid={data.placeholderImage.childImageSharp.fluid}
@@ -30,7 +31,7 @@ const Avatar = ({ opened, setOpened}) => {
 
 
 const ImageStyle = styled(Img)`
-  display: none;
+  display: ${props => props.display ? props.display: `none`};
   width: 130px;
   height: 170px;
   position: absolute;
