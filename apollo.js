@@ -7,7 +7,6 @@ import { WebSocketLink } from '@apollo/client/link/ws'
 import { useAuth0 } from '@auth0/auth0-react'
 import PropTypes from "prop-types"
 import fetch from 'isomorphic-fetch'
-import ws from "ws"
 
 export const GraphQLProvider = ({ children }) => {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0()
@@ -16,9 +15,7 @@ export const GraphQLProvider = ({ children }) => {
     fetch,
   })
 
-  const wsForNode = typeof window === "undefined" ? ws : null
-
-  const wsLink = new WebSocketLink({
+  const wsLink = process.browser ? new WebSocketLink({
     uri: process.env.GATSBY_X_HASURA_WSS_URI || ``,
     options: {
       reconnect: true,
@@ -35,10 +32,9 @@ export const GraphQLProvider = ({ children }) => {
         }
       },
     },
-    wsForNode
-  })
+  }) : null
 
-  const splitLink = split( //only create the split in the browser
+  const splitLink = process.browser ? split( //only create the split in the browser
     // split based on operation type
     ({ query }) => {
       const { kind, operation } = getMainDefinition(query);
@@ -46,7 +42,7 @@ export const GraphQLProvider = ({ children }) => {
     },
     wsLink,
     httpLink,
-  )
+  ) : httpLink
 
   const authLink = setContext(async (_, { headers }) => {
     if (isAuthenticated) {
