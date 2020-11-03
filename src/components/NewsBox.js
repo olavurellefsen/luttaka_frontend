@@ -10,22 +10,23 @@ const NewsBox = () => {
   const [show, setShow] = useState(true)
   const data = useStaticQuery(graphql`
 query fetchNews {
-  allStrapiArticle(sort: {fields: date, order: DESC}) {
+  allStrapiArticle(sort: {fields: date, order: DESC}, filter: {active: {eq: true}}) {
     nodes {
       id
       title
+      active
       date(formatString: "DD-MM-YYYY")
       description
       image {
         childImageSharp {
-            fixed(width: 60, height: 60) {
-              ...GatsbyImageSharpFixed
-             }
+          fixed(width: 60, height: 60) {
+            ...GatsbyImageSharpFixed
           }
         }
       }
     }
   }
+}
   `)
   const articles = data.allStrapiArticle
   const months = [
@@ -49,7 +50,7 @@ query fetchNews {
         <IconStyle icon={faTimes} onClick={() => { setShow(false) }}/>
       </TitleStyle>
       {articles.nodes.map((item, index) => {
-        const dateString = item.date.split("-")
+        const dateString = item.date?.split("-")
         return (
           <NewsItemContainer key={index} >
             <DateStyle>{dateString[0]}<div style={{opacity: "0.8"}}>{months[dateString[1] - 1].toUpperCase()}</div></DateStyle>
