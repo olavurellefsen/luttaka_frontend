@@ -132,6 +132,7 @@ export const query = graphql`
     strapiArticle(id: {eq: $id}) {
       id
       title
+      active
       content
       description
       date(formatString: "DD-MM-YYYY")
