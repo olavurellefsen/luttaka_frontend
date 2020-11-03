@@ -29,11 +29,12 @@ function SEO({ description, lang, meta, image: metaImage, title, pathname  }) {
   const isMediaAward = location.pathname.split(`/`)[1] === "awards" ? true : false
   const image =
     metaImage && metaImage.src
-      ? `${isMediaAward ? `` : location.origin}${metaImage.src}`
+      ? `${isMediaAward ? `` : process.env.GATSBY_PUBLIC_URL}/${metaImage.src}`
       : null
 
   const canonical = pathname ? `${location.origin}${pathname}` : null
-  
+  console.log("hey", image)
+  console.log("description", description)
   return (
     <Helmet
       htmlAttributes={{

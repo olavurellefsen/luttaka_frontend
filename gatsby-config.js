@@ -38,7 +38,8 @@ module.exports = {
           `privacy-policy`,
           `eftirmeting`,
           `survey-already-registered`,
-          `survey-registered`
+          `survey-registered`,
+          `videos-intro`
         ],
         markdownImages: {
           typesToParse: {

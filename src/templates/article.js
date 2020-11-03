@@ -141,7 +141,7 @@ export const query = graphql`
               ...GatsbyImageSharpFluid
                src
              }
-            }
+          }
         }
     }
   }
