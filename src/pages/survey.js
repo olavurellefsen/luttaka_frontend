@@ -40,15 +40,14 @@ const Survey = ({ data }) => {
     hvorji_tiltolk_skulu_vit_hava_komandi_ar: $hvorji_tiltok,
     hvorjum_tiltokum_luttokst_tu_i: $hvorjum_tiltokum,
     samlad_meting: $samlad_meting}) {
-    id
+    email
   }
 }
   `)
-
   const [fetchUser, { data: survey_data}] = useLazyQuery(gql`
 query fetchemail($email: String!) {
   survey(where: {email: {_eq: $email}}) {
-    id
+    email
   }
 }
   `, {
