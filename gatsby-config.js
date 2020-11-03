@@ -40,7 +40,8 @@ module.exports = {
           `survey-already-registered`,
           `survey-registered`,
           `videos-intro`,
-          `diverse-intro`
+          `diverse-intro`,
+          `in-medias-intro`
         ],
         markdownImages: {
           typesToParse: {
