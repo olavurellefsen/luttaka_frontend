@@ -33,8 +33,7 @@ function SEO({ description, lang, meta, image: metaImage, title, pathname  }) {
       : null
 
   const canonical = pathname ? `${location.origin}${pathname}` : null
-  console.log("hey", image)
-  console.log("description", description)
+
   return (
     <Helmet
       htmlAttributes={{
