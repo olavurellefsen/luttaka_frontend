@@ -8,7 +8,6 @@ const MenuContainer = ({ opened }) => {
   const { isAuthenticated } = useAuth0()
 
 
-
   return (
     <ContainerStyle name="menuContainer" isauthenticated={isAuthenticated}>
       <SmallLogo isAuthenticated={isAuthenticated} />
