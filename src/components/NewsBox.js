@@ -45,7 +45,7 @@ query fetchNews {
   return (
     <ContainerStyle show={show ? "flex" : "none"}>
       <TitleStyle>
-        <div>NÝGGJASTU TÌÐINDI</div>
+        <div>NÝGGJASTU TÍÐINDI</div>
         <IconStyle icon={faTimes} onClick={() => { setShow(false) }}/>
       </TitleStyle>
       {articles.nodes.map((item, index) => {
@@ -71,7 +71,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   flex-direction: column;
   background: #F5F5F5 0% 0% no-repeat padding-box;
-  height: 325px;
+  height: 250px;
   overflow-y: scroll;
   overflow-x: hidden;
   margin-right: 50px;
@@ -86,7 +86,7 @@ const TitleStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   align-self: stretch;
-  margin: 15px 30px;
+  margin: 10px 30px;
   font-size: 22px;
 `
 
@@ -94,9 +94,10 @@ const NewsItemContainer = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  background-color: white;
-  margin: 20px;
+  background-color: #FFFF;
+  margin: 10px 20px;
   width: 90%;
+  margin-top: 0;
 `
 const DateStyle = styled.div`
   display: flex;
