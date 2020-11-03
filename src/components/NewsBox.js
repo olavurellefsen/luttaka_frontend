@@ -68,11 +68,12 @@ query fetchNews {
 
 const ContainerStyle = styled.div`
   display: flex;
+  flex: 1;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   background: #F5F5F5 0% 0% no-repeat padding-box;
-  height: 250px;
+  max-height: 250px;
   overflow-y: scroll;
   overflow-x: hidden;
   margin-right: 50px;
