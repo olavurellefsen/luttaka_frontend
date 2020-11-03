@@ -97,11 +97,15 @@ const PetalContainer = styled.div`
    }
     div:nth-child(2) {
       bottom: 260px;
-      left: 200px;
+      left: 180px;
   }
     div:nth-child(3) {
     bottom: 180px;
     left: 25px;
+  }
+  div:nth-child(4) {
+    bottom: 155px;
+    right: 20px;
   }
    `};
 `
