@@ -15,12 +15,14 @@ import SearchBar from '../components/searchBar'
 const Diverse = ({ data }) => {
 
   const diverse = data.allStrapiDiverses.nodes
+  const diverseIntro = data.allStrapiDiverseIntro.nodes[0]
+
   const [input, setInput] = useState(``)
 
   return (
     <Background>
     <Layout>
-      <SEO title="YMISKT PUTL" />
+        <SEO title="YMISKT PUTL" description={diverseIntro.Description} image={diverseIntro.Image.childImageSharp.resize} />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
@@ -161,6 +163,21 @@ export const PageQuery = graphql`
           link
           date(formatString: "DD-MM-YYYY")
         }
+    }
+    allStrapiDiverseIntro {
+      nodes{
+        id
+        Description
+        Image {
+          childImageSharp {
+            resize {
+              src
+              height
+              width
+            }
+          }
+        }
+      }
     }
   }
 `
