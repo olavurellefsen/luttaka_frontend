@@ -26,10 +26,10 @@ function SEO({ description, lang, meta, image: metaImage, title, pathname  }) {
   )
   const location = useLocation()
   const metaDescription = description || site.siteMetadata.description
-  const isMediaAward = location.pathname.split(`/`)[1] === "awards" ? true : false
+  const isMediaAward = location.pathname.split(`/`)[2]?.match("awards" ) ? true : false
   const image =
     metaImage && metaImage.src
-      ? `${isMediaAward ? `` : process.env.GATSBY_PUBLIC_URL}/${metaImage.src}`
+      ? `${isMediaAward ? `` : process.env.GATSBY_PUBLIC_URL}${metaImage.src}`
       : null
 
   const canonical = pathname ? `${location.origin}${pathname}` : null
