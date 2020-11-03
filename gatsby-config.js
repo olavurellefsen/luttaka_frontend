@@ -41,7 +41,8 @@ module.exports = {
           `survey-registered`,
           `videos-intro`,
           `diverse-intro`,
-          `in-medias-intro`
+          `in-medias-intro`,
+          `magazines-intro`
         ],
         markdownImages: {
           typesToParse: {
