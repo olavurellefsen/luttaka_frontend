@@ -43,7 +43,9 @@ module.exports = {
           `diverse-intro`,
           `in-medias-intro`,
           `magazines-intro`,
-          `media-awards-intro`
+          `media-awards-intro`,
+          `lectures-intro`
+
         ],
         markdownImages: {
           typesToParse: {

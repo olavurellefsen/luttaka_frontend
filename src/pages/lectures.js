@@ -13,6 +13,7 @@ import SEO from "../components/seo"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
+  const lectureIntro = data.allStrapiLecturesIntro.nodes[0]
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState(``)
   const [selCat, setSelCat] = useState(null)
@@ -24,24 +25,24 @@ const LecturesPage = ({ data }) => {
   }
  */
 
-let tmp = null
-let emptySearch = 0
-categories.forEach((cat)=>{
-  tmp = cat.lectures.filter(
-    (lectureItem) =>
-      lectureItem.title?.toLowerCase().match(input.toLowerCase()) ||
-      lectureItem.lecturer?.name?.toLowerCase().match(input.toLowerCase()) ||
-      lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
-      lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
-      lectureItem.content?.toLowerCase().match(input.toLowerCase())
-      ).length === 0
-  if (!tmp) emptySearch++
-})
-
+  let tmp = null
+  let emptySearch = 0
+  categories.forEach((cat) => {
+    tmp = cat.lectures.filter(
+      (lectureItem) =>
+        lectureItem.title?.toLowerCase().match(input.toLowerCase()) ||
+        lectureItem.lecturer?.name?.toLowerCase().match(input.toLowerCase()) ||
+        lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
+        lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
+        lectureItem.content?.toLowerCase().match(input.toLowerCase())
+    ).length === 0
+    if (!tmp) emptySearch++
+  })
+  console.log("hey", lectureIntro)
   return (
     <Background>
       <Layout>
-        <SEO title="FRAMLØGUR" description="Yvirlit yvir framløgur" />
+        <SEO title="FRAMLØGUR" description={lectureIntro.Description} image={lectureIntro.Image.childImageSharp.resize} />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
@@ -49,47 +50,47 @@ categories.forEach((cat)=>{
         <TitleStyle>FRAMLØGUR</TitleStyle>
         <SearchBar setInput={setInput} />
         {categories.map((category, index) => {
-            if(category.lectures.filter(
-              (lectureItem) => {
-              return(
+          if (category.lectures.filter(
+            (lectureItem) => {
+              return (
                 lectureItem.title?.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer?.name?.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.content?.toLowerCase().match(input.toLowerCase())
-                
-                )
-              }).length )
-          return(
-          <HeaderContainer key={index}>
-            <HeaderStyle onClick={() => {
-              if(selCat === index) {
-                  setSelCat(null)
-                  setOpen(false)
-                }
-              else {
-                setOpen(true)
-                setSelCat(index)
-              }
-            }} >
-              <TextStyle>
-                {category.title}
-              </TextStyle>
-              {!input && <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />}
-            </HeaderStyle>
-            {category.lectures.filter(
-              (lectureItem) =>
-                lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.Date.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.content?.toLowerCase().match(input.toLowerCase())
+
+              )
+            }).length)
+            return (
+              <HeaderContainer key={index}>
+                <HeaderStyle onClick={() => {
+                  if (selCat === index) {
+                    setSelCat(null)
+                    setOpen(false)
+                  }
+                  else {
+                    setOpen(true)
+                    setSelCat(index)
+                  }
+                }} >
+                  <TextStyle>
+                    {category.title}
+                  </TextStyle>
+                  {!input && <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />}
+                </HeaderStyle>
+                {category.lectures.filter(
+                  (lectureItem) =>
+                    lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
+                    lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
+                    lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
+                    lectureItem.Date.toLowerCase().match(input.toLowerCase()) ||
+                    lectureItem.content?.toLowerCase().match(input.toLowerCase())
                 ).sort((a, b) => {
                   const [dayA, monthA, yearA] = a.Date.split("-")
-                  const aDate = new Date(yearA, monthA-1, dayA)
+                  const aDate = new Date(yearA, monthA - 1, dayA)
 
                   const [dayB, monthB, yearB] = b.Date.split("-")
-                  const bDate = new Date(yearB, monthB-1, dayB)
+                  const bDate = new Date(yearB, monthB - 1, dayB)
 
                   return bDate - aDate
                 }).map((lecture, lectureIndex) => {
@@ -105,15 +106,15 @@ categories.forEach((cat)=>{
                     </LinkStyle>
                   )
                 })
-            }
-          </HeaderContainer>
-        )
-        else
-          return(null)
+                }
+              </HeaderContainer>
+            )
+          else
+            return (null)
         })}
         {
-          emptySearch===0 && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
-      }
+          emptySearch === 0 && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+        }
       </Layout>
     </Background>
   )
@@ -259,10 +260,25 @@ query fetchCategoies {
         title
         link
         Date(formatString: "DD-MM-YYYY")
-        lecturer{
+        lecturer {
           id
           name
           organisation
+        }
+      }
+    }
+  }
+  allStrapiLecturesIntro {
+    nodes {
+      id
+      Description
+      Image {
+        childImageSharp {
+          resize {
+            src
+            width
+            height
+          }
         }
       }
     }
