@@ -94,13 +94,13 @@ const DateStyle = styled.p`
 
 `
 
-const Descriptionstyle = styled.p`
-  font-size: 18px;
-  display: block;
-  ${media.desktop3`
-    display: none;
-  `}
-`
+// const Descriptionstyle = styled.p`
+//   font-size: 18px;
+//   display: block;
+//   ${media.desktop3`
+//     display: none;
+//   `}
+// `
 
 const ImageStyle = styled(Img)`
   // max-width: 400px;
