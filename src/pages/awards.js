@@ -95,6 +95,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
+  display: none;
   color: #58A449;
   font-size: 24px;
   ${media.desktop3`
