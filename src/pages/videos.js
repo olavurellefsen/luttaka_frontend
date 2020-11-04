@@ -14,47 +14,52 @@ import { graphql } from 'gatsby'
 const Videos = ({ data }) => {
 
   const videos = data.allStrapiVideo.edges
+  const videosIntro = data.allStrapiVideosIntro.nodes[0]
   const [input, setInput] = useState(``)
   return (
     <Background>
       <Layout>
-        <SEO title="FILMAR" />
+        <SEO title="FILMAR" description={videosIntro.Description} image={videosIntro.Image.childImageSharp.resize} />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>FILMAR</TitleStyle>
         <SearchBar setInput={setInput} />
-      <ContainerStyle>
-        {videos.filter((video) => {
-              return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
+        <ContainerStyle>
+          {videos.filter((video) => {
+            return (
+              video.node.title.toLowerCase().match(input.toLowerCase()) ||
+              video.node.date?.toLowerCase().match(input.toLowerCase()) ||
+              video.node.content?.toLowerCase().match(input.toLowerCase())
+            )
 
-            video.node.date?.toLowerCase().match(input.toLowerCase()))}
-          ).map((video, index) => {
-            console.log("title: ", video.node.title)
-            console.log("title: " + JSON.stringify(video.node.title))
-          return (
-            <BackgroundStyle key={index}>
-              <LinkStyle target="_blank" href={video.node.link} key={index}>
-                <VideoTitle>{video.node.title}</VideoTitle>
-                <ImageStyle
-                  fluid={video.node.thumbnail.childImageSharp.fluid}
-                  alt={video.node.title} />
-              </LinkStyle>
-              <DateContainer>{video.node.date}</DateContainer>
-              <MarkDownContainer source={video.node.description}/>
-            </BackgroundStyle>
-          )
-        })}
-      </ContainerStyle>
-      {
-        videos.filter((video) => {
-              return(video.node.title.toLowerCase().match(input.toLowerCase()) ||
-
-            video.node.date?.toLowerCase().match(input.toLowerCase()))}
+          }).map((video, index) => {
+            return (
+              <BackgroundStyle key={index}>
+                <LinkStyle target="_blank" href={video.node.link} key={index}>
+                  <VideoTitle>{video.node.title}</VideoTitle>
+                  <ImageStyle
+                    fluid={video.node.thumbnail.childImageSharp.fluid}
+                    alt={video.node.title} />
+                </LinkStyle>
+                <DateContainer>{video.node.date}</DateContainer>
+                <MarkDownContainer source={video.node.description} />
+              </BackgroundStyle>
+            )
+          })}
+        </ContainerStyle>
+        {
+          videos.filter((video) => {
+            return (
+              video.node.title.toLowerCase().match(input.toLowerCase()) ||
+              video.node.date?.toLowerCase().match(input.toLowerCase()) ||
+              video.node.content?.toLowerCase().match(input.toLowerCase())
+            )
+          }
           ).length === 0
-        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
-      }
+          && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+        }
       </Layout>
     </Background>
   )
@@ -70,7 +75,6 @@ const ContainerStyle = styled.div`
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  ${'' /* margin: 20px; */}
   margin-top: 0px;
   max-width: 1200px;
   ${media.desktop3`
@@ -120,9 +124,6 @@ const LinkStyle = styled.a`
   color: black;
   align-items: center;
   justify-content: center;
-  ${'' /* font-size: 18px; */}
-  ${'' /* padding-top: 20px; */}
-  ${'' /* padding-bottom: 20px; */}
   margin-left: 10px;
   margin-right: 10px;
 `
@@ -130,7 +131,6 @@ const VideoTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${'' /* height: 20px; */}
   font-size: 20px;
   padding: 20px;
 `
@@ -149,7 +149,6 @@ const DateContainer = styled.div`
 
 `
 const MarkDownContainer = styled(ReactMarkdown)`
-  ${'' /* s */}
   padding-bottom: 20px;
   background-color: white;
   width: 100%;
@@ -180,6 +179,21 @@ export const PageQuery = graphql`
        }
      }
    }
+  allStrapiVideosIntro {
+    nodes {
+      id
+      Description
+      Image {
+        childImageSharp {
+          resize {
+            src
+            width
+            height
+          }
+        }
+      }
+    }
+  }
  }
 
  `

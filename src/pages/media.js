@@ -9,43 +9,53 @@ import Layout from '../components/layout'
 import { media } from "../utils/mediaTemplate"
 import { graphql } from "gatsby"
 import SearchBar from '../components/searchBar'
+import SEO from '../components/seo'
 
 
 const Media = ({ data }) => {
 
   const media = data.allStrapiMedia2S.nodes
+  const mediaIntro = data.allStrapiInMediasIntro.nodes[0]
+
   const [input, setInput] = useState(``)
   return (
     <Background>
-    <Layout>
-      <MenuContainer />
-      <PetalContainer name="petal container">
-        <PetalMenu />
-      </PetalContainer>
-      <TitleStyle>Í MIÐLUNUM</TitleStyle>
-      <SearchBar setInput={setInput}/>
-      <ContainerStyle>
-        {media.filter(
-          (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
-          return (
-            <BackgroundStyle key={index}>
-              <LinkStyle target="_blank" href={mediaItem.link} key={index}>
-                <LinkDate>{mediaItem.date}</LinkDate>
-                <LinkTitle>{mediaItem.title}</LinkTitle>
-                <MarkDownContainer>{mediaItem.content}</MarkDownContainer>
-              </LinkStyle>
-            </BackgroundStyle>
-          )
-        })}
-      </ContainerStyle>
-      {
-        media.filter(
-          (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).length === 0
-        && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
-      }
-    </Layout>
+      <Layout>
+        <SEO title="Í MIÐLUNUM" description={mediaIntro.Description} image={mediaIntro.Image.childImageSharp.resize} />
+        <MenuContainer />
+        <PetalContainer name="petal container">
+          <PetalMenu />
+        </PetalContainer>
+        <TitleStyle>Í MIÐLUNUM</TitleStyle>
+        <SearchBar setInput={setInput} />
+        <ContainerStyle>
+          {media.filter(
+            (mediaItem) =>
+              mediaItem.title?.toLowerCase().match(input.toLowerCase()) ||
+              mediaItem.content?.toLowerCase().match(input.toLowerCase()) ||
+              mediaItem.date?.match(input)
+          ).map((mediaItem, index) => {
+            return (
+              <BackgroundStyle key={index}>
+                <LinkStyle target="_blank" href={mediaItem.link} key={index}>
+                  <LinkDate>{mediaItem.date}</LinkDate>
+                  <LinkTitle>{mediaItem.title}</LinkTitle>
+                  <MarkDownContainer>{mediaItem.content}</MarkDownContainer>
+                </LinkStyle>
+              </BackgroundStyle>
+            )
+          })}
+        </ContainerStyle>
+        {
+          media.filter(
+            (mediaItem) =>
+              mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
+              mediaItem.content?.toLowerCase().match(input.toLowerCase()) ||
+              mediaItem.date?.match(input)
+          ).length === 0
+          && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
+        }
+      </Layout>
     </Background>
   )
 }
@@ -89,6 +99,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
+  diplay: none;
   color: #58A449;
   font-size: 24px;
   ${media.desktop3`
@@ -110,12 +121,11 @@ const LinkStyle = styled.a`
   font-size: 16px;
   padding: 20px;
 `
+
 const LinkTitle = styled.div`
   font-size: 18px;
   font-weight: bold;
   align-self: flex-start;
-`
-const LinkContent = styled.div`
 `
 const LinkDate = styled.div`
   align-self: flex-start;
@@ -153,6 +163,21 @@ export const PageQuery = graphql`
           link
           date(formatString: "DD-MM-YYYY")
         }
+    }
+    allStrapiInMediasIntro {
+      nodes {
+        id
+        Description
+        Image {
+          childImageSharp {
+            resize {
+              src
+              width
+              height
+            }
+          }
+        }
+      }
     }
   }
 `

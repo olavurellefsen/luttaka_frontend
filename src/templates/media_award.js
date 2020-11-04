@@ -6,18 +6,17 @@ import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { useLocation } from '@reach/router'
 
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
-  const imageSrc = {src: award.content.split("(")[1]?.split(")")[0], height: 612, width: 1024}
-  const location = useLocation()
+  const imageSrc = {src: award.content.split("(")[1]?.split(")")[0], height: 300, width: 400}
+
   return (
     <Layout>
-      <SEO title="MIÐLAHEIÐURSLØN" description={`Miðlaheiðursløn: ${award.title}`} image={imageSrc} href={location.href} />
+      <SEO title="MIÐLAHEIÐURSLØN" description={`Miðlaheiðursløn: ${award.title}`} image={imageSrc} />
       <ContainerStyle>
         <MenuContainer opened={false} />
-        <LinkStyle to="/awards" ><GreenTitle>Savn</GreenTitle></LinkStyle>
+        <LinkStyle to="/awards" ><GreenTitle>MIÐLAHEIÐURSLØN</GreenTitle></LinkStyle>
         <StyledContainer>
           <ContentContainer>
             <TitleStyle>{award.title}</TitleStyle>
@@ -34,9 +33,10 @@ const AwardTemplate = ({ data }) => {
                         <Img
                           fluid={image.url}
                           alt={alt}
+                          imgStyle={{width: "100%"}}
                         />
                       ) : (
-                          <img src={src} alt={alt} style={{maxWidth: "100vw"}} />
+                          <img src={src} alt={alt} style={{width: "100%"}} />
                         )}
                     </>
                   )
@@ -106,11 +106,7 @@ const MarkDownContainer = styled(ReactMarkdown)`
 
 const ParagraphImageStyle = styled.p`
   display: flex;
-    margin: 20px;
-
-  img {
-    width: 100%;
-  }
+  margin: 20px;
 
 `
 

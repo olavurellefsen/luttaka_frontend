@@ -16,9 +16,10 @@ const IndexPage = () => {
 const Background = styled.div`
   display: flex;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  // min-height: 800px;
+  width: 100vw;
+  height: 100vh;
+  ${'' /* min-height: 800px; */}
+  overflow: hidden;
 `
 
 

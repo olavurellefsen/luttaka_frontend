@@ -21,6 +21,10 @@ const onRedirectCallback = appState => {
   )
 }
 
+exports.onInitialClientRender = () => {
+  window.scrollTo(0, 0)
+}
+
 exports.wrapPageElement = ({ element }) => {
   return (
     <Auth0Provider

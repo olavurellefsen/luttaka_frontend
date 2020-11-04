@@ -2,14 +2,12 @@ import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { media } from "../../utils/mediaTemplate"
-// import SearchBar from '../searchBar'
 import Img from "gatsby-image"
 
 const NewsContainer = ({ nodes, input }) => {
 
   return (
     <ContainerStyle>
-      {/* <SearchBar /> */}
       <RowContainer>
         {nodes?.filter((article) => {
           return(article.title.toLowerCase().match(input.toLowerCase()) ||
@@ -26,9 +24,9 @@ const NewsContainer = ({ nodes, input }) => {
                       fluid={article.image?.childImageSharp.fluid}
                       alt={article.title} />
                     : null}
-                  <Descriptionstyle>
+                  {/* <Descriptionstyle>
                     {article.description}
-                  </Descriptionstyle>
+                  </Descriptionstyle> */}
                 </ContentContainer>
               </LinkStyle>
             </BackgroundStyle>
@@ -39,7 +37,7 @@ const NewsContainer = ({ nodes, input }) => {
         nodes?.filter((article) => {
           return(article.title.toLowerCase().match(input.toLowerCase()) ||
           article.date?.toLowerCase().match(input.toLowerCase()))
-        }).length === 0 
+        }).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </ContainerStyle>
@@ -96,13 +94,13 @@ const DateStyle = styled.p`
 
 `
 
-const Descriptionstyle = styled.p`
-  font-size: 18px;
-  display: block;
-  ${media.desktop3`
-    display: none;
-  `}
-`
+// const Descriptionstyle = styled.p`
+//   font-size: 18px;
+//   display: block;
+//   ${media.desktop3`
+//     display: none;
+//   `}
+// `
 
 const ImageStyle = styled(Img)`
   // max-width: 400px;

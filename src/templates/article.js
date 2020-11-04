@@ -6,15 +6,12 @@ import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { useLocation } from '@reach/router'
 
 const ArticleTemplate = ({ data }) => {
   const article = data.strapiArticle
-  const location = useLocation()
-
   return (
     <Layout>
-      <SEO title={`Tíðindi: ${article.title}`} description={article.description ? article.description : ``} href={location.href} image={article.image.childImageSharp.resize} />
+      <SEO title={`Tíðindi: ${article.title}`} description={article.description} image={article.image.childImageSharp.resize} />
       <ContainerStyle>
         <MenuContainer opened={false} />
         <LinkStyle to="/news" ><GreenTitle>Tíðindi</GreenTitle></LinkStyle>
@@ -133,6 +130,7 @@ export const query = graphql`
     strapiArticle(id: {eq: $id}) {
       id
       title
+      active
       content
       description
       date(formatString: "DD-MM-YYYY")
@@ -140,11 +138,12 @@ export const query = graphql`
         childImageSharp {
             fluid(maxWidth: 895, maxHeight: 406) {
               ...GatsbyImageSharpFluid
+               src
              }
-             resize(width: 1024) {
+            resize(width: 400, height: 300) {
               src
-              height
               width
+              height
             }
           }
         }

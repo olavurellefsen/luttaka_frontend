@@ -14,10 +14,12 @@ const Magazines = ({ data }) => {
 console.log("data: ", data)
   const magazines = data.allStrapiMagazine.nodes
   const [input, setInput] = useState(``)
+  const magazineIntro = data.allStrapiMagazinesIntro.nodes[0]
+
   return (
     <Background>
     <Layout>
-      <SEO title="VÍSINDAVØKUBLØÐ" description="Yvirlit yvir vísindavøkubløð"/>
+        <SEO title="VÍSINDAVØKUBLØÐ" description={magazineIntro.Description} image={magazineIntro.Image.childImageSharp.resize}/>
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
@@ -25,7 +27,10 @@ console.log("data: ", data)
       <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
       <SearchBar setInput={setInput}/>
       <ContainerStyle name="MAgizeContainer">
-        {magazines.filter((magazine) => magazine.title.toLowerCase().match(input.toLowerCase())).map((magazine, index) => {
+        {magazines.filter((magazine) =>
+          magazine.title?.toLowerCase().match(input.toLowerCase()) ||
+          magazine.content?.toLowerCase().match(input.toLowerCase())
+          ).map((magazine, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={magazine.link} key={index}>
@@ -36,7 +41,10 @@ console.log("data: ", data)
         })}
       </ContainerStyle>
       {
-        magazines.filter((magazine) => magazine.title.toLowerCase().match(input.toLowerCase())).length === 0
+        magazines.filter((magazine) =>
+          magazine.title.toLowerCase().match(input.toLowerCase()) ||
+          magazine.content?.toLowerCase().match(input.toLowerCase())
+          ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
@@ -119,6 +127,21 @@ export const PageQuery = graphql`
         date
       }
    }
+  allStrapiMagazinesIntro {
+    nodes {
+      id
+      Description
+      Image {
+        childImageSharp {
+          resize {
+            src
+            width
+            height
+          }
+        }
+      }
+    }
+  }
  }
 
  `

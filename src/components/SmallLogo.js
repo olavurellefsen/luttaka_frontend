@@ -38,15 +38,6 @@ const SmallLogo = ({ isAuthenticated }) => {
 
 }
 
-// const slideInLeft = keyframes`
-//   from {
-//     transform: translate(100%, 250%);
-//   }
-
-//   to {
-//     // -webkit-transform: translate3d(-100%, 0, 0);
-//     transform: translate(-40%,-65%);
-// `
 const LinkStyle = styled(Link)`
   width: 300px;
   height: 300px;

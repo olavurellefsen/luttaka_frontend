@@ -18,7 +18,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: process.env.API_URL || `https://vvadmin.tokni.fo`,
+        apiURL: process.env.API_URL || `https://visindavoka-backend.herokuapp.com`,
         contentTypes: [
           `article`,
           `schedule`,
@@ -38,7 +38,13 @@ module.exports = {
           `privacy-policy`,
           `eftirmeting`,
           `survey-already-registered`,
-          `survey-registered`
+          `survey-registered`,
+          `videos-intro`,
+          `diverse-intro`,
+          `in-medias-intro`,
+          `magazines-intro`,
+          `media-awards-intro`,
+          `lectures-intro`
         ],
         markdownImages: {
           typesToParse: {
@@ -60,12 +66,12 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Vísindavøka`,
+        short_name: `vísindavøka`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
-        display: `minimal-ui`,
+        display: "fullscreen",
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },

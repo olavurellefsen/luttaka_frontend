@@ -11,27 +11,26 @@ const SearchBar = ({ setInput}) => {
         <FontAwesomeIcon icon={faSearch} style={{ color: `#58A449` }} />
       </Icon>
       <InputStyle placeholder="Leita" onChange={(e) => setInput(e.target.value)}>
-        
       </InputStyle>
-      
     </ContainerStyle>
   );
 };
 const ContainerStyle = styled.div`
-  margin:20px;
+  margin: 20px;
   position: relative;
   width: 360px;
-  ${media.phone2`
+  ${media.phone1`
     width: 350px;
   `}
-  ${media.phone1`
+  ${media.phone2`
     width: 250px;
   `}
 `
 
 const InputStyle = styled.input`
   height: 40px;
-  width: 95%;  
+  font-size: 16px;
+  width: 95%;
   border-radius: 28px;
   opacity: 1;
   padding-left: 15px;
@@ -44,7 +43,7 @@ const InputStyle = styled.input`
 
 const Icon = styled.div`
   position: absolute;
-  top: 15px;
+  top: 12px;
   right: 5%;
 `
 

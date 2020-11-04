@@ -14,12 +14,13 @@ import SearchBar from '../components/searchBar'
 const Awards = ({ data }) => {
 
   const mediaAwards = data.allStrapiMediaAwards.nodes
+  const awardsIntro = data.allStrapiMediaAwardsIntro.nodes[0]
   const [input, setInput] = useState(``)
 
   return (
     <Background>
     <Layout>
-      <SEO title="MIÐLAHEIÐURSLØN" description="Yvirlit yvir miðlaheiðurslønir"/>
+        <SEO title="MIÐLAHEIÐURSLØN" description={awardsIntro.Description} image={awardsIntro.Image.childImageSharp.resize} />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
@@ -29,9 +30,11 @@ const Awards = ({ data }) => {
       <ContainerStyle>
         {mediaAwards.filter(
           (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).map((mediaItem, index) => {
+            mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
+            mediaItem.content.toLowerCase().match(input.toLowerCase())
+            ).map((mediaItem, index) => {
           return (
-            <BackgroundStyle>
+            <BackgroundStyle key={index}>
               <LinkStyle href={`awards/${mediaItem.id}`} key={index}>
                 {mediaItem.title}
               </LinkStyle>
@@ -43,7 +46,9 @@ const Awards = ({ data }) => {
       {
         mediaAwards.filter(
           (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase())).length === 0
+            mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
+            mediaItem.content.toLowerCase().match(input.toLowerCase())
+          ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
@@ -136,16 +141,30 @@ const EmptySearch = styled.div`
 export default Awards
 
 export const PageQuery = graphql`
- query fetchMediaAwards {
-   allStrapiMediaAwards(sort: {fields: date, order: DESC}){
-       nodes {
-         id
-         title
-         link
-         content
-         date
-     }
-   }
- }
-
+query fetchMediaAwards {
+  allStrapiMediaAwards(sort: {fields: date, order: DESC}) {
+    nodes {
+      id
+      title
+      link
+      content
+      date
+    }
+  }
+  allStrapiMediaAwardsIntro {
+    nodes {
+      id
+      Description
+      Image {
+        childImageSharp {
+          resize {
+            src
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}
  `

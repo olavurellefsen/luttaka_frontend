@@ -45,7 +45,6 @@ const PetalContainer = styled.div`
 
 const TitleStyle = styled.h3`
   color: #58A449;
-  display: none;
   font-size: 24px;
   ${media.desktop3`
     display: block;
@@ -58,7 +57,7 @@ export default News
 
 export const pageQuery = graphql`
 query fetchArticles {
-  allStrapiArticle(sort: {fields: date, order: DESC}) {
+  allStrapiArticle(sort: {fields: date, order: DESC}, filter: {active: {eq: true}}) {
     nodes {
       id
       title
@@ -66,12 +65,13 @@ query fetchArticles {
       description
       image {
         childImageSharp {
-            fluid(maxWidth: 400, maxHeight: 200) {
-              ...GatsbyImageSharpFluid
-             }
+          fluid(maxWidth: 400, maxHeight: 200) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
+      active
     }
   }
+}
 `

@@ -15,12 +15,14 @@ import SearchBar from '../components/searchBar'
 const Diverse = ({ data }) => {
 
   const diverse = data.allStrapiDiverses.nodes
+  const diverseIntro = data.allStrapiDiverseIntro.nodes[0]
+
   const [input, setInput] = useState(``)
 
   return (
     <Background>
     <Layout>
-      <SEO title="YMISKT PUTL" />
+        <SEO title="YMISKT PUTL" description={diverseIntro.Description} image={diverseIntro.Image.childImageSharp.resize} />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
@@ -30,7 +32,10 @@ const Diverse = ({ data }) => {
       <ContainerStyle>
         {diverse.filter(
           (diverseItem) =>
-            diverseItem.title.toLowerCase().match(input.toLowerCase())).map((diverseItem, index) => {
+            diverseItem.title.toLowerCase().match(input.toLowerCase()) ||
+            diverseItem.content?.toLowerCase().match(input.toLowerCase()) ||
+            diverseItem.date?.match(input)
+            ).map((diverseItem, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={diverseItem.link} key={index}>
@@ -45,7 +50,11 @@ const Diverse = ({ data }) => {
       {
         diverse.filter(
           (diverseItem) =>
-            diverseItem.title.toLowerCase().match(input.toLowerCase())).length === 0
+            diverseItem.title.toLowerCase().match(input.toLowerCase()) ||
+            diverseItem.content?.toLowerCase().match(input.toLowerCase()) ||
+            diverseItem.date?.match(input)
+
+            ).length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
@@ -120,8 +129,6 @@ const LinkTitle = styled.div`
   font-weight: bold;
   align-self: flex-start;
 `
-const LinkContent = styled.div`
-`
 const LinkDate = styled.div`
   align-self: flex-start;
   color: #58A449;
@@ -156,6 +163,21 @@ export const PageQuery = graphql`
           link
           date(formatString: "DD-MM-YYYY")
         }
+    }
+    allStrapiDiverseIntro {
+      nodes{
+        id
+        Description
+        Image {
+          childImageSharp {
+            resize {
+              src
+              height
+              width
+            }
+          }
+        }
+      }
     }
   }
 `
