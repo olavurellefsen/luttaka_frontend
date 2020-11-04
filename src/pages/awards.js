@@ -33,7 +33,7 @@ const Awards = ({ data }) => {
             mediaItem.content.toLowerCase().match(input.toLowerCase())
             ).map((mediaItem, index) => {
           return (
-            <BackgroundStyle>
+            <BackgroundStyle key={index}>
               <LinkStyle href={`awards/${mediaItem.id}`} key={index}>
                 {mediaItem.title}
               </LinkStyle>
@@ -94,6 +94,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
+  display: none;
   color: #58A449;
   font-size: 24px;
   ${media.desktop3`

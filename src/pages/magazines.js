@@ -24,7 +24,7 @@ const Magazines = ({ data }) => {
       <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
       <SearchBar setInput={setInput}/>
       <ContainerStyle name="MAgizeContainer">
-        {magazines.filter((magazine) => 
+        {magazines.filter((magazine) =>
           magazine.title?.toLowerCase().match(input.toLowerCase()) ||
           magazine.content?.toLowerCase().match(input.toLowerCase())
           ).map((magazine, index) => {
@@ -38,7 +38,7 @@ const Magazines = ({ data }) => {
         })}
       </ContainerStyle>
       {
-        magazines.filter((magazine) => 
+        magazines.filter((magazine) =>
           magazine.title.toLowerCase().match(input.toLowerCase()) ||
           magazine.content?.toLowerCase().match(input.toLowerCase())
           ).length === 0
@@ -86,6 +86,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
+  display: none;
   color: #58A449;
   font-size: 24px;
   ${media.desktop3`

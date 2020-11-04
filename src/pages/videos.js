@@ -32,7 +32,7 @@ const Videos = ({ data }) => {
                 video.node.date?.toLowerCase().match(input.toLowerCase()) ||
                 video.node.content?.toLowerCase().match(input.toLowerCase())
             )
-            
+
             }
           ).map((video, index) => {
           return (
@@ -107,6 +107,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
+  display: none;
   color: #58A449;
   font-size: 24px;
   ${media.desktop3`

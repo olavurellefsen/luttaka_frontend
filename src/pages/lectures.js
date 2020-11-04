@@ -57,7 +57,7 @@ categories.forEach((cat)=>{
                 lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
                 lectureItem.content?.toLowerCase().match(input.toLowerCase())
-                
+
                 )
               }).length )
           return(
@@ -140,6 +140,7 @@ const EmptySearch = styled.div`
   font-size: 20px;
 `
 const TitleStyle = styled.h3`
+  display: none;
   color: #58A449;
   font-size: 24px;
   cursor: pointer;
