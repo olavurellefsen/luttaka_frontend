@@ -34,8 +34,7 @@ const Videos = ({ data }) => {
               video.node.content?.toLowerCase().match(input.toLowerCase())
             )
 
-          }
-          ).map((video, index) => {
+          }).map((video, index) => {
             return (
               <BackgroundStyle key={index}>
                 <LinkStyle target="_blank" href={video.node.link} key={index}>
@@ -108,6 +107,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
+  display: none;
   color: #58A449;
   font-size: 24px;
   ${media.desktop3`
