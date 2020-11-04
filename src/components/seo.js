@@ -33,7 +33,6 @@ function SEO({ description, lang, meta, image: metaImage, title, pathname  }) {
       : null
 
   const canonical = pathname ? `${process.env.GATSBY_PUBLIC_URL}${pathname}` : null
-      console.log("descriptionseo", description)
   return (
     <Helmet
       htmlAttributes={{

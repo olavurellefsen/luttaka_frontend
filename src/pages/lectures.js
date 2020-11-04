@@ -38,7 +38,7 @@ const LecturesPage = ({ data }) => {
     ).length === 0
     if (!tmp) emptySearch++
   })
-  console.log("hey", lectureIntro)
+
   return (
     <Background>
       <Layout>
