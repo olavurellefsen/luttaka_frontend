@@ -320,7 +320,7 @@ query fetchemail($email: String!) {
             </LabelStyleRank>
           </InputContainer>
           <InputContainer>
-            <FormTitle>6. Hvat evni vilt tú hoyra meira um næstu ferð? <RedText>*</RedText></FormTitle>
+            <FormTitle>6. Hvat evni vilt tú hoyra meira um næstu ferð?</FormTitle>
             <ColumnStyle>
               <ParagraphStyle></ParagraphStyle>
               <ParagraphStyle>Nei</ParagraphStyle>
