@@ -53,7 +53,7 @@ query fetchNews {
         const dateString = item.date?.split("-")
         return (
           <NewsItemContainer key={index} >
-            <DateStyle>{dateString[0]}<div style={{ opacity: "0.8" }}>{months[dateString[1] - 1].toUpperCase()}</div></DateStyle>
+            <DateStyle>{dateString?.length > 0 ? dateString[0] : ``}<div style={{ opacity: "0.8" }}>{dateString?.length > 0 ? months[dateString[1] - 1].toUpperCase() : ``}</div></DateStyle>
             <LinkStyle to={`news/${item.id}`}>
               <NewsTitleStyle>{item.title.slice(0, 42) + `...`}</NewsTitleStyle>
               <Img fixed={item.image.childImageSharp.fixed} />
