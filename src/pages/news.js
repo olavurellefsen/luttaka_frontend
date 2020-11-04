@@ -45,7 +45,6 @@ const PetalContainer = styled.div`
 
 const TitleStyle = styled.h3`
   color: #58A449;
-  display: none;
   font-size: 24px;
   ${media.desktop3`
     display: block;

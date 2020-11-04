@@ -16,7 +16,7 @@ const AwardTemplate = ({ data }) => {
       <SEO title="MIÐLAHEIÐURSLØN" description={`Miðlaheiðursløn: ${award.title}`} image={imageSrc} />
       <ContainerStyle>
         <MenuContainer opened={false} />
-        <LinkStyle to="/awards" ><GreenTitle>Savn</GreenTitle></LinkStyle>
+        <LinkStyle to="/awards" ><GreenTitle>MIÐLAHEIÐURSLØN</GreenTitle></LinkStyle>
         <StyledContainer>
           <ContentContainer>
             <TitleStyle>{award.title}</TitleStyle>

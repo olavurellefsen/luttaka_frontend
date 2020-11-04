@@ -44,24 +44,26 @@ query fetchNews {
     `des`,
   ]
   return (
-    <ContainerStyle show={show ? "flex" : "none"}>
-      <TitleStyle>
-        <div>NÝGGJASTU TÍÐINDI</div>
-        <IconStyle icon={faTimes} onClick={() => { setShow(false) }} />
-      </TitleStyle>
-      {articles.nodes.map((item, index) => {
-        const dateString = item.date?.split("-")
-        return (
-          <NewsItemContainer key={index} >
-            <DateStyle>{dateString?.length > 0 ? dateString[0] : ``}<div style={{ opacity: "0.8" }}>{dateString?.length > 0 ? months[dateString[1] - 1].toUpperCase() : ``}</div></DateStyle>
-            <LinkStyle to={`news/${item.id}`}>
-              <NewsTitleStyle>{item.title.slice(0, 42) + `...`}</NewsTitleStyle>
-              <Img fixed={item.image.childImageSharp.fixed} />
-            </LinkStyle>
-          </NewsItemContainer>
-        )
-      })}
-    </ContainerStyle>
+    <BackgroundStyle>
+      <ContainerStyle show={show ? "flex" : "none"}>
+        <TitleStyle>
+          <div>NÝGGJASTU TÍÐINDI</div>
+          <IconStyle icon={faTimes} onClick={() => { setShow(false) }} />
+        </TitleStyle>
+        {articles.nodes.map((item, index) => {
+          const dateString = item.date?.split("-")
+          return (
+            <NewsItemContainer key={index} >
+              <DateStyle>{dateString?.length > 0 ? dateString[0] : ``}<div style={{ opacity: "0.8" }}>{dateString?.length > 0 ? months[dateString[1] - 1].toUpperCase() : ``}</div></DateStyle>
+              <LinkStyle to={`news/${item.id}`}>
+                <NewsTitleStyle>{item.title.slice(0, 42) + `...`}</NewsTitleStyle>
+                <Img fixed={item.image.childImageSharp.fixed} />
+              </LinkStyle>
+            </NewsItemContainer>
+          )
+        })}
+      </ContainerStyle>
+    </BackgroundStyle>
   )
 }
 
@@ -72,16 +74,18 @@ const ContainerStyle = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  background: #F5F5F5 0% 0% no-repeat padding-box;
-  max-height: 250px;
-  min-height: 250px;
-  overflow-y: visible;
-  overflow-x: hidden;
-  margin-right: 50px;
+
   ${media.desktop3`
     display: none;
   `}
   display: ${props => props.show}
+`
+const BackgroundStyle = styled.div`
+  height: 250px;
+  overflow-y: visible;
+  overflow-x: hidden;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  margin-right: 50px;
 `
 
 const TitleStyle = styled.div`
