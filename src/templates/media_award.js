@@ -6,6 +6,8 @@ import ReactMarkdown from 'react-markdown'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import { media } from '../utils/mediaTemplate'
+
 
 const AwardTemplate = ({ data }) => {
   const award = data.strapiMediaAwards
@@ -82,10 +84,15 @@ const ContentContainer = styled.div`
   margin: 5px 15px;
 `
 
-const TitleStyle = styled.h2`
-  font-size: 18px;
-  margin: 20px;
-  `
+const TitleStyle = styled.h3`
+  diplay: none;
+  color: #58A449;
+  font-size: 24px;
+  ${media.desktop3`
+    display: block;
+    margin-top: 100px;
+  `}
+`
 
 const GreenTitle = styled(TitleStyle)`
   font-size: 28px;
