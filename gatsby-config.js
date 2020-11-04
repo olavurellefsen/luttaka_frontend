@@ -45,7 +45,6 @@ module.exports = {
           `magazines-intro`,
           `media-awards-intro`,
           `lectures-intro`
-
         ],
         markdownImages: {
           typesToParse: {
@@ -67,12 +66,12 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Vísindavøka`,
+        short_name: `vísindavøka`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
-        display: `minimal-ui`,
+        display: "fullscreen",
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
