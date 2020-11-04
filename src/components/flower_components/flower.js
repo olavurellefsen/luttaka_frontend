@@ -63,12 +63,15 @@ const Flower = ({ opened, setOpened }) => {
 
 const ContainerStyle = styled.div`
   width: 355px;
-  height: 600px;
+  height: 510px;
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
   z-index: 1;
+  ${media.phone1`
+    height: 385px;
+  `}
 `
 
 const PetalContainer = styled.div`
