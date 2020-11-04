@@ -45,7 +45,7 @@ const BackgroundStyle = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  max-width: 1000px;
+  max-width: 800px;
   margin-top: 60px;
   background-color: white;
   ${media.desktop3`
@@ -67,7 +67,7 @@ const SubmitButton = styled.button`
   background-color: #74AB58;
   color: white;
   font-size: 16px;
-  width: 300px;
+  width: 200px;
   height: 40px;
   margin: 5px 0;
   border: none;

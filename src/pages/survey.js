@@ -325,7 +325,7 @@ query fetchemail($email: String!) {
               <ParagraphStyle></ParagraphStyle>
               <ParagraphStyle>Nei</ParagraphStyle>
               <ParagraphStyle>Kanska</ParagraphStyle>
-              <ParagraphStyle>ja</ParagraphStyle>
+              <ParagraphStyle>Ja</ParagraphStyle>
               <LabelStyle htmlFor="heilsa">Heilsu</LabelStyle>
               <InputStyle type="radio" name="heilsa" value="Nei" ref={register({ required: false })} />
               <InputStyle type="radio" name="heilsa" value="Kanska" ref={register({ required: false })} />
@@ -355,7 +355,7 @@ query fetchemail($email: String!) {
           </InputContainer>
           <InputContainer>
             <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
-            <input type="text" name="email" ref={register({ required: false })} />
+            <EmailStyle  type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
           <SubmitButton type="submit">Góðkenn</SubmitButton>
         </FormStyle>
@@ -412,7 +412,11 @@ const InputStyle = styled.input`
   width: 20px;
   height: 20px;
 `
-
+const EmailStyle = styled(InputStyle)`
+  max-width: 312px;
+  width: 100%;
+}
+`
 const InputBoxStyle = styled(InputStyle)`
   width: 25px;
   height: 25px;
