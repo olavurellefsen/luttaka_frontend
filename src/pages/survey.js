@@ -420,12 +420,14 @@ const EmailStyle = styled(InputStyle)`
 const InputBoxStyle = styled(InputStyle)`
   width: 25px;
   height: 25px;
+  font-size: 16px;
 `
 
 const TextAreaStyle = styled.textarea`
   width: 90%;
   min-height: 120px;
   margin: 0px 5px;
+  font-size: 16px;
 `
 
 const ColumnStyle = styled.div`
