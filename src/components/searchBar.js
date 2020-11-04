@@ -29,6 +29,7 @@ const ContainerStyle = styled.div`
 
 const InputStyle = styled.input`
   height: 40px;
+  font-size: 16px;
   width: 95%;
   border-radius: 28px;
   opacity: 1;
