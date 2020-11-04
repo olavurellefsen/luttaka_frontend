@@ -115,7 +115,6 @@ const Location = styled.div`
 const ScheduleItemList = styled.div`
   margin: 20px;
   background-color: #FFFF;
-  max-width: 500px;
 `
 
 export default Signup

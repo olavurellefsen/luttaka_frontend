@@ -24,7 +24,7 @@ const ContainerStyle = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-cotent: flex-end;
   // min-height: 800px;
   position: relative;
 `
