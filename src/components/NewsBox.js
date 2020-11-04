@@ -75,7 +75,7 @@ const ContainerStyle = styled.div`
   background: #F5F5F5 0% 0% no-repeat padding-box;
   max-height: 250px;
   min-height: 250px;
-  overflow-y: scroll;
+  overflow-y: visible;
   overflow-x: hidden;
   margin-right: 50px;
   ${media.desktop3`
@@ -98,19 +98,18 @@ const NewsItemContainer = styled.div`
   flex: 1;
   align-items: center;
   background-color: #FFFF;
-  margin: 10px 20px;
-  width: 90%;
-  margin-top: 0;
+  margin: 0 10px 10px 20px;
+  align-self: stretch;
 `
 const DateStyle = styled.div`
   display: flex;
+  flex: 1;
+  align-self: stretch;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 60px;
-  height: 60px;
-  min-height: 60px;
-  max-height: 60px;
+  min-width: 60px;
+  max-width: 60px;
   border-right: 1px solid red;
 `
 
@@ -120,11 +119,11 @@ const NewsTitleStyle = styled.div`
 
 const LinkStyle = styled(Link)`
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: space-between;
   align-self: stretch;
   flex-direction: row;
-  width: 100%;
   color: black;
   text-decoration: none;
   font-weight: bold;
