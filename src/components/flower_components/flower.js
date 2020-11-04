@@ -19,12 +19,12 @@ const Flower = ({ opened, setOpened }) => {
       title: `Skráin 2020`,
       color: `green`,
       image: schedule,
-      to: () =>navigate("/schedule")
+      to: () => navigate("/schedule")
     }, {
       title: `Tíðindi`,
       color: `red`,
       image: news,
-      to: () =>navigate("/news")
+      to: () => navigate("/news")
     },
     {
       title: "Savn",
@@ -46,16 +46,16 @@ const Flower = ({ opened, setOpened }) => {
       <PetalContainer name="petal_container">
         {petals.map((item, index) => {
           return (
-              <Petal key={index} navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
+            <Petal key={index} navigate={item.to} color={item.color} title={item.title} index={index} imageSource={item.image} opened={opened} />
           )
         })}
 
       </PetalContainer>
-      <StemStyle src={path4} right='50%' opened={opened} altHeight="350px"/>
-      <StemStyle src={path6} right='50%' opened={opened} altHeight="284px" />
-      <StemStyle src={path7} right='113px;' opened={opened} altHeight="320px" altRight="126px" />
-      <StemStyle src={path8} right='113px' opened={opened} altheight="277px"/>
-      <QuestionBox opened={opened} setOpened={setOpened} large_screen={false}/>
+      <StemStyle src={path4} right='50%' opened={opened} altHeight="300px" />
+      <StemStyle src={path6} right='50%' opened={opened} altHeight="224px" />
+      <StemStyle src={path7} right='113px;' opened={opened} altHeight="280px" altRight="129px" />
+      <StemStyle src={path8} right='113px' opened={opened} altheight="180px" altRight="109px"/>
+      <QuestionBox opened={opened} setOpened={setOpened} large_screen={false} />
     </ContainerStyle>
   );
 };
@@ -93,11 +93,19 @@ const PetalContainer = styled.div`
   ${media.phone1`
     div:nth-child(1) {
     left: 50px;
-    bottom: 330px;
-   }
-     div:nth-child(2) {
     bottom: 280px;
-    left: 200px;
+   }
+    div:nth-child(2) {
+      bottom: 260px;
+      left: 180px;
+  }
+    div:nth-child(3) {
+    bottom: 180px;
+    left: 25px;
+  }
+  div:nth-child(4) {
+    bottom: 155px;
+    right: 20px;
   }
    `};
 `
