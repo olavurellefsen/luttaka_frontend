@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Flower from '../flower_components/flower'
 import Avatar from '../gatsby_images/avatar'
-import NewsBox from '../NewsBox'
+// import NewsBox from '../NewsBox'
 import MenuContainer from './menuContainer'
 
 const FrontPageComponent = () => {
