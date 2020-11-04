@@ -47,16 +47,16 @@ query fetchNews {
     <ContainerStyle show={show ? "flex" : "none"}>
       <TitleStyle>
         <div>NÝGGJASTU TÍÐINDI</div>
-        <IconStyle icon={faTimes} onClick={() => { setShow(false) }}/>
+        <IconStyle icon={faTimes} onClick={() => { setShow(false) }} />
       </TitleStyle>
       {articles.nodes.map((item, index) => {
         const dateString = item.date?.split("-")
         return (
           <NewsItemContainer key={index} >
-            <DateStyle>{dateString[0]}<div style={{opacity: "0.8"}}>{months[dateString[1] - 1].toUpperCase()}</div></DateStyle>
-          <LinkStyle to={`news/${item.id}`}>
-              <NewsTitleStyle>{item.title.slice(0, 42)+ `...`}</NewsTitleStyle>
-              <Img fixed={item.image.childImageSharp.fixed}/>
+            <DateStyle>{dateString[0]}<div style={{ opacity: "0.8" }}>{months[dateString[1] - 1].toUpperCase()}</div></DateStyle>
+            <LinkStyle to={`news/${item.id}`}>
+              <NewsTitleStyle>{item.title.slice(0, 42) + `...`}</NewsTitleStyle>
+              <Img fixed={item.image.childImageSharp.fixed} />
             </LinkStyle>
           </NewsItemContainer>
         )
@@ -74,6 +74,7 @@ const ContainerStyle = styled.div`
   flex-direction: column;
   background: #F5F5F5 0% 0% no-repeat padding-box;
   max-height: 250px;
+  min-height: 250px;
   overflow-y: scroll;
   overflow-x: hidden;
   margin-right: 50px;
@@ -108,6 +109,8 @@ const DateStyle = styled.div`
   flex-direction: column;
   width: 60px;
   height: 60px;
+  min-height: 60px;
+  max-height: 60px;
   border-right: 1px solid red;
 `
 

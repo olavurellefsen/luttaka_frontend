@@ -13,10 +13,12 @@ import SearchBar from '../components/searchBar'
 const Magazines = ({ data }) => {
   const magazines = data.allStrapiMagazine.nodes
   const [input, setInput] = useState(``)
+  const magazineIntro = data.allStrapiMagazinesIntro.nodes[0]
+
   return (
     <Background>
     <Layout>
-      <SEO title="VÍSINDAVØKUBLØÐ" description="Yvirlit yvir vísindavøkubløð"/>
+        <SEO title="VÍSINDAVØKUBLØÐ" description={magazineIntro.Description} image={magazineIntro.Image.childImageSharp.resize}/>
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
@@ -125,6 +127,21 @@ export const PageQuery = graphql`
         date
       }
    }
+  allStrapiMagazinesIntro {
+    nodes {
+      id
+      Description
+      Image {
+        childImageSharp {
+          resize {
+            src
+            width
+            height
+          }
+        }
+      }
+    }
+  }
  }
 
  `

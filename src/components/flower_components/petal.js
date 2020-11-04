@@ -39,6 +39,7 @@ const ImgStyle = styled.img`
   height: 120px;
   ${media.phone1`
     height: 95px;
+    
   `}
 `
 

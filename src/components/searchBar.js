@@ -42,7 +42,7 @@ const InputStyle = styled.input`
 
 const Icon = styled.div`
   position: absolute;
-  top: 15px;
+  top: 12px;
   right: 5%;
 `
 

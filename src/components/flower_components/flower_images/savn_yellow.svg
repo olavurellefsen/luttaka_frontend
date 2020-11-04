@@ -13,7 +13,7 @@
       .b {
         fill:#fff;
         font-size: 22px;
-        font-family: 'Lato', 'Arial';
+        font-family: 'Lato-regular', 'Lato', 'Arial';
         }
     </style>
   </defs>

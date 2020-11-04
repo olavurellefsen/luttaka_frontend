@@ -44,7 +44,7 @@ const Survey = ({ data }) => {
   }
 }
   `)
-  const [fetchUser, { data: survey_data}] = useLazyQuery(gql`
+  const [fetchUser, { data: survey_data }] = useLazyQuery(gql`
 query fetchemail($email: String!) {
   survey(where: {email: {_eq: $email}}) {
     email
@@ -114,11 +114,6 @@ query fetchemail($email: String!) {
       er
       && which_events_participated
       && the_best
-      && nattura
-      && heilsa
-      && tokni
-      && samfelag
-      && hugvisindi
       && meting) {
       await setAnswer({
         er: er !== "Annað" ? er : text_er,
@@ -132,6 +127,7 @@ query fetchemail($email: String!) {
         samfelag: samfelag,
         hugvisindi: hugvisindi,
         meting: meting,
+        email: email
       })
       await fetchUser({
         variables: {
@@ -210,9 +206,13 @@ query fetchemail($email: String!) {
             Miðnámsskúlanæmingur
           </LabelStyle>
             <LabelStyle>
+              <InputStyle name="er" type="radio" value="Lesandi á hægri námi ella yrkisútbúgving" ref={register({ required: true })} />
+            Lesandi á hægri námi ella yrkisútbúgving
+          </LabelStyle>
+            <LabelStyle>
               <InputStyle name="er" type="radio" value="Fólkaskúlalærari" ref={register({ required: true })} />
             Fólkaskúlalærari
-          </LabelStyle>
+            </LabelStyle>
             <LabelStyle>
               <InputStyle name="er" type="radio" value="Undirvísari á miðnámi" ref={register({ required: true })} />
             Undirvísari á miðnámi
@@ -241,10 +241,6 @@ query fetchemail($email: String!) {
             <LabelStyle>
               <InputStyle name="er" type="radio" value="Pensjónist" ref={register({ required: true })} />
             Pensjónist
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Lesandi á hægri námi ella yrkisútbúgving" ref={register({ required: true })} />
-            Lesandi á hægri námi ella yrkisútbúgving
           </LabelStyle>
             <LabelStyle style={{ flexDirection: "column", alignItems: "flex-start" }}>
               <div>
@@ -331,25 +327,25 @@ query fetchemail($email: String!) {
               <ParagraphStyle>Kanska</ParagraphStyle>
               <ParagraphStyle>ja</ParagraphStyle>
               <LabelStyle htmlFor="heilsa">Heilsu</LabelStyle>
-              <InputStyle type="radio" name="heilsa" value="Nei" ref={register({ required: true })} />
-              <InputStyle type="radio" name="heilsa" value="Kanska" ref={register({ required: true })} />
-              <InputStyle type="radio" name="heilsa" value="Ja" ref={register({ required: true })} />
+              <InputStyle type="radio" name="heilsa" value="Nei" ref={register({ required: false })} />
+              <InputStyle type="radio" name="heilsa" value="Kanska" ref={register({ required: false })} />
+              <InputStyle type="radio" name="heilsa" value="Ja" ref={register({ required: false })} />
               <LabelStyle htmlFor="nattura">Náttúru</LabelStyle>
-              <InputStyle type="radio" name="nattura" value="Nei" ref={register({ required: true })} />
-              <InputStyle type="radio" name="nattura" value="Kanska" ref={register({ required: true })} />
-              <InputStyle type="radio" name="nattura" value="Ja" ref={register({ required: true })} />
+              <InputStyle type="radio" name="nattura" value="Nei" ref={register({ required: false })} />
+              <InputStyle type="radio" name="nattura" value="Kanska" ref={register({ required: false })} />
+              <InputStyle type="radio" name="nattura" value="Ja" ref={register({ required: false })} />
               <LabelStyle htmlFor="tokni">Tøkni</LabelStyle>
-              <InputStyle type="radio" name="tokni" value="Nei" ref={register({ required: true })} />
-              <InputStyle type="radio" name="tokni" value="Kanska" ref={register({ required: true })} />
-              <InputStyle type="radio" name="tokni" value="Ja" ref={register({ required: true })} />
+              <InputStyle type="radio" name="tokni" value="Nei" ref={register({ required: false })} />
+              <InputStyle type="radio" name="tokni" value="Kanska" ref={register({ required: false })} />
+              <InputStyle type="radio" name="tokni" value="Ja" ref={register({ required: false })} />
               <LabelStyle htmlFor="samfelag">Samfelag</LabelStyle>
-              <InputStyle type="radio" name="samfelag" value="Nei" ref={register({ required: true })} />
-              <InputStyle type="radio" name="samfelag" value="Kanska" ref={register({ required: true })} />
-              <InputStyle type="radio" name="samfelag" value="Ja" ref={register({ required: true })} />
+              <InputStyle type="radio" name="samfelag" value="Nei" ref={register({ required: false })} />
+              <InputStyle type="radio" name="samfelag" value="Kanska" ref={register({ required: false })} />
+              <InputStyle type="radio" name="samfelag" value="Ja" ref={register({ required: false })} />
               <LabelStyle htmlFor="hugvisindi">Hugvísindi</LabelStyle>
-              <InputStyle type="radio" name="hugvisindi" value="Nei" ref={register({ required: true })} />
-              <InputStyle type="radio" name="hugvisindi" value="Kanska" ref={register({ required: true })} />
-              <InputStyle type="radio" name="hugvisindi" value="Ja" ref={register({ required: true })} />
+              <InputStyle type="radio" name="hugvisindi" value="Nei" ref={register({ required: false })} />
+              <InputStyle type="radio" name="hugvisindi" value="Kanska" ref={register({ required: false })} />
+              <InputStyle type="radio" name="hugvisindi" value="Ja" ref={register({ required: false })} />
             </ColumnStyle>
           </InputContainer>
           <InputContainer>
@@ -358,7 +354,7 @@ query fetchemail($email: String!) {
             <input type="number" min="1" max="10" name="meting" ref={register({ required: true })} />
           </InputContainer>
           <InputContainer>
-            <FormTitle>Um tú ynskir at vera við í lutakastinum mást tú skriva tín teldupost her</FormTitle>
+            <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
             <input type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
           <SubmitButton type="submit">Góðkenn</SubmitButton>
