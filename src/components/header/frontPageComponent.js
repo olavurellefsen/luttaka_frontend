@@ -13,7 +13,7 @@ const FrontPageComponent = () => {
       <MenuContainer opened={opened} setOpened={setOpened} />
       <Avatar  opened={opened} setOpened={setOpened}/>
       <Flower opened={opened} setOpened={setOpened} />
-      <NewsBox />
+      {/* <NewsBox /> */}
     </ContainerStyle>
   )
 }
