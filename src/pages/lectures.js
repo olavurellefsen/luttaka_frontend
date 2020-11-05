@@ -141,7 +141,7 @@ const EmptySearch = styled.div`
   font-size: 20px;
 `
 const TitleStyle = styled.h3`
-  color: #EAAE29;
+  color: #58A449;
   font-size: 24px;
   cursor: pointer;
   ${media.desktop3`

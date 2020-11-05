@@ -130,7 +130,7 @@ const ItemContainer = styled.div`
   margin-top: 10px;
   margin-left: 15px;
   margin-right: 15px;
-  color: #EAAE29;
+  color: #58A449;
   max-width: 450px;
 `
 
