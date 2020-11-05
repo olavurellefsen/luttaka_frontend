@@ -11,7 +11,6 @@ import SearchBar from '../components/searchBar'
 
 
 const Magazines = ({ data }) => {
-console.log("data: ", data)
   const magazines = data.allStrapiMagazine.nodes
   const [input, setInput] = useState(``)
   const magazineIntro = data.allStrapiMagazinesIntro.nodes[0]
@@ -89,7 +88,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
-  color: #58A449;
+   color: #58A449;
   font-size: 24px;
   ${media.desktop3`
     display: block;

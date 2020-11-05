@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import MenuContainer from '../components/header/menuContainer'
 import Layout from '../components/layout'
+import SEO from '../components/seo'
 import { media } from '../utils/mediaTemplate'
 
 const Evauluation = ({data}) => {
@@ -13,6 +14,7 @@ const Evauluation = ({data}) => {
   return (
     <ContainerStyle>
       <Layout>
+        <SEO title={"Eftirmeting av vísindavøkuni"} description={content?.replace("#", "")}/>
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
