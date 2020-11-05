@@ -24,7 +24,6 @@ const LibraryPage = ({ data }) => {
   const lectures = data.allStrapiLecture.nodes
 
   if (isLoading) return null
-  console.log("hghgf", lectures)
   return (
     <Background>
       <Layout>
@@ -59,7 +58,6 @@ const LibraryPage = ({ data }) => {
                 <ContentStyle>
                   <div>{lectureItem.Date}</div>
                   <LecturedContainer>
-                    {console.log("hey", lectureItem.lecturer.name.match("Noomi") ? "ja" : "nei")}
                     <div>{lectureItem.lecturer.name}</div><div>{lectureItem.lecturer.organisation}</div>
                   </LecturedContainer>
                 </ContentStyle>
