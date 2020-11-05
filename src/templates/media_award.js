@@ -86,7 +86,7 @@ const ContentContainer = styled.div`
 
 const TitleStyle = styled.h3`
   diplay: none;
-  color: #58A449;
+  color: #EAAE29;
   font-size: 24px;
   ${media.desktop3`
     display: block;

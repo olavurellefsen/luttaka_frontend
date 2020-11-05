@@ -107,7 +107,7 @@ const BackgroundStyle = styled.div`
 `
 
 const TitleStyle = styled.h3`
-  color: #58A449;
+  color: #EAAE29;
   font-size: 24px;
   ${media.desktop3`
     display: block;
@@ -133,6 +133,7 @@ const VideoTitle = styled.div`
   justify-content: center;
   font-size: 20px;
   padding: 20px;
+
 `
 const ImageStyle = styled(Image)`
   margin: 20px;

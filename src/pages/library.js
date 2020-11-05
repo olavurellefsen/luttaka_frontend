@@ -76,7 +76,6 @@ const LibraryPage = ({ data }) => {
               || awardItem.content?.toLowerCase().match(input.toLowerCase())
             ).map((awardItem, index) => (<LinkStyle to={`/awards/${awardItem.id}`} key={index}>{awardItem.title}</LinkStyle>))}
 
-
             <ItemStyle>Í MIÐLINUM</ItemStyle>
             {media.filter((mediaItem) => mediaItem.title?.toLowerCase()
               .match(input.toLowerCase()
@@ -125,9 +124,8 @@ const ItemContainer = styled.div`
   margin-top: 10px;
   margin-left: 15px;
   margin-right: 15px;
-  color: #74AB58;
+  color: #EAAE29;
   max-width: 450px;
-
 `
 
 const LinkStyle = styled(Link)`
@@ -208,6 +206,7 @@ const TitleStyle = styled.h3`
 
 const ItemStyle = styled.div`
     margin: 20px;
+    font-weight: bold;
   `
 
 export default LibraryPage
