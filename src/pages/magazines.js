@@ -11,7 +11,6 @@ import SearchBar from '../components/searchBar'
 
 
 const Magazines = ({ data }) => {
-console.log("data: ", data)
   const magazines = data.allStrapiMagazine.nodes
   const [input, setInput] = useState(``)
   const magazineIntro = data.allStrapiMagazinesIntro.nodes[0]
