@@ -111,7 +111,8 @@ query fetchemail($email: String!) {
     `
 
     if (
-      er
+      !formState.isSubmitting
+      &&er
       && which_events_participated
       && the_best
       && meting) {
