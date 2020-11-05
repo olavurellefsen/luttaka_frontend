@@ -10,14 +10,19 @@ import SEO from "../components/seo"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from "gatsby"
 import SearchBar from '../components/searchBar'
+import { searchArchives } from "../utils/searchFunctions"
 
 
 const Diverse = ({ data }) => {
 
-  const diverse = data.allStrapiDiverses.nodes
+  const diverses = data.allStrapiDiverses.nodes
   const diverseIntro = data.allStrapiDiverseIntro.nodes[0]
 
   const [input, setInput] = useState(``)
+
+  const diversesByInput = diverses.filter((diverse) =>
+    searchArchives(diverse, input)
+  )
 
   return (
     <Background>
@@ -30,12 +35,7 @@ const Diverse = ({ data }) => {
       <TitleStyle>YMISKT PUTL</TitleStyle>
      <SearchBar setInput={setInput}/>
       <ContainerStyle>
-        {diverse.filter(
-          (diverseItem) =>
-            diverseItem.title.toLowerCase().match(input.toLowerCase()) ||
-            diverseItem.content?.toLowerCase().match(input.toLowerCase()) ||
-            diverseItem.date?.match(input)
-            ).map((diverseItem, index) => {
+        {diversesByInput.map((diverseItem, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={diverseItem.link} key={index}>
@@ -48,13 +48,7 @@ const Diverse = ({ data }) => {
         })}
       </ContainerStyle>
       {
-        diverse.filter(
-          (diverseItem) =>
-            diverseItem.title.toLowerCase().match(input.toLowerCase()) ||
-            diverseItem.content?.toLowerCase().match(input.toLowerCase()) ||
-            diverseItem.date?.match(input)
-
-            ).length === 0
+        diversesByInput.length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>

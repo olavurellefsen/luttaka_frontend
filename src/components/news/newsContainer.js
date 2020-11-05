@@ -3,16 +3,18 @@ import React from 'react'
 import styled from 'styled-components'
 import { media } from "../../utils/mediaTemplate"
 import Img from "gatsby-image"
+import { searchArchives } from "../../utils/searchFunctions"
 
 const NewsContainer = ({ nodes, input }) => {
+  const articles = nodes
+  const articlesByInput = articles.filter((article) =>
+    searchArchives(article, input)
+  )
 
   return (
     <ContainerStyle>
       <RowContainer>
-        {nodes?.filter((article) => {
-          return(article.title.toLowerCase().match(input.toLowerCase()) ||
-          article.date?.toLowerCase().match(input.toLowerCase()))
-        }).map((article, index) => {
+        {articlesByInput.map((article, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle to={article.id}>
@@ -34,10 +36,7 @@ const NewsContainer = ({ nodes, input }) => {
         })}
       </RowContainer>
       {
-        nodes?.filter((article) => {
-          return(article.title.toLowerCase().match(input.toLowerCase()) ||
-          article.date?.toLowerCase().match(input.toLowerCase()))
-        }).length === 0
+        articlesByInput.length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </ContainerStyle>

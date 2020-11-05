@@ -10,14 +10,20 @@ import { media } from "../utils/mediaTemplate"
 import { graphql } from "gatsby"
 import SearchBar from '../components/searchBar'
 import SEO from '../components/seo'
+import { searchArchives } from "../utils/searchFunctions"
 
 
 const Media = ({ data }) => {
 
   const media = data.allStrapiMedia2S.nodes
   const mediaIntro = data.allStrapiInMediasIntro.nodes[0]
-
   const [input, setInput] = useState(``)
+  
+  const mediasByInput = media.filter((media) =>
+    searchArchives(media, input)
+  )
+
+  
   return (
     <Background>
       <Layout>
@@ -29,12 +35,7 @@ const Media = ({ data }) => {
         <TitleStyle>Í MIÐLUNUM</TitleStyle>
         <SearchBar setInput={setInput} />
         <ContainerStyle>
-          {media.filter(
-            (mediaItem) =>
-              mediaItem.title?.toLowerCase().match(input.toLowerCase()) ||
-              mediaItem.content?.toLowerCase().match(input.toLowerCase()) ||
-              mediaItem.date?.match(input)
-          ).map((mediaItem, index) => {
+          {mediasByInput.map((mediaItem, index) => {
             return (
               <BackgroundStyle key={index}>
                 <LinkStyle target="_blank" href={mediaItem.link} key={index}>
@@ -47,12 +48,7 @@ const Media = ({ data }) => {
           })}
         </ContainerStyle>
         {
-          media.filter(
-            (mediaItem) =>
-              mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
-              mediaItem.content?.toLowerCase().match(input.toLowerCase()) ||
-              mediaItem.date?.match(input)
-          ).length === 0
+          mediasByInput.length === 0
           && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
         }
       </Layout>

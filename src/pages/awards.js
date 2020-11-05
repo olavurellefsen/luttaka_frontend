@@ -9,6 +9,7 @@ import SEO from "../components/seo"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
 import SearchBar from '../components/searchBar'
+import { searchArchives } from "../utils/searchFunctions"
 
 
 const Awards = ({ data }) => {
@@ -16,6 +17,10 @@ const Awards = ({ data }) => {
   const mediaAwards = data.allStrapiMediaAwards.nodes
   const awardsIntro = data.allStrapiMediaAwardsIntro.nodes[0]
   const [input, setInput] = useState(``)
+
+  const mediaAwardsByInput = mediaAwards.filter((mediaAward) =>
+    searchArchives(mediaAward, input)
+  )
 
   return (
     <Background>
@@ -28,11 +33,7 @@ const Awards = ({ data }) => {
       <TitleStyle>MIÐLAHEIÐURSLØN</TitleStyle>
       <SearchBar setInput={setInput} />
       <ContainerStyle>
-        {mediaAwards.filter(
-          (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
-            mediaItem.content.toLowerCase().match(input.toLowerCase())
-            ).map((mediaItem, index) => {
+        {mediaAwardsByInput.map((mediaItem, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle href={`awards/${mediaItem.id}`} key={index}>
@@ -44,11 +45,7 @@ const Awards = ({ data }) => {
         })}
       </ContainerStyle>
       {
-        mediaAwards.filter(
-          (mediaItem) =>
-            mediaItem.title.toLowerCase().match(input.toLowerCase()) ||
-            mediaItem.content.toLowerCase().match(input.toLowerCase())
-          ).length === 0
+        mediaAwardsByInput.length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>
