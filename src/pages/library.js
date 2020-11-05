@@ -41,7 +41,7 @@ const LibraryPage = ({ data }) => {
             {videos.filter((videoItem) => videoItem.title?.toLowerCase()
               .match(input.toLowerCase()
                 || videoItem.date?.toLowerCase().match(input.toLowerCase())
-              )).map((videoItem, index) => (<ExternalLinkStyle to={videoItem?.link} key={index}>
+            )).map((videoItem, index) => (<ExternalLinkStyle target="_blank" href={videoItem?.link} key={index}>
                 {videoItem.title}
                 <ImageStyle
                   fluid={videoItem.thumbnail.childImageSharp.fluid}
@@ -54,11 +54,13 @@ const LibraryPage = ({ data }) => {
                 || lectureItem.date?.toLowerCase().match(input.toLowerCase())
                 || lectureItem.lecturer?.name?.match(input.toLowerCase())
                 || lectureItem.lecturer?.organization?.match(input.toLowerCase())
-              )).map((lectureItem, index) => (<ExternalLinkStyle to={lectureItem.link} key={index}>
+            )).map((lectureItem, index) => (<ExternalLinkStyle target="_blank" href={lectureItem.link} key={index}>
                 <HeaderTitleStyle source={lectureItem.title} />
                 <ContentStyle>
                   <div>{lectureItem.Date}</div>
-                  <LecturedContainer><div>{lectureItem.lecturer.name}</div><div>{lectureItem.lecturer.organisation}</div></LecturedContainer>
+                  <LecturedContainer>
+                    <div>{lectureItem.lecturer.name}</div><div>{lectureItem.lecturer.organisation}</div>
+                  </LecturedContainer>
                 </ContentStyle>
               </ExternalLinkStyle>))}
 
@@ -67,7 +69,7 @@ const LibraryPage = ({ data }) => {
               .match(input.toLowerCase())
               || magazineItem.content?.toLowerCase().match(input.toLowerCase())
               || magazineItem.date?.toLowerCase().match(input.toLowerCase())
-            ).map((magazineItem, index) => (<ExternalLinkStyle to={magazineItem.link} key={index}>{magazineItem.title}</ExternalLinkStyle>))}
+            ).map((magazineItem, index) => (<ExternalLinkStyle target="_blank" href={magazineItem.link} key={index}>{magazineItem.title}</ExternalLinkStyle>))}
 
             <ItemStyle>MIÐLAHEIÐURSLØN</ItemStyle>
             {mediaAwards.filter((awardItem) => awardItem.title.toLowerCase()
@@ -84,7 +86,7 @@ const LibraryPage = ({ data }) => {
                 || mediaItem.lecturer?.name?.toLowerCase().match(input.toLowerCase())
                 || mediaItem.lecturer?.organization?.toLowerCase().match(input.toLowerCase())
 
-              )).map((mediaItem, index) => (<ExternalLinkStyle to={mediaItem.link} key={index}>
+            )).map((mediaItem, index) => (<ExternalLinkStyle target="_blank" href={mediaItem.link} key={index}>
                 <DateStyle>{mediaItem.date}</DateStyle>
                 <HeaderTitleStyle source={mediaItem.title} />
                 <MarkDownContainer>{mediaItem.content}</MarkDownContainer>
@@ -95,7 +97,11 @@ const LibraryPage = ({ data }) => {
               .match(input.toLowerCase())
               || diverseItem.content?.toLowerCase().match(input.toLowerCase())
               || diverseItem.date?.match(input)
-            ).map((diverseItem, index) => (<ExternalLinkStyle to={diverseItem.link} key={index}>{diverseItem.title}</ExternalLinkStyle>))}
+            ).map((diverseItem, index) => (<ExternalLinkStyle target="_blank" href={diverseItem.link} key={index}>
+              <DateStyle>{diverseItem.date}</DateStyle>
+              <HeaderTitleStyle source={diverseItem.title} />
+              <MarkDownContainer>{diverseItem.content}</MarkDownContainer>
+              </ExternalLinkStyle>))}
           </ItemContainer>
         }
       </Layout>
@@ -156,7 +162,7 @@ const ExternalLinkStyle = styled.a`
   font-size: 18px;
   padding: 20px;
   margin: 10px;
-
+  cursor: pointer;
 `
 const ContentStyle = styled.div`
   display: flex;
