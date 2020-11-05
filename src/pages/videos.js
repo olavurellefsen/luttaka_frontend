@@ -133,6 +133,7 @@ const VideoTitle = styled.div`
   justify-content: center;
   font-size: 20px;
   padding: 20px;
+
 `
 const ImageStyle = styled(Image)`
   margin: 20px;
