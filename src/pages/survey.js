@@ -10,7 +10,7 @@ import { media } from '../utils/mediaTemplate'
 
 
 const Survey = ({ data }) => {
-  const { register, handleSubmit, watch, clearErrors, errors } = useForm()
+  const { register, handleSubmit, watch, clearErrors, errors, formState } = useForm({ mode: 'onChnage' })
   const [answer, setAnswer] = useState({})
   const watchRankedFields = watch([
     "visinda_voku_a_ferd",
@@ -56,7 +56,7 @@ query fetchemail($email: String!) {
 
         createSurveyAnwser({
           variables: {
-            email: answer.email,
+            email: answer.email === `` ? null : answer.email,
             ert_tu: answer.er,
             hvat_evni: `
           Heilsu: ${answer.heilsa},
@@ -165,9 +165,9 @@ query fetchemail($email: String!) {
     return false
   }
 
+  console.log("survey_data", survey_data)
 
-
-  if (survey_data?.survey.length > 0) {
+  if (survey_data?.survey?.length > 0) {
     return (
       <ContainerStyle>
         <Layout>
@@ -357,7 +357,7 @@ query fetchemail($email: String!) {
             <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
             <EmailStyle  type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
-          <SubmitButton type="submit">Góðkenn</SubmitButton>
+          <SubmitButton type="submit" disabled={formState.isSubmitting}>Góðkenn</SubmitButton>
         </FormStyle>
       </Layout>
     </ContainerStyle>
@@ -465,7 +465,7 @@ const RedText = styled.div`
 `
 
 const SubmitButton = styled.button`
-  background-color: #74AB58;
+  background-color: ${props => props.disabled ? "gray": "#74AB58"};
   color: white;
   width: 150px;
   font-size: 16px;
@@ -475,7 +475,7 @@ const SubmitButton = styled.button`
   &:active {
     opacity: 0.1;
   }
-  cursor: pointer;
+  cursor: ${props => props.disabled ? "not-allowed": "pointer"};
 `
 export default Survey;
 
