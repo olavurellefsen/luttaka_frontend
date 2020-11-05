@@ -10,7 +10,7 @@ import { media } from '../utils/mediaTemplate'
 
 
 const Survey = ({ data }) => {
-  const { register, handleSubmit, watch, clearErrors, errors, formState } = useForm({ mode: 'onChnage' })
+  const { register, handleSubmit, watch, clearErrors, errors, formState } = useForm({ mode: 'onChange' })
   const [answer, setAnswer] = useState({})
   const watchRankedFields = watch([
     "visinda_voku_a_ferd",
@@ -165,8 +165,6 @@ query fetchemail($email: String!) {
 
     return false
   }
-
-  console.log("survey_data", survey_data)
 
   if (survey_data?.survey?.length > 0) {
     return (
