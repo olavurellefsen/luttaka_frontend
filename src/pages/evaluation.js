@@ -14,7 +14,7 @@ const Evauluation = ({data}) => {
   return (
     <ContainerStyle>
       <Layout>
-        <SEO title={"Eftirmeting av vísindavøkuni"} description={content?.replaceAll("#", "")}/>
+        <SEO title={"Eftirmeting av vísindavøkuni"} description={content?.replace("#", "")}/>
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
