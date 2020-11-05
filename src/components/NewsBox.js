@@ -1,4 +1,4 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import React, { useState } from 'react'
@@ -44,16 +44,16 @@ query fetchNews {
     `des`,
   ]
   return (
-    <BackgroundStyle>
+    <BackgroundStyle show={show}>
       <ContainerStyle show={show ? "flex" : "none"}>
         <TitleStyle>
           <div>NÝGGJASTU TÍÐINDI</div>
-          <IconStyle icon={faTimes} onClick={() => { setShow(false) }} />
+          <IconStyle icon={show ? faChevronDown : faChevronUp} onClick={() => { setShow(!show) }} />
         </TitleStyle>
         {articles.nodes.map((item, index) => {
           const dateString = item.date?.split("-")
           return (
-            <NewsItemContainer key={index} >
+            <NewsItemContainer key={index} show={show ? "flex" : "none"}>
               <DateStyle>{dateString?.length > 0 ? dateString[0] : ``}<div style={{ opacity: "0.8" }}>{dateString?.length > 0 ? months[dateString[1] - 1].toUpperCase() : ``}</div></DateStyle>
               <LinkStyle to={`news/${item.id}`}>
                 <NewsTitleStyle>{item.title.slice(0, 42) + `...`}</NewsTitleStyle>
@@ -69,20 +69,19 @@ query fetchNews {
 
 
 const ContainerStyle = styled.div`
-  display: flex;
+  display: ${props => props.show}
   flex: 1;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-
   ${media.desktop3`
     display: none;
   `}
-  display: ${props => props.show}
+
 `
 const BackgroundStyle = styled.div`
-  height: 250px;
-  overflow-y: visible;
+  height: ${props => props.show ? `250px` : `40px` };
+  overflow-y: ${props => props.show ? `visible` : `hidden`};
   overflow-x: hidden;
   background: #F5F5F5 0% 0% no-repeat padding-box;
   margin-right: 50px;
@@ -104,6 +103,7 @@ const NewsItemContainer = styled.div`
   background-color: #FFFF;
   margin: 0 10px 10px 20px;
   align-self: stretch;
+
 `
 const DateStyle = styled.div`
   display: flex;
