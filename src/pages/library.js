@@ -24,7 +24,6 @@ const LibraryPage = ({ data }) => {
   const lectures = data.allStrapiLecture.nodes
 
   if (isLoading) return null
-  console.log("hghgf", lectures)
   return (
     <Background>
       <Layout>
