@@ -9,6 +9,9 @@ import { useAuth0 } from "@auth0/auth0-react"
 import { media } from "../utils/mediaTemplate"
 import { graphql, Link } from "gatsby"
 import SearchBar from "../components/searchBar"
+import Image from 'gatsby-image'
+import ReactMarkdown from "react-markdown"
+
 
 const LibraryPage = ({ data }) => {
   const { isLoading } = useAuth0()
@@ -34,12 +37,16 @@ const LibraryPage = ({ data }) => {
         <SearchBar setInput={setInput} />
         {!input ? <ContentContainer /> :
           <ItemContainer>
-
             <ItemStyle>FILMAR</ItemStyle>
             {videos.filter((videoItem) => videoItem.title?.toLowerCase()
               .match(input.toLowerCase()
                 || videoItem.date?.toLowerCase().match(input.toLowerCase())
-              )).map((videoItem, index) => (<ExternalLinkStyle to={videoItem?.link} key={index}>{videoItem.title}</ExternalLinkStyle>))}
+              )).map((videoItem, index) => (<ExternalLinkStyle to={videoItem?.link} key={index}>
+                {videoItem.title}
+                <ImageStyle
+                  fluid={videoItem.thumbnail.childImageSharp.fluid}
+                  alt={videoItem.title} />
+              </ExternalLinkStyle>))}
 
             <ItemStyle>FRAMLØGUR</ItemStyle>
             {lectures.filter((lectureItem) => lectureItem.title?.toLowerCase()
@@ -47,15 +54,20 @@ const LibraryPage = ({ data }) => {
                 || lectureItem.date?.toLowerCase().match(input.toLowerCase())
                 || lectureItem.lecturer?.name?.match(input.toLowerCase())
                 || lectureItem.lecturer?.organization?.match(input.toLowerCase())
-              )).map((lectureItem, index) => (<ExternalLinkStyle to={lectureItem.link} key={index}>{lectureItem.title}</ExternalLinkStyle>))}
+              )).map((lectureItem, index) => (<ExternalLinkStyle to={lectureItem.link} key={index}>
+                <HeaderTitleStyle source={lectureItem.title} />
+                <ContentStyle>
+                  <div>{lectureItem.Date}</div>
+                  <LecturedContainer><div>{lectureItem.lecturer.name}</div><div>{lectureItem.lecturer.organisation}</div></LecturedContainer>
+                </ContentStyle>
+              </ExternalLinkStyle>))}
 
-
-            <ItemStyle>Í MIÐLINUM</ItemStyle>
-            {media.filter((mediaItem) => mediaItem.title?.toLowerCase()
-              .match(input.toLowerCase()
-                || mediaItem.content?.toLowerCase().match(input.toLowerCase())
-                || mediaItem.date?.toLowerCase().match(input.toLowerCase())
-              )).map((mediaItem, index) => (<ExternalLinkStyle to={mediaItem.link} key={index}>{mediaItem.title}</ExternalLinkStyle>))}
+            <ItemStyle>VÍSINDAVØKUBLØÐ</ItemStyle>
+            {magazines.filter((magazineItem) => magazineItem?.title?.toLowerCase()
+              .match(input.toLowerCase())
+              || magazineItem.content?.toLowerCase().match(input.toLowerCase())
+              || magazineItem.date?.toLowerCase().match(input.toLowerCase())
+            ).map((magazineItem, index) => (<ExternalLinkStyle to={magazineItem.link} key={index}>{magazineItem.title}</ExternalLinkStyle>))}
 
             <ItemStyle>MIÐLAHEIÐURSLØN</ItemStyle>
             {mediaAwards.filter((awardItem) => awardItem.title.toLowerCase()
@@ -64,12 +76,20 @@ const LibraryPage = ({ data }) => {
               || awardItem.content?.toLowerCase().match(input.toLowerCase())
             ).map((awardItem, index) => (<LinkStyle to={`/awards/${awardItem.id}`} key={index}>{awardItem.title}</LinkStyle>))}
 
-            <ItemStyle>VÍSINDAVØKUBLØÐ</ItemStyle>
-            {magazines.filter((magazineItem) => magazineItem?.title?.toLowerCase()
-              .match(input.toLowerCase())
-              || magazineItem.content?.toLowerCase().match(input.toLowerCase())
-              || magazineItem.date?.toLowerCase().match(input.toLowerCase())
-            ).map((magazineItem, index) => (<ExternalLinkStyle to={magazineItem.link} key={index}>{magazineItem.title}</ExternalLinkStyle>))}
+
+            <ItemStyle>Í MIÐLINUM</ItemStyle>
+            {media.filter((mediaItem) => mediaItem.title?.toLowerCase()
+              .match(input.toLowerCase()
+                || mediaItem.content?.toLowerCase().match(input.toLowerCase())
+                || mediaItem.date?.toLowerCase().match(input.toLowerCase())
+                || mediaItem.lecturer?.name?.toLowerCase().match(input.toLowerCase())
+                || mediaItem.lecturer?.organization?.toLowerCase().match(input.toLowerCase())
+
+              )).map((mediaItem, index) => (<ExternalLinkStyle to={mediaItem.link} key={index}>
+                <DateStyle>{mediaItem.date}</DateStyle>
+                <HeaderTitleStyle source={mediaItem.title} />
+                <MarkDownContainer>{mediaItem.content}</MarkDownContainer>
+              </ExternalLinkStyle>))}
 
             <ItemStyle>YMISKT PUTL</ItemStyle>
             {diverses.filter((diverseItem) => diverseItem.title?.toLowerCase()
@@ -106,6 +126,8 @@ const ItemContainer = styled.div`
   margin-left: 15px;
   margin-right: 15px;
   color: #74AB58;
+  max-width: 450px;
+
 `
 
 const LinkStyle = styled(Link)`
@@ -138,6 +160,41 @@ const ExternalLinkStyle = styled.a`
   margin: 10px;
 
 `
+const ContentStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`
+const LecturedContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 50%;
+`
+
+const HeaderTitleStyle = styled(ReactMarkdown)`
+  p {
+    font-weight: bold;
+  }
+`
+const MarkDownContainer = styled(ReactMarkdown)`
+  background-color: white;
+  width: 100%;
+  color: black;
+  p {
+    margin-bottom: 10px;
+  }
+`
+
+const ImageStyle = styled(Image)`
+  width: 100%;
+`
+const DateStyle = styled.div`
+  align-self: flex-start;
+  color: #58A449;
+  font-size: 14px;
+`
 
 const TitleStyle = styled.h3`
   color: #58A449;
@@ -157,45 +214,45 @@ export default LibraryPage
 
 export const PageQuery = graphql`
 query fetchLibraryItem {
-  allStrapiVideo {
+ allStrapiVideo(sort: {fields: date, order: DESC}) {
     nodes {
       title
       link
-
+      date(formatString: "DD-MM-YYYY")
+      thumbnail {
+        childImageSharp {
+          fluid(maxWidth: 850, maxHeight: 425) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
     }
   }
-   allStrapiMedia2S {
+  allStrapiMedia2S(sort: {fields: date, order: DESC}) {
     nodes {
       title
       link
+      date(formatString: "DD-MM-YYYY")
+      content
       NameAndOrg {
         name
         organisation
       }
     }
   }
-   allStrapiLecture {
+   allStrapiLecture(sort: {fields: Date, order:DESC}) {
     nodes {
       title
       link
       title
+      Date(formatString: "DD-MM-YYYY")
       lecturer {
         name
         organisation
       }
     }
   }
-   allStrapiLecture {
-    nodes {
-      title
-      link
-      lecturer {
-        name
-        organisation
-      }
-    }
-  }
-   allStrapiDiverses {
+   allStrapiDiverses(sort: {fields: date, order:DESC}) {
     nodes {
       title
       link
@@ -203,15 +260,16 @@ query fetchLibraryItem {
       date
     }
   }
-  allStrapiMediaAwards {
+  allStrapiMediaAwards(sort: {fields: date, order:DESC}) {
     nodes {
       id
       link
       title
       content
+      date
     }
   }
-  allStrapiMagazine {
+  allStrapiMagazine(sort: {fields: date, order:DESC}) {
     nodes {
       id
       link
