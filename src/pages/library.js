@@ -24,7 +24,7 @@ const LibraryPage = ({ data }) => {
   const lectures = data.allStrapiLecture.nodes
 
   if (isLoading) return null
-
+  console.log("hghgf", lectures)
   return (
     <Background>
       <Layout>
@@ -52,13 +52,14 @@ const LibraryPage = ({ data }) => {
             {lectures.filter((lectureItem) => lectureItem.title?.toLowerCase()
               .match(input.toLowerCase()
                 || lectureItem.date?.toLowerCase().match(input.toLowerCase())
-                || lectureItem.lecturer?.name?.match(input.toLowerCase())
-                || lectureItem.lecturer?.organization?.match(input.toLowerCase())
+                || lectureItem.lecturer.name?.toLowerCase().match(input.toLowerCase())
+                || lectureItem.lecturer.organisatio?.toLowerCase().match(input.toLowerCase())
             )).map((lectureItem, index) => (<ExternalLinkStyle target="_blank" href={lectureItem.link} key={index}>
                 <HeaderTitleStyle source={lectureItem.title} />
                 <ContentStyle>
                   <div>{lectureItem.Date}</div>
                   <LecturedContainer>
+                    {console.log("hey", lectureItem.lecturer.name.match("Noomi") ? "ja" : "nei")}
                     <div>{lectureItem.lecturer.name}</div><div>{lectureItem.lecturer.organisation}</div>
                   </LecturedContainer>
                 </ContentStyle>
@@ -83,8 +84,8 @@ const LibraryPage = ({ data }) => {
               .match(input.toLowerCase()
                 || mediaItem.content?.toLowerCase().match(input.toLowerCase())
                 || mediaItem.date?.toLowerCase().match(input.toLowerCase())
-                || mediaItem.lecturer?.name?.toLowerCase().match(input.toLowerCase())
-                || mediaItem.lecturer?.organization?.toLowerCase().match(input.toLowerCase())
+                || mediaItem.nameAndOrg?.name?.toLowerCase().match(input.toLowerCase())
+                || mediaItem.nameAndOrg?.organization?.toLowerCase().match(input.toLowerCase())
 
             )).map((mediaItem, index) => (<ExternalLinkStyle target="_blank" href={mediaItem.link} key={index}>
                 <DateStyle>{mediaItem.date}</DateStyle>
