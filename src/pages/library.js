@@ -11,6 +11,7 @@ import { graphql, Link } from "gatsby"
 import SearchBar from "../components/searchBar"
 import Image from 'gatsby-image'
 import ReactMarkdown from "react-markdown"
+import { searchArchives } from "../utils/searchFunctions"
 
 
 const LibraryPage = ({ data }) => {
@@ -19,7 +20,7 @@ const LibraryPage = ({ data }) => {
   const videos = data.allStrapiVideo.nodes
   const media = data.allStrapiMedia2S.nodes
   const mediaAwards = data.allStrapiMediaAwards.nodes
-  const magazines = data.allStrapiVideo.nodes
+  const magazines = data.allStrapiMagazine.nodes
   const diverses = data.allStrapiDiverses.nodes
   const lectures = data.allStrapiLecture.nodes
 
@@ -37,10 +38,8 @@ const LibraryPage = ({ data }) => {
         {!input ? <ContentContainer /> :
           <ItemContainer>
             <ItemStyle>FILMAR</ItemStyle>
-            {videos.filter((videoItem) => videoItem.title?.toLowerCase()
-              .match(input.toLowerCase()
-                || videoItem.date?.toLowerCase().match(input.toLowerCase())
-            )).map((videoItem, index) => (<ExternalLinkStyle target="_blank" href={videoItem?.link} key={index}>
+            {videos.filter((videoItem) => searchArchives(videoItem, input)
+            ).map((videoItem, index) => (<ExternalLinkStyle target="_blank" href={videoItem?.link} key={index}>
                 {videoItem.title}
                 <ImageStyle
                   fluid={videoItem.thumbnail.childImageSharp.fluid}
@@ -48,12 +47,7 @@ const LibraryPage = ({ data }) => {
               </ExternalLinkStyle>))}
 
             <ItemStyle>FRAMLØGUR</ItemStyle>
-            {lectures.filter((lectureItem) => lectureItem.title?.toLowerCase()
-              .match(input.toLowerCase()
-                || lectureItem.date?.toLowerCase().match(input.toLowerCase())
-                || lectureItem.lecturer.name?.toLowerCase().match(input.toLowerCase())
-                || lectureItem.lecturer.organisatio?.toLowerCase().match(input.toLowerCase())
-            )).map((lectureItem, index) => (<ExternalLinkStyle target="_blank" href={lectureItem.link} key={index}>
+            {lectures.filter((lectureItem) => searchArchives(lectureItem, input)).map((lectureItem, index) => (<ExternalLinkStyle target="_blank" href={lectureItem.link} key={index}>
                 <HeaderTitleStyle source={lectureItem.title} />
                 <ContentStyle>
                   <div>{lectureItem.Date}</div>
@@ -64,39 +58,20 @@ const LibraryPage = ({ data }) => {
               </ExternalLinkStyle>))}
 
             <ItemStyle>VÍSINDAVØKUBLØÐ</ItemStyle>
-            {magazines.filter((magazineItem) => magazineItem?.title?.toLowerCase()
-              .match(input.toLowerCase())
-              || magazineItem.content?.toLowerCase().match(input.toLowerCase())
-              || magazineItem.date?.toLowerCase().match(input.toLowerCase())
-            ).map((magazineItem, index) => (<ExternalLinkStyle target="_blank" href={magazineItem.link} key={index}>{magazineItem.title}</ExternalLinkStyle>))}
+            {magazines.filter((magazineItem) => searchArchives(magazineItem, input)).map((magazineItem, index) => (<ExternalLinkStyle target="_blank" href={magazineItem.link} key={index}>{magazineItem.title}</ExternalLinkStyle>))}
 
             <ItemStyle>MIÐLAHEIÐURSLØN</ItemStyle>
-            {mediaAwards.filter((awardItem) => awardItem.title.toLowerCase()
-              .match(input.toLowerCase())
-              || awardItem.date?.toLowerCase().match(input.toLowerCase())
-              || awardItem.content?.toLowerCase().match(input.toLowerCase())
-            ).map((awardItem, index) => (<LinkStyle to={`/awards/${awardItem.id}`} key={index}>{awardItem.title}</LinkStyle>))}
+            {mediaAwards.filter((awardItem) => searchArchives(awardItem, input)).map((awardItem, index) => (<LinkStyle to={`/awards/${awardItem.id}`} key={index}>{awardItem.title}</LinkStyle>))}
 
             <ItemStyle>Í MIÐLINUM</ItemStyle>
-            {media.filter((mediaItem) => mediaItem.title?.toLowerCase()
-              .match(input.toLowerCase()
-                || mediaItem.content?.toLowerCase().match(input.toLowerCase())
-                || mediaItem.date?.toLowerCase().match(input.toLowerCase())
-                || mediaItem.nameAndOrg?.name?.toLowerCase().match(input.toLowerCase())
-                || mediaItem.nameAndOrg?.organization?.toLowerCase().match(input.toLowerCase())
-
-            )).map((mediaItem, index) => (<ExternalLinkStyle target="_blank" href={mediaItem.link} key={index}>
+            {media.filter((mediaItem) => searchArchives(mediaItem, input)).map((mediaItem, index) => (<ExternalLinkStyle target="_blank" href={mediaItem.link} key={index}>
                 <DateStyle>{mediaItem.date}</DateStyle>
                 <HeaderTitleStyle source={mediaItem.title} />
                 <MarkDownContainer>{mediaItem.content}</MarkDownContainer>
               </ExternalLinkStyle>))}
 
             <ItemStyle>YMISKT PUTL</ItemStyle>
-            {diverses.filter((diverseItem) => diverseItem.title?.toLowerCase()
-              .match(input.toLowerCase())
-              || diverseItem.content?.toLowerCase().match(input.toLowerCase())
-              || diverseItem.date?.match(input)
-            ).map((diverseItem, index) => (<ExternalLinkStyle target="_blank" href={diverseItem.link} key={index}>
+            {diverses.filter((diverseItem) => searchArchives(diverseItem, input)).map((diverseItem, index) => (<ExternalLinkStyle target="_blank" href={diverseItem.link} key={index}>
               <DateStyle>{diverseItem.date}</DateStyle>
               <HeaderTitleStyle source={diverseItem.title} />
               <MarkDownContainer>{diverseItem.content}</MarkDownContainer>
@@ -130,7 +105,9 @@ const ItemContainer = styled.div`
   margin-left: 15px;
   margin-right: 15px;
   color: #58A449;
+  width: 100%;
   max-width: 450px;
+
 `
 
 const LinkStyle = styled(Link)`

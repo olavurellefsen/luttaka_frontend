@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
 import SEO from "../components/seo"
+import { searchArchives } from "../utils/searchFunctions"
 
 const LecturesPage = ({ data }) => {
   const categories = data.allStrapiCategory?.nodes
@@ -30,11 +31,7 @@ const LecturesPage = ({ data }) => {
   categories.forEach((cat) => {
     tmp = cat.lectures.filter(
       (lectureItem) =>
-        lectureItem.title?.toLowerCase().match(input.toLowerCase()) ||
-        lectureItem.lecturer?.name?.toLowerCase().match(input.toLowerCase()) ||
-        lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
-        lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
-        lectureItem.content?.toLowerCase().match(input.toLowerCase())
+        searchArchives(lectureItem, input)
     ).length === 0
     if (!tmp) emptySearch++
   })
@@ -42,7 +39,7 @@ const LecturesPage = ({ data }) => {
   return (
     <Background>
       <Layout>
-        <SEO title="FRAMLØGUR" description={lectureIntro.Description} image={lectureIntro.Image.childImageSharp.resize} />
+        <SEO title="FRAMLØGUR" description={lectureIntro.Description} image={lectureIntro.Image?.childImageSharp.resize} />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
@@ -50,17 +47,11 @@ const LecturesPage = ({ data }) => {
         <TitleStyle>FRAMLØGUR</TitleStyle>
         <SearchBar setInput={setInput} />
         {categories.map((category, index) => {
-          if (category.lectures.filter(
-            (lectureItem) => {
-              return (
-                lectureItem.title?.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.lecturer?.name?.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.lecturer?.organisation?.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.Date?.toLowerCase().match(input.toLowerCase()) ||
-                lectureItem.content?.toLowerCase().match(input.toLowerCase())
-
-              )
-            }).length)
+          const lecturesByInput = category.lectures.filter(
+            (lectureItem) =>
+              searchArchives(lectureItem, input)
+            )
+          if (lecturesByInput.length)
             return (
               <HeaderContainer key={index}>
                 <HeaderStyle onClick={() => {
@@ -78,14 +69,7 @@ const LecturesPage = ({ data }) => {
                   </TextStyle>
                   {!input && <IconStyle icon={open && selCat === index ? faChevronUp : faChevronDown} />}
                 </HeaderStyle>
-                {category.lectures.filter(
-                  (lectureItem) =>
-                    lectureItem.title.toLowerCase().match(input.toLowerCase()) ||
-                    lectureItem.lecturer.name.toLowerCase().match(input.toLowerCase()) ||
-                    lectureItem.lecturer.organisation.toLowerCase().match(input.toLowerCase()) ||
-                    lectureItem.Date.toLowerCase().match(input.toLowerCase()) ||
-                    lectureItem.content?.toLowerCase().match(input.toLowerCase())
-                ).sort((a, b) => {
+                {lecturesByInput.sort((a, b) => {
                   const [dayA, monthA, yearA] = a.Date.split("-")
                   const aDate = new Date(yearA, monthA - 1, dayA)
 

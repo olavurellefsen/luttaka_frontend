@@ -57,7 +57,7 @@ query fetchNews {
               <DateStyle>{dateString?.length > 0 ? dateString[0] : ``}<div style={{ opacity: "0.8" }}>{dateString?.length > 0 ? months[dateString[1] - 1].toUpperCase() : ``}</div></DateStyle>
               <LinkStyle to={`news/${item.id}`}>
                 <NewsTitleStyle>{item.title.slice(0, 42) + `...`}</NewsTitleStyle>
-                <Img fixed={item.image.childImageSharp.fixed} />
+                <ImgStyle fixed={item.image?.childImageSharp?.fixed} />
               </LinkStyle>
             </NewsItemContainer>
           )
@@ -85,6 +85,11 @@ const BackgroundStyle = styled.div`
   overflow-x: hidden;
   background: #F5F5F5 0% 0% no-repeat padding-box;
   margin-right: 50px;
+
+  ${media.desktop2`
+    max-width: 350px;
+    max-height: 180px;
+  `}
 `
 
 const TitleStyle = styled.div`
@@ -103,7 +108,6 @@ const NewsItemContainer = styled.div`
   background-color: #FFFF;
   margin: 0 10px 10px 20px;
   align-self: stretch;
-
 `
 const DateStyle = styled.div`
   display: flex;
@@ -119,6 +123,9 @@ const DateStyle = styled.div`
 
 const NewsTitleStyle = styled.div`
   margin: 0 10px;
+  ${media.desktop2`
+    max-width: 180px;
+  `}
 `
 
 const LinkStyle = styled(Link)`
@@ -135,6 +142,11 @@ const LinkStyle = styled(Link)`
     color: gray;
     font-weight: 200;
   }
+`
+
+const ImgStyle = styled(Img)`
+  width: 60px;
+  height: 60px;
 `
 const IconStyle = styled(FontAwesomeIcon)`
 cursor: pointer;
