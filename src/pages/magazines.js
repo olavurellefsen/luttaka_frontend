@@ -8,12 +8,17 @@ import SEO from "../components/seo"
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
 import SearchBar from '../components/searchBar'
+import { searchArchives } from "../utils/searchFunctions"
 
 
 const Magazines = ({ data }) => {
   const magazines = data.allStrapiMagazine.nodes
   const [input, setInput] = useState(``)
   const magazineIntro = data.allStrapiMagazinesIntro.nodes[0]
+
+  const magazinesByInput = magazines.filter((magazine) =>
+    searchArchives(magazine, input)
+  )
 
   return (
     <Background>
@@ -26,10 +31,7 @@ const Magazines = ({ data }) => {
       <TitleStyle>VÍSINDAVØKUBLØÐ</TitleStyle>
       <SearchBar setInput={setInput}/>
       <ContainerStyle name="MAgizeContainer">
-        {magazines.filter((magazine) =>
-          magazine.title?.toLowerCase().match(input.toLowerCase()) ||
-          magazine.content?.toLowerCase().match(input.toLowerCase())
-          ).map((magazine, index) => {
+        {magazinesByInput.map((magazine, index) => {
           return (
             <BackgroundStyle key={index}>
               <LinkStyle target="_blank" href={magazine.link} key={index}>
@@ -40,10 +42,7 @@ const Magazines = ({ data }) => {
         })}
       </ContainerStyle>
       {
-        magazines.filter((magazine) =>
-          magazine.title.toLowerCase().match(input.toLowerCase()) ||
-          magazine.content?.toLowerCase().match(input.toLowerCase())
-          ).length === 0
+        magazinesByInput.length === 0
         && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
       }
     </Layout>

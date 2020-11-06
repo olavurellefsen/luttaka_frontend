@@ -10,12 +10,18 @@ import SEO from "../components/seo"
 import SearchBar from '../components/searchBar'
 import { media } from "../utils/mediaTemplate"
 import { graphql } from 'gatsby'
+import { searchArchives } from "../utils/searchFunctions"
 
 const Videos = ({ data }) => {
 
   const videos = data.allStrapiVideo.edges
   const videosIntro = data.allStrapiVideosIntro.nodes[0]
   const [input, setInput] = useState(``)
+
+  const videosByInput = videos.filter((video) => 
+    searchArchives(video.node, input)
+  )
+
   return (
     <Background>
       <Layout>
@@ -27,14 +33,7 @@ const Videos = ({ data }) => {
         <TitleStyle>FILMAR</TitleStyle>
         <SearchBar setInput={setInput} />
         <ContainerStyle>
-          {videos.filter((video) => {
-            return (
-              video.node.title.toLowerCase().match(input.toLowerCase()) ||
-              video.node.date?.toLowerCase().match(input.toLowerCase()) ||
-              video.node.content?.toLowerCase().match(input.toLowerCase())
-            )
-
-          }).map((video, index) => {
+          {videosByInput.map((video, index) => {
             return (
               <BackgroundStyle key={index}>
                 <LinkStyle target="_blank" href={video.node.link} key={index}>
@@ -50,14 +49,7 @@ const Videos = ({ data }) => {
           })}
         </ContainerStyle>
         {
-          videos.filter((video) => {
-            return (
-              video.node.title.toLowerCase().match(input.toLowerCase()) ||
-              video.node.date?.toLowerCase().match(input.toLowerCase()) ||
-              video.node.content?.toLowerCase().match(input.toLowerCase())
-            )
-          }
-          ).length === 0
+          videosByInput.length === 0
           && <EmptySearch>Leitingin gav einki úrslit</EmptySearch>
         }
       </Layout>
