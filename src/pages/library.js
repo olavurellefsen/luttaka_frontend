@@ -36,6 +36,13 @@ const LibraryPage = ({ data }) => {
         <TitleStyle>SAVN</TitleStyle>
         <SearchBar setInput={setInput} />
         {!input ? <ContentContainer /> :
+            diverses.filter((item) => searchArchives(item, input)).length === 0
+              && media.filter((item) => searchArchives(item, input)).length === 0
+              && mediaAwards.filter((item) => searchArchives(item, input)).length === 0
+              && magazines.filter((item) => searchArchives(item, input)).length === 0
+              && lectures.filter((item) => searchArchives(item, input)).length === 0
+              && videos.filter((item) => searchArchives(item, input)).length === 0
+            ? <EmptySearch>Leitingin gav einki úrslit</EmptySearch> :
           <ItemContainer>
             <ItemStyle>FILMAR</ItemStyle>
             {videos.filter((videoItem) => searchArchives(videoItem, input)
@@ -191,6 +198,9 @@ const ItemStyle = styled.div`
     font-weight: bold;
   `
 
+const EmptySearch = styled.div`
+  font-size: 20px;
+`
 export default LibraryPage
 
 export const PageQuery = graphql`
