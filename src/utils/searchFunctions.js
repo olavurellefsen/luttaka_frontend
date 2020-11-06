@@ -1,5 +1,10 @@
 const searchArchives = (archive, input) => {
-  return(
+  const reg = /[\\*?$+()[\]]+/
+
+  if (reg.test(input))
+    return null
+
+  return (
     archive.title?.toLowerCase().match(input.toLowerCase()) ||
     archive.content?.toLowerCase().match(input.toLowerCase()) ||
     archive.date?.toLowerCase().match(input.toLowerCase()) ||
