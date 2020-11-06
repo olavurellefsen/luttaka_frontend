@@ -18,7 +18,7 @@ const LecturesPage = ({ data }) => {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState(``)
   const [selCat, setSelCat] = useState(null)
-  
+
   /* const searchFunction = (item) => {
     let ret = null
     ret = lectureItem.title.toLowerCase().match(input.toLowerCase())
@@ -39,7 +39,7 @@ const LecturesPage = ({ data }) => {
   return (
     <Background>
       <Layout>
-        <SEO title="FRAMLØGUR" description={lectureIntro.Description} image={lectureIntro.Image.childImageSharp.resize} />
+        <SEO title="FRAMLØGUR" description={lectureIntro.Description} image={lectureIntro.Image?.childImageSharp.resize} />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
@@ -48,7 +48,7 @@ const LecturesPage = ({ data }) => {
         <SearchBar setInput={setInput} />
         {categories.map((category, index) => {
           const lecturesByInput = category.lectures.filter(
-            (lectureItem) => 
+            (lectureItem) =>
               searchArchives(lectureItem, input)
             )
           if (lecturesByInput.length)

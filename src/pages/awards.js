@@ -25,7 +25,7 @@ const Awards = ({ data }) => {
   return (
     <Background>
     <Layout>
-        <SEO title="MIÐLAHEIÐURSLØN" description={awardsIntro.Description} image={awardsIntro.Image.childImageSharp.resize} />
+        <SEO title="MIÐLAHEIÐURSLØN" description={awardsIntro.Description} image={awardsIntro.Image?.childImageSharp.resize} />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />

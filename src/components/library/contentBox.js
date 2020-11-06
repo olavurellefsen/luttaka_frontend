@@ -21,7 +21,7 @@ const ContentBox = ({ item }) => {
   return (
     <ContainerStyle>
       {item.title !== "Ymiskt putl" ?
-        <ImageStyle fluid={item.image.childImageSharp.fluid} alt={item.title} />
+        <ImageStyle fluid={item.image?.childImageSharp.fluid} alt={item.title} />
         : <AvatarImage imgStyle={{objectFit: "contain"}} fluid={data.placeholderImage.childImageSharp.fluid} alt={"Vitanar fróði"} />}
       <TitleStyle>{item.title}</TitleStyle>
     </ContainerStyle>

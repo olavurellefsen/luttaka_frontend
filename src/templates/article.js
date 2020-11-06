@@ -11,7 +11,7 @@ const ArticleTemplate = ({ data }) => {
   const article = data.strapiArticle
   return (
     <Layout>
-      <SEO title={`Tíðindi: ${article.title}`} description={article.description} image={article.image.childImageSharp.resize} />
+      <SEO title={`Tíðindi: ${article?.title}`} description={article?.description} image={article.image?.childImageSharp?.resize} />
       <ContainerStyle>
         <MenuContainer opened={false} />
         <LinkStyle to="/news" ><GreenTitle>Tíðindi</GreenTitle></LinkStyle>

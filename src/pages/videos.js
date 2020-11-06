@@ -18,14 +18,14 @@ const Videos = ({ data }) => {
   const videosIntro = data.allStrapiVideosIntro.nodes[0]
   const [input, setInput] = useState(``)
 
-  const videosByInput = videos.filter((video) => 
+  const videosByInput = videos.filter((video) =>
     searchArchives(video.node, input)
   )
 
   return (
     <Background>
       <Layout>
-        <SEO title="FILMAR" description={videosIntro.Description} image={videosIntro.Image.childImageSharp.resize} />
+        <SEO title="FILMAR" description={videosIntro.Description} image={videosIntro.Image?.childImageSharp.resize} />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />

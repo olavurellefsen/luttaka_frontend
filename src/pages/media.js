@@ -18,16 +18,16 @@ const Media = ({ data }) => {
   const media = data.allStrapiMedia2S.nodes
   const mediaIntro = data.allStrapiInMediasIntro.nodes[0]
   const [input, setInput] = useState(``)
-  
+
   const mediasByInput = media.filter((media) =>
     searchArchives(media, input)
   )
 
-  
+
   return (
     <Background>
       <Layout>
-        <SEO title="Í MIÐLUNUM" description={mediaIntro.Description} image={mediaIntro.Image.childImageSharp.resize} />
+        <SEO title="Í MIÐLUNUM" description={mediaIntro.Description} image={mediaIntro.Image?.childImageSharp.resize} />
         <MenuContainer />
         <PetalContainer name="petal container">
           <PetalMenu />
