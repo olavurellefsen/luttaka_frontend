@@ -1,0 +1,86 @@
+function (user, context, callback) {
+  user.user_metadata = user.user_metadata || {};
+  user.user_metadata.accepted_terms = user.user_metadata.accepted_terms || false;
+  if (context.protocol === "redirect-callback") {
+    // User was redirected to the /continue endpoint
+    user.user_metadata = { "accepted_terms": true };
+
+    auth0.users.updateUserMetadata(user.user_id, user.user_metadata)
+      .then(function () {
+        callback(null, user, context);
+      })
+      .catch(function (err) {
+        callback(err);
+      });
+
+    const userId = user.user_id;
+    const email = user.email;
+    const emailVerified = user.email_verified;
+    const accepted = user.user_metadata.accepted_terms;
+    console.log("accepted", accepted);
+   	let hasuraAdminSecret = configuration.hasuraAdminSecret;
+    let url = configuration.hasuraUrl;
+
+    const upsertUserQuery = `
+    mutation($sub: String!, $email: String!, $accepted: Boolean!, $emailVerified: Boolean!){
+      insert_luttaka_user(objects: [{ sub: $sub, email:  $email, accepted_terms: $accepted, email_verified: $emailVerified }], on_conflict: { constraint: luttaka_user_email_key, update_columns: [accepted_terms, sub, email_verified] }) {
+        affected_rows
+      }
+    }`;
+
+    const graphqlReq = { "query": upsertUserQuery, "variables": { "sub": userId, "email": email, "accepted": accepted, "emailVerified": emailVerified} };
+
+    request.post({
+      headers: { 'content-type': 'application/json', 'x-hasura-admin-secret': hasuraAdminSecret },
+      url: url,
+      body: JSON.stringify(graphqlReq)
+    }, function (error, response, body) {
+      console.log(body);
+      console.log("error", error);
+      console.log("response", response);
+      callback(null, user, context);
+    });
+
+  }  else if (context.stats.loginsCount === 1 || !user.user_metadata.accepted_terms) {
+    console.log("user else if", user);
+    user.user_metadata = { "accepted_terms": false };
+
+    auth0.users.updateUserMetadata(user.user_id, user.user_metadata)
+      .then(function () {
+        callback(null, user, context);
+      })
+      .catch(function (err) {
+        callback(err);
+      });
+ 				context.redirect = {
+      	url: "https://visindavoka.fo/privacy_policy"//"http://localhost:3000/accept_policy"
+    		};
+
+  } else {
+   	let hasuraAdminSecret = configuration.hasuraAdminSecret;
+    let url = configuration.hasuraUrl;
+    const userId = user.user_id;
+    const email = user.email;
+    const emailVerified = user.email_verified;
+    const accepted = user.user_metadata.accepted_terms;
+
+    const upsertUserQuery = `
+    mutation($sub: String!, $email: String!, $accepted: Boolean!, $emailVerified: Boolean!){
+      insert_luttaka_user(objects: [{ sub: $sub, email:  $email, accepted_terms: $accepted, email_verified: $emailVerified }], on_conflict: { constraint: luttaka_user_email_key, update_columns: [accepted_terms, sub, email_verified] }) {
+        affected_rows
+      }
+    }`;
+        const graphqlReq = { "query": upsertUserQuery, "variables": { "sub": userId, "email": email, "accepted": accepted, "emailVerified": emailVerified} };
+
+    request.post({
+      headers: { 'content-type': 'application/json', 'x-hasura-admin-secret': hasuraAdminSecret },
+      url: url,
+      body: JSON.stringify(graphqlReq)
+    }, function (error, response, body) {
+      console.log(body);
+      console.log("error", error);
+      console.log("response", response);
+      callback(null, user, context);
+    });
+  }
+}
