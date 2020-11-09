@@ -33,7 +33,26 @@ const Videos = ({ data }) => {
         <TitleStyle>FILMAR</TitleStyle>
         <SearchBar setInput={setInput} />
         <ContainerStyle>
-          {videosByInput.map((video, index) => {
+          {videosByInput.sort((a, b) => {
+            console.log("a", a)
+
+            // equal items sort equally
+            if (a.node.date === b.node.date) {
+              return 0;
+            }
+            // nulls sort after anything else
+            else if (a.node.date === null) {
+              return 1;
+            }
+            else if (b.node.date === null) {
+              return -1;
+            }
+            // if descending, highest sorts first
+            else {
+              return a.node.date > b.node.date ? 1 : -1;
+            }
+
+          }).map((video, index) => {
             return (
               <BackgroundStyle key={index}>
                 <LinkStyle target="_blank" href={video.node.link} key={index}>
@@ -154,7 +173,7 @@ export default Videos
 
 export const PageQuery = graphql`
  query fetchVideos {
-   allStrapiVideo(sort: {fields: date, order: ASC}) {
+   allStrapiVideo(sort: {fields: date, order: DESC}) {
      edges {
        node {
          id
