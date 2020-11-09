@@ -39,7 +39,7 @@ const Videos = ({ data }) => {
                 <LinkStyle target="_blank" href={video.node.link} key={index}>
                   <VideoTitle>{video.node.title}</VideoTitle>
                   <ImageStyle
-                    fluid={video.node.thumbnail.childImageSharp.fluid}
+                    fluid={video.node.thumbnail?.childImageSharp.fluid}
                     alt={video.node.title} />
                 </LinkStyle>
                 <DateContainer>{video.node.date}</DateContainer>

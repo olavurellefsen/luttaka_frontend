@@ -78,6 +78,7 @@ const StyledContainer = styled.div`
 
 const ContentContainer = styled.div`
   margin: 5px 15px;
+  background-color: #FFFFFF;
 `
 
 const TitleStyle = styled.h2`
