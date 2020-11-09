@@ -34,8 +34,6 @@ const Videos = ({ data }) => {
         <SearchBar setInput={setInput} />
         <ContainerStyle>
           {videosByInput.sort((a, b) => {
-            console.log("a", a)
-
             // equal items sort equally
             if (a.node.date === b.node.date) {
               return 0;
