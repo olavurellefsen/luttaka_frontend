@@ -37,7 +37,7 @@ const PetalMenu = () => {
     {
       title: `Tilmelding`,
       image: join,
-      to: "/signup",
+      to: "/evaluation",
       alternaTiveImage: joinAlt
 
     }
