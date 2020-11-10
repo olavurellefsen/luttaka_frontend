@@ -20,7 +20,7 @@ const ContentBox = ({ item }) => {
 
   return (
     <ContainerStyle>
-      {item.title !== "Ymiskt putl" ?
+      {item.title !== "Ymiskt" ?
         <ImageStyle fluid={item.image?.childImageSharp.fluid} alt={item.title} />
         : <AvatarImage imgStyle={{objectFit: "contain"}} fluid={data.placeholderImage.childImageSharp.fluid} alt={"Vitanar fróði"} />}
       <TitleStyle>{item.title}</TitleStyle>
@@ -60,7 +60,8 @@ const TitleStyle = styled.div`
 const AvatarImage = styled(ImageStyle)`
   width: 100px;
   height: 140px;
-  margin-top: 80px
+  margin-top: 80px;
+  margin-bottom: 17px;
   // ${media.phone1`
   //   width: 110px;
   //   height: 120px;

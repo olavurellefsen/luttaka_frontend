@@ -27,12 +27,12 @@ const Diverse = ({ data }) => {
   return (
     <Background>
     <Layout>
-        <SEO title="YMISKT PUTL" description={diverseIntro.Description} image={diverseIntro.Image?.childImageSharp.resize} />
+        <SEO title="YMISKT" description={diverseIntro.Description} image={diverseIntro.Image?.childImageSharp.resize} />
       <MenuContainer />
       <PetalContainer name="petal container">
         <PetalMenu />
       </PetalContainer>
-      <TitleStyle>YMISKT PUTL</TitleStyle>
+      <TitleStyle>YMISKT</TitleStyle>
      <SearchBar setInput={setInput}/>
       <ContainerStyle>
         {diversesByInput.map((diverseItem, index) => {

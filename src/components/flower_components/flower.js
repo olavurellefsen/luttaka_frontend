@@ -37,7 +37,7 @@ const Flower = ({ opened, setOpened }) => {
       title: `Tilmelding`,
       color: `blue`,
       image: join,
-      to: () => navigate("/signup")
+      to: () => navigate("/evaluation")
     }
   ]
 
