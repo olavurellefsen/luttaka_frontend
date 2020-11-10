@@ -7,7 +7,7 @@ import PetalMenu from '../components/front_page_large_screens/petalMenu';
 import MenuContainer from '../components/header/menuContainer';
 import Layout from '../components/layout';
 import { media } from '../utils/mediaTemplate'
-
+import SendEmail from '../utils/mail/SendEmail'
 
 const Survey = ({ data }) => {
   const { register, handleSubmit, watch, clearErrors, errors, formState } = useForm({ mode: 'onChange' })
@@ -72,6 +72,27 @@ query fetchemail($email: String!) {
             samlad_meting: answer.meting,
           }
         }).then(() => {
+          SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, {
+            to: `gransking@gransking.fo`,
+            subject: `Nýggj Eftirmeting`,
+            html: `<h1>Ein nýggjur luttakari hevur eftirmett</h1> <br/>
+                <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
+                  <p>Teldupostur: ${answer.email}</p>
+                  <p>Hvat ert tú: ${answer.er}</p><br/>
+                  <p>Hvørjum tiltøkum luttókst tú á: </p>
+                  <p>${answer.which_events_participated.toString()}</p><br/>
+                  <p>Hvat var tað besta: ${answer.the_best}</p>
+                  <p>Hvat saknaðu tú: ${answer.missed}</p><br/>
+                  <p>Hvørji tiltøk skulu vit hava komandi ár:</p>
+                  <p>${answer.upcomingEvents}</p><br/>
+                  <p>Hvat evni vilt tú hoyra meira um næstu ferð:</p>
+                  <p>Heilsa: ${answer.heilsa}<p/>
+                  <p>Náttúru: ${answer.nattura}<p/>
+                  <p>Tøkni: ${answer.tokni}<p/>
+                  <p>Samfelag: ${answer.samfelag}<p/><br/>
+                  <p>Samlað Meting: ${answer.meting}</p>
+            `
+          })
           navigate(`/survey_registered`)
         })
       }
@@ -112,7 +133,7 @@ query fetchemail($email: String!) {
 
     if (
       !formState.isSubmitting
-      &&er
+      && er
       && which_events_participated
       && the_best
       && meting) {
@@ -354,7 +375,7 @@ query fetchemail($email: String!) {
           </InputContainer>
           <InputContainer>
             <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
-            <EmailStyle  type="text" name="email" ref={register({ required: false })} />
+            <EmailStyle type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
           <SubmitButton type="submit" disabled={formState.isSubmitting}>Góðkenn</SubmitButton>
         </FormStyle>
@@ -414,8 +435,8 @@ const InputStyle = styled.input`
 const EmailStyle = styled(InputStyle)`
   max-width: 312px;
   width: 100%;
-}
 `
+
 const InputBoxStyle = styled(InputStyle)`
   width: 25px;
   height: 25px;
@@ -450,7 +471,7 @@ const AnsweredStyle = styled.div`
 
 const FormTitle = styled.div`
   display: flex;
-  flex-idrection: row;
+  flex-direction: row;
   color: #58A449;
   margin-bottom: 5px;
   `
@@ -464,7 +485,7 @@ const RedText = styled.div`
 `
 
 const SubmitButton = styled.button`
-  background-color: ${props => props.disabled ? "gray": "#74AB58"};
+  background-color: ${props => props.disabled ? "gray" : "#74AB58"};
   color: white;
   width: 150px;
   font-size: 16px;
@@ -474,7 +495,7 @@ const SubmitButton = styled.button`
   &:active {
     opacity: 0.1;
   }
-  cursor: ${props => props.disabled ? "not-allowed": "pointer"};
+  cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
 `
 export default Survey;
 
