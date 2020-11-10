@@ -55,7 +55,7 @@ query PhotosQuery {
     },
     {
       image: avatar,
-      title: "Ymiskt putl",
+      title: "Ymiskt",
       to: "/diverse"
     },
   ]
