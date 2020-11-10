@@ -77,7 +77,7 @@ const LibraryPage = ({ data }) => {
                 <MarkDownContainer>{mediaItem.content}</MarkDownContainer>
               </ExternalLinkStyle>))}
 
-            <ItemStyle>YMISKT PUTL</ItemStyle>
+            <ItemStyle>YMISKT</ItemStyle>
             {diverses.filter((diverseItem) => searchArchives(diverseItem, input)).map((diverseItem, index) => (<ExternalLinkStyle target="_blank" href={diverseItem.link} key={index}>
               <DateStyle>{diverseItem.date}</DateStyle>
               <HeaderTitleStyle source={diverseItem.title} />
