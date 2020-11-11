@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ContentBox from './contentBox';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 // import SearchBar from '../searchBar';
-import avatar from '../gatsby_images/avatar'
 
 
 const ContentContainer = () => {
@@ -54,8 +53,8 @@ query PhotosQuery {
       to: "/media"
     },
     {
-      image: avatar,
-      title: "Ymiskt putl",
+      image: data.images.edges.filter((item) => item.node.name === "ymiskt")[0].node,
+      title: "Ymiskt",
       to: "/diverse"
     },
   ]
