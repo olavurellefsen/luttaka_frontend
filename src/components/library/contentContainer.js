@@ -29,7 +29,7 @@ query PhotosQuery {
   const content = [
     {
       image: data.images.edges.filter((item) => item.node.name === "movies")[0].node,
-      title: "Filmar",
+      title: "Filmar og poddar",
       to: "/videos"
     },
     {
