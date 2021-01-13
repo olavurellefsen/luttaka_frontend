@@ -11,7 +11,7 @@ const ArticleTemplate = ({ data }) => {
   const article = data.strapiArticle
 
   const renderLinks = (value) => {
-    return <a style={{ widht: "0" }} target="_blank" href={value.href}>{value.children}</a>
+    return <a style={{ widht: "0" }} target="_blank" href={value.href} without rel="noreferrer">{value.children}</a>
   }
   console.log("articlee", article.content)
   return (
