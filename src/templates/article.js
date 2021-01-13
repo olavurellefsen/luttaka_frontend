@@ -13,7 +13,6 @@ const ArticleTemplate = ({ data }) => {
   const renderLinks = (value) => {
     return <a style={{ widht: "0" }} target="_blank" href={value.href} without rel="noreferrer">{value.children}</a>
   }
-  console.log("articlee", article.content)
   return (
     <Layout>
       <SEO title={`Tíðindi: ${article?.title}`} description={article?.description} image={article.image?.childImageSharp?.resize} />
