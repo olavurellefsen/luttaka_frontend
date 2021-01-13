@@ -39,7 +39,7 @@ const Videos = ({ data }) => {
               return 0;
             }
             // nulls sort after anything else
-            else if (a.node.date === null) {
+            else if (a.node.date !== null) {
               return 1;
             }
             else if (b.node.date === null) {
