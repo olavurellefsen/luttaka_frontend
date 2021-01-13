@@ -9,6 +9,11 @@ import SEO from '../components/seo'
 
 const ArticleTemplate = ({ data }) => {
   const article = data.strapiArticle
+
+  const renderLinks = (value) => {
+    return <a style={{ widht: "0" }} target="_blank" href={value.href}>{value.children}</a>
+  }
+  console.log("articlee", article.content)
   return (
     <Layout>
       <SEO title={`Tíðindi: ${article?.title}`} description={article?.description} image={article.image?.childImageSharp?.resize} />
@@ -23,6 +28,7 @@ const ArticleTemplate = ({ data }) => {
             <MarkDownContainer
               source={article.content}
               renderers={{
+                link: renderLinks,
                 image: ({ src, alt }) => {
                   const image = article.content_images?.find(
                     element => element.url === src
@@ -42,10 +48,11 @@ const ArticleTemplate = ({ data }) => {
                 },
                 paragraph: props =>
                   props.children[0].type.name === "image" ? (
-                    <div {...props} />
+                    <p {...props} />
                   ) : (
                       <ParagraphImageStyle name={props.children[0].type.name} {...props} />
                     ),
+
               }}
             />
           </ContentContainer>
@@ -111,14 +118,14 @@ const ImageStyle = styled(Img)`
 
 
 const MarkDownContainer = styled(ReactMarkdown)`
+  flex-direction: column;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   min-height: 100px;
   margin: 5px 0;
-  text-align: left;
 `
 
 const ParagraphImageStyle = styled.p`
-  display: flex;
+  /* display: flex; */
   img {
     margin: auto;
   }
