@@ -15,7 +15,7 @@ const SignupForm = () => {
 
   return (
     <ContainerStyle>
-      <TitleStyle>Tilmelding til Vísindavøku 2020</TitleStyle>
+      <TitleStyle>Tilmelding til Vísindavøku 2021</TitleStyle>
       {formState.isSubmitting && <div>SENDING EMAIL</div>}
 
 
