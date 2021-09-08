@@ -92,8 +92,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 100px;
-
+  margin-top: 24px;
   label {
     font-size: 18px;
   }
