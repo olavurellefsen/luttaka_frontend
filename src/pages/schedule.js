@@ -10,7 +10,7 @@ import ScheduleItem from './../components/schedule/ScheduleItem';
 import { media } from "../utils/mediaTemplate"
 const backend_schedule = graphql`
 query {
-  allStrapiSchedule(sort: {fields: [schedule_items___start_time, date], order: ASC}) {
+  allStrapiSchedule(sort: {fields: [date, schedule_items___start_time], order: ASC}) {
     nodes {
       id
       placement
@@ -35,7 +35,6 @@ query {
 const Schedule = () => {
   const [selectedSchedule, setSelectedSchedule] = useState(0)
 
-  console.log("selected", selectedSchedule)
   return (
     <Background>
       <Layout>
@@ -53,13 +52,24 @@ const Schedule = () => {
                 const foundSchedule = data.allStrapiSchedule.nodes.findIndex((item) => item.date === e.target.value)
                 setSelectedSchedule(foundSchedule)
               }}>
-                {data.allStrapiSchedule.nodes.map((schedule) => <option value={schedule.date} >{new Date(schedule.date).getFullYear()}</option>)}
+                {data.allStrapiSchedule.nodes.map((schedule, index) => <option key={index} value={schedule.date} >{new Date(schedule.date).getFullYear()}</option>)}
               </select>
 
               <TitleStyle>{new Date(data.allStrapiSchedule.nodes[selectedSchedule].date).getFullYear()}</TitleStyle>
               <ScheduleItemList>
                 <Location>Kongshøll</Location>
-                {data.allStrapiSchedule.nodes[selectedSchedule].schedule_items.map(item => {
+                {data.allStrapiSchedule.nodes[selectedSchedule].schedule_items.sort((a, b) => {
+                  const aDate = new Date()
+                  aDate.setHours(a.start_time.split(":")[0])
+                  aDate.setMinutes(a.start_time.split(":")[1])
+                  aDate.setSeconds(a.start_time.split(":")[2])
+
+                  const bDate = new Date()
+                  bDate.setHours(b.start_time.split(":")[0])
+                  bDate.setMinutes(b.start_time.split(":")[1])
+                  bDate.setSeconds(b.start_time.split(":")[2])
+                  return aDate.getTime() < bDate.getTime() ? -1 : 0
+                }).map(item => {
                   return (
                     <ScheduleItem
                       key={item.id}
