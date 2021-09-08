@@ -210,7 +210,7 @@ query fetchemail($email: String!) {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>Nøgdsemiskanning</TitleStyle>
-        <FormStyle onSubmit={handleSubmit(onSubmit)}>
+        <FormStyle>
           <InputContainer>
             <FormTitle> 1. Ert tú? <RedText>*</RedText></FormTitle>
             <LabelStyle>
@@ -377,7 +377,7 @@ query fetchemail($email: String!) {
             <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
             <EmailStyle type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
-          <SubmitButton type="submit" disabled={formState.isSubmitting}>Góðkenn</SubmitButton>
+          <SubmitButton type="submit" disabled={true}>Góðkenn</SubmitButton>
         </FormStyle>
       </Layout>
     </ContainerStyle>

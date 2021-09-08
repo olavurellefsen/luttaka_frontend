@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from 'styled-components'
 import { StaticQuery, graphql } from "gatsby"
 import MenuContainer from '../components/header/menuContainer'
@@ -6,64 +6,99 @@ import PetalMenu from '../components/front_page_large_screens/petalMenu'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ScheduleItem from './../components/schedule/ScheduleItem';
+
 import { media } from "../utils/mediaTemplate"
 const backend_schedule = graphql`
-  query {
-  allStrapiScheduleItem(sort: {fields: start_time, order: ASC}) {
+query {
+  allStrapiSchedule(sort: {fields: [schedule_items___start_time, date], order: ASC}) {
     nodes {
       id
-      start_time
-      title
-      lecturer {
-        name
-        organisation
+      placement
+      date
+      schedule_items {
+        id
+        start_time
+        title
+        lecturer {
+          name
+          organisation
+        }
+        description
+        FullyBooked
       }
-      description
-      FullyBooked
     }
   }
-}`
+}
+`
 
 
-const Schedule = () => (
-  <Background>
-    <Layout>
-      <SEO title="SKRÁ 2020" description="Skráin fyri vísindavøkuna 2020"/>
-      <MenuContainer />
-      <PetalContainer name="petal container">
-            <PetalMenu />
-          </PetalContainer>
-          <TitleStyle>SKRÁ 2020</TitleStyle>
-      <StaticQuery
-        query={backend_schedule}
-        render={
-          data=>(
-            <ScheduleItemList>
-              <Location>Kongshøll</Location>
-              {data.allStrapiScheduleItem.nodes.map(item => {
-                return(
-                <ScheduleItem
-                  key={item.id}
-                  title={item.title}
-                  start_time={item.start_time}
-                  lecturer_name={item.lecturer?.name}
-                  lecturer_organisation={item.lecturer?.organisation}
-                  description={item.description}
-                  includeCheckbox={false}
-                  FullyBooked={item.FullyBooked}
-                />
-              )})}
-            </ScheduleItemList>
-          )
-        }
-      />
-    </Layout>
-  </Background>
-)
+const Schedule = () => {
+  const [selectedSchedule, setSelectedSchedule] = useState(0)
+
+  console.log("selected", selectedSchedule)
+  return (
+    <Background>
+      <Layout>
+        <SEO title="SKRÁ 2021" description="Skráin fyri vísindavøkuna 2021" />
+        <MenuContainer />
+        <PetalContainer name="petal container">
+          <PetalMenu />
+        </PetalContainer>
+        <StaticQuery
+          query={backend_schedule}
+          render={
+            data => (<ContainerStyle>
+              <label htmlFor="Schedule">Vel ár</label>
+              <select id="Shedule" onChange={e => {
+                const foundSchedule = data.allStrapiSchedule.nodes.findIndex((item) => item.date === e.target.value)
+                setSelectedSchedule(foundSchedule)
+              }}>
+                {data.allStrapiSchedule.nodes.map((schedule) => <option value={schedule.date} >{new Date(schedule.date).getFullYear()}</option>)}
+              </select>
+
+              <TitleStyle>{new Date(data.allStrapiSchedule.nodes[selectedSchedule].date).getFullYear()}</TitleStyle>
+              <ScheduleItemList>
+                <Location>Kongshøll</Location>
+                {data.allStrapiSchedule.nodes[selectedSchedule].schedule_items.map(item => {
+                  return (
+                    <ScheduleItem
+                      key={item.id}
+                      title={item.title}
+                      start_time={item.start_time}
+                      lecturer_name={item.lecturer?.name}
+                      lecturer_organisation={item.lecturer?.organisation}
+                      description={item.description}
+                      includeCheckbox={false}
+                      FullyBooked={item.FullyBooked}
+                    />
+                  )
+                })}
+              </ScheduleItemList>
+            </ContainerStyle>)
+          }
+        />
+      </Layout>
+    </Background>
+  )
+}
 const Background = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px;
+`
+
+const ContainerStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 24px;
+  label {
+    font-size: 18px;
+  }
+  select{
+    padding: 10px;
+  }
 `
 
 const PetalContainer = styled.div`
@@ -77,7 +112,6 @@ const TitleStyle = styled.h3`
   font-size: 24px;
   ${media.desktop3`
     display: block;
-    margin-top: 100px;
   `}
 `
 

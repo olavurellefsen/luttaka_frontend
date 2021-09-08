@@ -22,11 +22,10 @@ const Description = ({ opened }) => {
         Høvi er hjá stórum og smáum at hitta granskarar og síggja og hoyra, hvat teir arbeiða við og hvat hetta hevur at týða fyri fólk í Føroyum.
         </TextStyle >
       <TextStyle >
-        Vísindavøkan 2020 verður 13. í røðini.
+        Vísindavøkan 2021 verður 14. í røðini.
         </TextStyle >
       <TextStyle >
-        Vísindavøkan 2020 verður seinni enn vanligt, hon verður 6. november.
-        Á triðja sinni verður Vísindavøkan í Sjóvinnuhúsinum á Vestaru Bryggju í Havn. Eisini verður farið við Vísindavøku á ferð. Meira verður at frætta í næstum.
+        Á fjórða sinni verður Vísindavøkan í Sjóvinnuhúsinum á Vestaru Bryggju í Havn. Eisini verður farið við Vísindavøku á ferð. Meira verður at frætta í næstum.
       </TextStyle>
     </ContainerStyle>
   )

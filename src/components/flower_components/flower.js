@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import Petal from './petal';
-import schedule from './flower_images/Skráin 2020.svg'
+import schedule from './flower_images/Skráin 2021.svg'
 import news from './flower_images/Group 5.svg'
 import storage from './flower_images/Group 6.svg'
 import join from './flower_images/Group 7.svg'
@@ -16,7 +16,7 @@ import { media } from '../../utils/mediaTemplate'
 const Flower = ({ opened, setOpened }) => {
   const petals = [
     {
-      title: `Skráin 2020`,
+      title: `Skráin 2021`,
       color: `green`,
       image: schedule,
       to: () => navigate("/schedule")
@@ -51,10 +51,10 @@ const Flower = ({ opened, setOpened }) => {
         })}
 
       </PetalContainer>
-      <StemStyle src={path4} right='50%' opened={opened} altHeight="300px" />
-      <StemStyle src={path6} right='50%' opened={opened} altHeight="224px" />
-      <StemStyle src={path7} right='113px;' opened={opened} altHeight="280px" altRight="129px" />
-      <StemStyle src={path8} right='113px' opened={opened} altheight="180px" altRight="109px"/>
+      <StemStyle src={path4} opacity={0} right='50%' opened={opened} shouldClose={true} altHeight="300px" />
+      <StemStyle src={path6} opacity={0.5} right='50%' opened={opened} altHeight="224px" />
+      <StemStyle src={path7} opacity={0} right='113px;' opened={opened} altHeight="280px" altRight="129px" />
+      <StemStyle src={path8} opacity={0} right='113px' opened={opened} altheight="180px" altRight="109px"/>
       <QuestionBox opened={opened} setOpened={setOpened} large_screen={false} />
     </ContainerStyle>
   );
@@ -113,12 +113,12 @@ const PetalContainer = styled.div`
    `};
 `
 
-const fadeAway = keyframes`
+const fadeAway = opacity => keyframes`
  from {
    opacity: 1;
  }
  to {
-   opacity: 0.3;
+   opacity: ${opacity};
  }
 `
 
@@ -126,10 +126,10 @@ const StemStyle = styled.img`
   position: absolute;
   bottom: 0;
   right: ${props => props.right};
-    ${({ opened }) =>
+  ${({ opened, opacity }) =>
     opened && css
       `
-    animation: ${fadeAway};
+    animation: ${fadeAway(opacity)};
     animation-duration: 2s;
     animation-fill-mode: forwards;
   `}

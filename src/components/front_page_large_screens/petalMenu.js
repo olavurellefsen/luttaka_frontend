@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import schedule from '../flower_components/flower_images/Skráin 2020.svg'
+import schedule from '../flower_components/flower_images/Skráin 2021.svg'
 import altSchedule from '../flower_components/flower_images/Skráin_green.svg'
 import news from '../flower_components/flower_images/Group 5.svg'
 import altNews from '../flower_components/flower_images/Tíðindi_red.svg'
@@ -16,7 +16,7 @@ const PetalMenu = () => {
   const location = useLocation()
   const petals = [
     {
-      title: `Skráin 2020`,
+      title: `Skráin 2021`,
       image: schedule,
       to: "/schedule",
       alternaTiveImage: altSchedule
