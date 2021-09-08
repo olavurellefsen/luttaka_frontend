@@ -10,7 +10,7 @@ import ScheduleItem from './../components/schedule/ScheduleItem';
 import { media } from "../utils/mediaTemplate"
 const backend_schedule = graphql`
 query {
-  allStrapiSchedule(sort: {fields: [date, schedule_items___start_time], order: ASC}) {
+  allStrapiSchedule(sort: {fields: [date], order: DESC}) {
     nodes {
       id
       placement
