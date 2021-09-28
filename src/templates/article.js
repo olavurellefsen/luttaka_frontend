@@ -13,6 +13,7 @@ const ArticleTemplate = ({ data }) => {
   const renderLinks = (value) => {
     return <a style={{ widht: "0" }} target="_blank" href={value.href} without rel="noreferrer">{value.children}</a>
   }
+
   return (
     <Layout>
       <SEO title={`Tíðindi: ${article?.title}`} description={article?.description} image={article.image?.childImageSharp?.resize} />
@@ -23,7 +24,7 @@ const ArticleTemplate = ({ data }) => {
           <ContentContainer>
             <TitleStyle>{article.title}</TitleStyle>
             <DateStyle>{article.date}</DateStyle>
-            <ImageStyle fluid={article.image?.childImageSharp.fluid} alt={article.title} />
+            {article?.image && <ImageStyle fluid={article.image?.childImageSharp.fluid} alt={article.title} />}
             <MarkDownContainer
               source={article.content}
               renderers={{
