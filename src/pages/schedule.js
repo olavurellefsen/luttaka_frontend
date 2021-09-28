@@ -63,7 +63,6 @@ const Schedule = () => {
                   aDate.setHours(a.start_time.split(":")[0])
                   aDate.setMinutes(a.start_time.split(":")[1])
                   aDate.setSeconds(a.start_time.split(":")[2])
-                  debugger
                   const bDate = new Date()
                   bDate.setHours(b.start_time.split(":")[0])
                   bDate.setMinutes(b.start_time.split(":")[1])
