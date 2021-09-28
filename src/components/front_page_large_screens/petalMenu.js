@@ -43,8 +43,8 @@ const PetalMenu = () => {
     }
   ]
 
-   const fetchWindowLocation = (path) => {
-    switch(path) {
+  const fetchWindowLocation = (path) => {
+    switch (path) {
       case "/schedule":
         return "green"
       case "/news":
@@ -64,6 +64,10 @@ const PetalMenu = () => {
       case "/diverse":
         return "yellow"
       case "/signup":
+        return "blue"
+      case "/evaluation":
+        return "blue"
+      case "/survey":
         return "blue"
       default:
         return ""
