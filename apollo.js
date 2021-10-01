@@ -60,7 +60,9 @@ export const GraphQLProvider = ({ children }) => {
 
   const client = new ApolloClient({
     link: authLink.concat(splitLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      addTypename: false
+    }),
     connectToDevTools: true
   })
   GraphQLProvider.propTypes = {

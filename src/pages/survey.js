@@ -1,6 +1,6 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { graphql, navigate } from 'gatsby';
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import PetalMenu from '../components/front_page_large_screens/petalMenu';
@@ -10,181 +10,83 @@ import { media } from '../utils/mediaTemplate'
 import SendEmail from '../utils/mail/SendEmail'
 
 const Survey = ({ data }) => {
-  const { register, handleSubmit, watch, clearErrors, errors, formState } = useForm({ mode: 'onChange' })
+  const { register, handleSubmit, watch, formState } = useForm({ mode: 'onChange' })
   const [answer, setAnswer] = useState({})
-  const watchRankedFields = watch([
-    "visinda_voku_a_ferd",
-    "framlogur_i_kongshøll",
-    "snarroðukapping",
-    "framsyningar_og_tiltøk_a_svalanum",
-    "royndir_og_fiskar_i_telti_uttanfyri",
-    "rundvisingar_a_granskingarstovnum"
-  ])
-  const watchDifferentInput = watch("er")
+  const [email, setEmail] = useState("")
+  // const watchRankedFields = watch([
+  //   "visinda_voku_a_ferd",
+  //   "framlogur_i_kongshøll",
+  //   "snarroðukapping",
+  //   "framsyningar_og_tiltøk_a_svalanum",
+  //   "royndir_og_fiskar_i_telti_uttanfyri",
+  //   "rundvisingar_a_granskingarstovnum"
+  // ])
+
   const [createSurveyAnwser] = useMutation(gql`
-  mutation CreateSurvey(
-    $email: String,
-    $ert_tu: String!,
-    $hvat_evni: String!,
-    $hvat_saknadi: String,
-    $tad_besta: String,
-    $hvorji_tiltok: String!,
-    $hvorjum_tiltokum: String!,
-    $samlad_meting: numeric!) {
-  insert_survey_one(object: {
-    email: $email,
-    ert_tu: $ert_tu,
-    hvat_evni_vilt_tu_hoyra_meira_um_naestu_fer: $hvat_evni,
-    hvat_saknadi_tu: $hvat_saknadi,
-    hvat_var_tad_besta: $tad_besta,
-    hvorji_tiltolk_skulu_vit_hava_komandi_ar: $hvorji_tiltok,
-    hvorjum_tiltokum_luttokst_tu_i: $hvorjum_tiltokum,
-    samlad_meting: $samlad_meting}) {
-    email
+  mutation CreateSurvey($email: String!, $input: jsonb!, $schedule_title: String!) {
+    insert_survey_json_one(object: {email: $email, input: $input, schedule_title : $schedule_title }) {
+      email
+    }
   }
-}
   `)
   const [fetchUser, { data: survey_data }] = useLazyQuery(gql`
-query fetchemail($email: String!) {
-  survey(where: {email: {_eq: $email}}) {
-    email
+query fetchemail($email: String) {
+  survey_json(where: {_and: {email: {_eq: $email, _is_null: false, _neq: ""}}}) {
+    id
   }
 }
   `, {
     onCompleted() {
-      if (survey_data.survey.length === 0) {
+      if (survey_data.survey_json.length === 0) {
+        const sortedArray = data.allStrapiSurveyQuestions.nodes.sort((a, b) => {
+          const yearA = a.schedule.date.split("-")[0]
+          const yearB = b.schedule.date.split("-")[0]
+          return yearA < yearB ? -1 : yearA === yearB ? 0 : 1
+        })
 
         createSurveyAnwser({
           variables: {
-            email: answer.email === `` ? null : answer.email,
-            ert_tu: answer.er,
-            hvat_evni: `
-          Heilsu: ${answer.heilsa},
-          Náttúru: ${answer.nattura},
-          Tøkni: ${answer.tokni},
-          Samfelag: ${answer.samfelag},
-          Hugvisindi: ${answer.hugvisindi}
-          `,
-            hvat_saknadi: answer.missed,
-            tad_besta: answer.the_best,
-            hvorji_tiltok: answer.upcomingEvents,
-            hvorjum_tiltokum: answer.which_events_participated.toString(),
-            samlad_meting: answer.meting,
+            input: answer,
+            email: email,
+            schedule_title: sortedArray[0].schedule.placement
           }
         }).then(() => {
-          SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, {
-            to: `gransking@gransking.fo`,
-            subject: `Nýggj Eftirmeting`,
-            html: `<h1>Ein nýggjur luttakari hevur eftirmett</h1> <br/>
-                <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
-                  <p>Teldupostur: ${answer.email}</p>
-                  <p>Hvat ert tú: ${answer.er}</p><br/>
-                  <p>Hvørjum tiltøkum luttókst tú á: </p>
-                  <p>${answer.which_events_participated.toString()}</p><br/>
-                  <p>Hvat var tað besta: ${answer.the_best}</p>
-                  <p>Hvat saknaðu tú: ${answer.missed}</p><br/>
-                  <p>Hvørji tiltøk skulu vit hava komandi ár:</p>
-                  <p>${answer.upcomingEvents}</p><br/>
-                  <p>Hvat evni vilt tú hoyra meira um næstu ferð:</p>
-                  <p>Heilsa: ${answer.heilsa}<p/>
-                  <p>Náttúru: ${answer.nattura}<p/>
-                  <p>Tøkni: ${answer.tokni}<p/>
-                  <p>Samfelag: ${answer.samfelag}<p/><br/>
-                  <p>Samlað Meting: ${answer.meting}</p>
-            `
-          })
-          navigate(`/survey_registered`)
+          const data = JSON.parse(answer)
+          let elementString = ""
+          for (const key in data) {
+            elementString += `<p>${key.replaceAll("?", "")}:  ${data[key]}</p>`
+          }
+          try {
+            SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, {
+              to: `kr@tokni.com`,
+              subject: `Nýggj Eftirmeting`,
+              html: `<h1>Ein nýggjur luttakari hevur eftirmett</h1> <br/>
+                      <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
+                      ${elementString}
+              `
+            })
+
+          } finally {
+            navigate(`/survey_registered`)
+          }
         })
       }
     }
   })
 
   const onSubmit = async data => {
-    const {
-      er,
-      which_events_participated,
-      missed,
-      the_best,
-      visinda_voku_a_ferd,
-      framlogur_i_kongshøll,
-      snarroðukapping,
-      framsyningar_og_tiltøk_a_svalanum,
-      rundvisingar_a_granskingarstovnum,
-      royndir_og_fiskar_i_telti_uttanfyri,
-      nattura,
-      heilsa,
-      tokni,
-      samfelag,
-      hugvisindi,
-      meting,
-      email,
-      text_er
-
-    } = data
-
-    const upcomingEvents = `
-      Vísindavøku á ferð: ${visinda_voku_a_ferd},
-      Framløgur í Kongshøll: ${framlogur_i_kongshøll},
-      Snarrøðukapping: ${snarroðukapping},
-      Framsýningar og tiltøk á svalanum: ${framsyningar_og_tiltøk_a_svalanum},
-      Royndir og fiskar í telti uttanfyri: ${royndir_og_fiskar_i_telti_uttanfyri},
-      Rundvísingar á granskingarstovnum: ${rundvisingar_a_granskingarstovnum}
-    `
-
     if (
-      !formState.isSubmitting
-      && er
-      && which_events_participated
-      && the_best
-      && meting) {
-      await setAnswer({
-        er: er !== "Annað" ? er : text_er,
-        which_events_participated: which_events_participated,
-        missed: missed,
-        the_best: the_best,
-        upcomingEvents: upcomingEvents,
-        nattura: nattura,
-        heilsa: heilsa,
-        tokni: tokni,
-        samfelag: samfelag,
-        hugvisindi: hugvisindi,
-        meting: meting,
-        email: email
-      })
+      !formState.isSubmitting) {
+      setEmail(data.email)
+      let tmpEmail = data.email
+      delete data.email
+      setAnswer(JSON.stringify(data))
       await fetchUser({
         variables: {
-          email: email ? email : ``
+          email: tmpEmail ? tmpEmail : null
         }
       })
-
     }
-  }
-
-
-  const assertNotsameRank = () => {
-
-    const accumulatedValue =
-      parseInt(watchRankedFields.royndir_og_fiskar_i_telti_uttanfyri) +
-      parseInt(watchRankedFields.framlogur_i_kongshøll) +
-      parseInt(watchRankedFields.framsyningar_og_tiltøk_a_svalanum) +
-      parseInt(watchRankedFields.rundvisingar_a_granskingarstovnum) +
-      parseInt(watchRankedFields.snarroðukapping) +
-      parseInt(watchRankedFields.visinda_voku_a_ferd)
-
-    if (accumulatedValue === 21) {
-
-      clearErrors(
-        "royndir_og_fiskar_i_telti_uttanfyri",
-        "framlogur_i_kongshøll",
-        "framsyningar_og_tiltøk_a_svalanum",
-        "rundvisingar_a_granskingarstovnum",
-        "snarroðukapping",
-        "visinda_voku_a_ferd"
-      )
-      return true
-    }
-
-    return false
   }
 
   if (survey_data?.survey?.length > 0) {
@@ -202,6 +104,96 @@ query fetchemail($email: String!) {
     )
   }
 
+
+  const renderQuestionsRadio = () => {
+
+    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
+      return questions.Questionnaire.radio.map((radio) => {
+        return (<Fragment key={radio.id + "radio"}>
+          <FormTitle>{radio.question}<RedText>*</RedText></FormTitle>
+          {radio.options.map((option, index) => {
+            return (
+              <LabelStyle key={option.id + index + "radio option"}>
+                <InputStyle name={radio.question} type="radio" value={option.title} ref={register({ required: true })} />
+                {option.title}
+              </LabelStyle>
+            )
+          })}
+        </Fragment>)
+      })
+    })
+  }
+
+  const renderQuestionsCheckbox = () => {
+    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
+      return questions.Questionnaire.checkbox.map((checkbox) => {
+        return (<Fragment key={checkbox.id + "checkbox"}>
+          <FormTitle>{checkbox.question}<RedText>*</RedText></FormTitle>
+          {checkbox.options.map((option) => {
+            return (
+              <LabelStyle key={option.id + "checkboc option"}>
+                <InputStyle name={checkbox.question} type="checkbox" value={option.title} ref={register({ required: true })} />
+                {option.title}
+              </LabelStyle>
+            )
+          })}
+        </Fragment>)
+      })
+    })
+  }
+
+  const renderQuestionText = () => {
+    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
+      return questions.Questionnaire.text.map((text) => {
+        return (<Fragment key={text.id + "text"}>
+          <FormTitle>{text.title}<RedText>*</RedText></FormTitle>
+          <LabelStyle key={text.id}>
+            <TextAreaStyle name={text.title} type="text" ref={register({ required: true })} />
+          </LabelStyle>
+        </Fragment>)
+      })
+    })
+  }
+
+  const renderQuestionsRadioMultiple = () => {
+    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
+      return questions.Questionnaire.radio_multiple.map((radio) => {
+        return (<Fragment key={radio.id}>
+          <FormTitle>{radio.question}</FormTitle>
+          <ColumnStyle>
+            {radio.options_above.map((aboveOption, index) => {
+              return <Fragment key={aboveOption.id}>
+                {index === 0 ? <>
+                  <ParagraphStyle></ParagraphStyle><ParagraphStyle>{aboveOption.title}</ParagraphStyle>
+                </> : <ParagraphStyle>{aboveOption.title}</ParagraphStyle>}
+              </Fragment>
+            })}
+            {radio.options_to_the_side.map((sideOption) => {
+              return <Fragment key={sideOption.id + "sideoption"}>
+                <LabelStyle htmlFor={sideOption.title}>{sideOption.title}</LabelStyle>
+                {radio.options_above.map((aboveOption, index) => (
+                  <InputStyle key={sideOption.id + index + "above_option_side"} type="radio" name={sideOption.title} value={aboveOption.title} ref={register({ required: false })} />
+                ))}
+              </Fragment>
+            })}
+          </ColumnStyle>
+        </Fragment>)
+      })
+    })
+  }
+
+  const renderQuestionsNumber = () => {
+    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
+      return questions.Questionnaire.number.map((number) => {
+        return <Fragment key={number.id + "number"}>
+          <FormTitle>{number.question}<RedText>*</RedText></FormTitle>
+          <div style={{ fontSize: "13px", marginBottom: "10px" }}>{number.min}-{number.max} (har {number.max} er best)</div>
+          <input type="number" min={number.min} max={number.max} name={number.question} ref={register({ required: true })} />
+        </Fragment>
+      })
+    })
+  }
+
   return (
     <ContainerStyle>
       <Layout>
@@ -210,174 +202,28 @@ query fetchemail($email: String!) {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>Nøgdsemiskanning</TitleStyle>
-        <FormStyle>
+        <FormStyle onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
-            <FormTitle> 1. Ert tú? <RedText>*</RedText></FormTitle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Skúlanæmingur í 1.-6. flokki" ref={register({ required: true })} />
-          Skúlanæmingur í 1.-6. flokki
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Skúlanæmingur í 7.-10. flokki" ref={register({ required: true })} />
-            Skúlanæmingur í 7.-10. flokki
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Miðnámsskúlanæmingur" ref={register({ required: true })} />
-            Miðnámsskúlanæmingur
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Lesandi á hægri námi ella yrkisútbúgving" ref={register({ required: true })} />
-            Lesandi á hægri námi ella yrkisútbúgving
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Fólkaskúlalærari" ref={register({ required: true })} />
-            Fólkaskúlalærari
-            </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Undirvísari á miðnámi" ref={register({ required: true })} />
-            Undirvísari á miðnámi
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Námfrøðingur ella hjálparfólk" ref={register({ required: true })} />
-            Námfrøðingur ella hjálparfólk
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Granskari" ref={register({ required: true })} />
-            Granskari
-          </LabelStyle>
-
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Íverksetari" ref={register({ required: true })} />
-            Íverksetari
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Alment sett/ur" ref={register({ required: true })} />
-            Alment sett/ur
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Privat sett/ur" ref={register({ required: true })} />
-            Privat sett/ur
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle name="er" type="radio" value="Pensjónist" ref={register({ required: true })} />
-            Pensjónist
-          </LabelStyle>
-            <LabelStyle style={{ flexDirection: "column", alignItems: "flex-start" }}>
-              <div>
-                <InputStyle name="er" type="radio" value="Annað" ref={register({ required: true })} />
-              Annað
-              </div>
-              {watchDifferentInput === "Annað" && <input type="text" name="text_er" ref={register({ required: true })} />}
-            </LabelStyle>
-          </InputContainer>
-
-          <InputContainer>
-            <FormTitle>2. Hvørjum tiltøkum luttókst tú í?<RedText>*</RedText></FormTitle>
-            <div style={{ fontSize: "13px", marginBottom: "10px" }}>Vel øll tiltøkini, sum tú vitjaði ella fylgdi á netinum.</div>
-            <LabelStyle>
-              <InputStyle type="checkbox" name="which_events_participated" value="Vísindavøku á ferð" ref={register()} />
-          Vísindavøku á ferð
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle type="checkbox" name="which_events_participated" value="Framløgur í Kongshøll" ref={register()} />
-            Framløgur í Kongshøll
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle type="checkbox" name="which_events_participated" value="Snarrøðukapping" ref={register()} />
-            Snarrøðukapping
-            </LabelStyle>
-            <LabelStyle>
-              <InputStyle type="checkbox" name="which_events_participated" value="Handan av Miðlaheiðurslønini" ref={register()} />
-            Handan av Miðlaheiðurslønini
-          </LabelStyle>
-            <LabelStyle>
-              <InputStyle type="checkbox" name="which_events_participated" value="Avdúking av vinnara í filmskappingini" ref={register()} />
-            Avdúking av vinnara í filmskappingini
-            </LabelStyle>
-            <LabelStyle>
-              <InputStyle type="checkbox" name="which_events_participated" value="Stuttfilmar um gransking í appini" ref={register()} />
-            Stuttfilmar um gransking í appini
-            </LabelStyle>
+            {renderQuestionsRadio()}
           </InputContainer>
           <InputContainer>
-            <FormTitle>3. Hvat var tað besta?<RedText>*</RedText></FormTitle>
-            <TextAreaStyle name="the_best" ref={register({ required: true })} />
+            {/* <div style={{ fontSize: "13px", marginBottom: "10px" }}>Vel øll tiltøkini, sum tú upplivdi.</div> */}
+            {renderQuestionsCheckbox()}
           </InputContainer>
           <InputContainer>
-            <FormTitle> 4. Hvat saknaði tú?</FormTitle>
-            <TextAreaStyle name="missed" ref={register({ required: false })} />
+            {renderQuestionText()}
           </InputContainer>
           <InputContainer>
-            <FormTitle>5.Hvørji tiltøk skulu vit hava komandi ár?<RedText>*</RedText></FormTitle>
-            <div style={{ fontSize: "13px", marginBottom: "10px" }}> Raðfest tiltøkini, har 1 er fyrsta val, 2 er annað o.s.fr.</div>
-            {
-              errors?.visinda_voku_a_ferd?.type === "validate" &&
-              <RedText style={{ margin: "0 5px" }}>Syrg fyri at onki tal er líka.</RedText>
-            }
-            <LabelStyleRank>
-              Vísindavøku á ferð
-              <InputBoxStyle type="number" max="6" min="1" name="visinda_voku_a_ferd" ref={register({ required: true, validate: value => assertNotsameRank(value) === true })} />
-            </LabelStyleRank>
-            <LabelStyleRank>
-              Framløgur í Kongshøll
-              <InputBoxStyle type="number" max="6" min="1" name="framlogur_i_kongshøll" ref={register({ required: true, validate: value => assertNotsameRank(value) === true })} />
-            </LabelStyleRank>
-            <LabelStyleRank>
-              Snarrøðukapping
-              <InputBoxStyle type="number" max="6" min="1" name="snarroðukapping" ref={register({ required: true, validate: value => assertNotsameRank(value) === true })} />
-            </LabelStyleRank>
-            <LabelStyleRank>
-              Framsýningar og tiltøk á svalanum
-              <InputBoxStyle type="number" max="6" min="1" name="framsyningar_og_tiltøk_a_svalanum" ref={register({ required: true, validate: value => assertNotsameRank(value) === true })} />
-            </LabelStyleRank>
-            <LabelStyleRank>
-              Royndir og fiskar í telti uttanfyri
-              <InputBoxStyle type="number" max="6" min="1" name="royndir_og_fiskar_i_telti_uttanfyri" ref={register({ required: true, validate: value => assertNotsameRank(value) === true })} />
-            </LabelStyleRank>
-            <LabelStyleRank>
-              Rundvísingar á granskingarstovnum
-              <InputBoxStyle type="number" max="6" min="1" name="rundvisingar_a_granskingarstovnum" ref={register({ required: true, validate: value => assertNotsameRank(value) === true })} />
-            </LabelStyleRank>
+            {renderQuestionsRadioMultiple()}
           </InputContainer>
           <InputContainer>
-            <FormTitle>6. Hvat evni vilt tú hoyra meira um næstu ferð?</FormTitle>
-            <ColumnStyle>
-              <ParagraphStyle></ParagraphStyle>
-              <ParagraphStyle>Nei</ParagraphStyle>
-              <ParagraphStyle>Kanska</ParagraphStyle>
-              <ParagraphStyle>Ja</ParagraphStyle>
-              <LabelStyle htmlFor="heilsa">Heilsu</LabelStyle>
-              <InputStyle type="radio" name="heilsa" value="Nei" ref={register({ required: false })} />
-              <InputStyle type="radio" name="heilsa" value="Kanska" ref={register({ required: false })} />
-              <InputStyle type="radio" name="heilsa" value="Ja" ref={register({ required: false })} />
-              <LabelStyle htmlFor="nattura">Náttúru</LabelStyle>
-              <InputStyle type="radio" name="nattura" value="Nei" ref={register({ required: false })} />
-              <InputStyle type="radio" name="nattura" value="Kanska" ref={register({ required: false })} />
-              <InputStyle type="radio" name="nattura" value="Ja" ref={register({ required: false })} />
-              <LabelStyle htmlFor="tokni">Tøkni</LabelStyle>
-              <InputStyle type="radio" name="tokni" value="Nei" ref={register({ required: false })} />
-              <InputStyle type="radio" name="tokni" value="Kanska" ref={register({ required: false })} />
-              <InputStyle type="radio" name="tokni" value="Ja" ref={register({ required: false })} />
-              <LabelStyle htmlFor="samfelag">Samfelag</LabelStyle>
-              <InputStyle type="radio" name="samfelag" value="Nei" ref={register({ required: false })} />
-              <InputStyle type="radio" name="samfelag" value="Kanska" ref={register({ required: false })} />
-              <InputStyle type="radio" name="samfelag" value="Ja" ref={register({ required: false })} />
-              <LabelStyle htmlFor="hugvisindi">Hugvísindi</LabelStyle>
-              <InputStyle type="radio" name="hugvisindi" value="Nei" ref={register({ required: false })} />
-              <InputStyle type="radio" name="hugvisindi" value="Kanska" ref={register({ required: false })} />
-              <InputStyle type="radio" name="hugvisindi" value="Ja" ref={register({ required: false })} />
-            </ColumnStyle>
-          </InputContainer>
-          <InputContainer>
-            <FormTitle> 7. Samlað meting<RedText>*</RedText></FormTitle>
-            <div style={{ fontSize: "13px", marginBottom: "10px" }}>1-10  (har 10 er best)</div>
-            <input type="number" min="1" max="10" name="meting" ref={register({ required: true })} />
+            {renderQuestionsNumber()}
           </InputContainer>
           <InputContainer>
             <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
             <EmailStyle type="text" name="email" ref={register({ required: false })} />
           </InputContainer>
-          <SubmitButton type="submit" disabled={true}>Góðkenn</SubmitButton>
+          <SubmitButton type="submit" disabled={formState.isSubmitting}>Góðkenn</SubmitButton>
         </FormStyle>
       </Layout>
     </ContainerStyle>
@@ -422,11 +268,6 @@ const LabelStyle = styled.label`
   margin: 0 5px;
 `
 
-const LabelStyleRank = styled(LabelStyle)`
-  justify-content: space-between;
-  width: 70%;
-  margin-bottom: 5px;
-`
 
 const InputStyle = styled.input`
   width: 20px;
@@ -437,11 +278,6 @@ const EmailStyle = styled(InputStyle)`
   width: 100%;
 `
 
-const InputBoxStyle = styled(InputStyle)`
-  width: 25px;
-  height: 25px;
-  font-size: 16px;
-`
 
 const TextAreaStyle = styled.textarea`
   width: 90%;
@@ -504,6 +340,59 @@ query fetchAlreadyRegistered {
   allStrapiSurveyAlreadyRegistered {
     nodes {
       content
+    }
+  }
+  allStrapiSurveyQuestions {
+    nodes {
+      title
+      schedule{
+        date
+        placement
+      }
+      Questionnaire {
+        radio {
+          id
+          question
+          description
+          options {
+            id
+            title
+          }
+        }
+        checkbox {
+          id
+          question
+          description
+          options {
+            id
+            title
+          }
+        }
+        text {
+          id
+          title
+        }
+        radio_multiple {
+          id
+          question
+          description
+          options_above {
+            id
+            title
+          }
+          options_to_the_side {
+            id
+            title
+          }
+        }
+        number {
+          id
+          question
+          description
+          min
+          max
+        }
+      }
     }
   }
 }
