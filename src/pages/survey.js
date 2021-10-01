@@ -10,17 +10,9 @@ import { media } from '../utils/mediaTemplate'
 import SendEmail from '../utils/mail/SendEmail'
 
 const Survey = ({ data }) => {
-  const { register, handleSubmit, watch, formState } = useForm({ mode: 'onChange' })
+  const { register, handleSubmit, formState } = useForm({ mode: 'onChange' })
   const [answer, setAnswer] = useState({})
   const [email, setEmail] = useState("")
-  // const watchRankedFields = watch([
-  //   "visinda_voku_a_ferd",
-  //   "framlogur_i_kongshøll",
-  //   "snarroðukapping",
-  //   "framsyningar_og_tiltøk_a_svalanum",
-  //   "royndir_og_fiskar_i_telti_uttanfyri",
-  //   "rundvisingar_a_granskingarstovnum"
-  // ])
 
   const [createSurveyAnwser] = useMutation(gql`
   mutation CreateSurvey($email: String!, $input: jsonb!, $schedule_title: String!) {
@@ -111,6 +103,7 @@ query fetchemail($email: String) {
       return questions.Questionnaire.radio.map((radio) => {
         return (<Fragment key={radio.id + "radio"}>
           <FormTitle>{radio.question}<RedText>*</RedText></FormTitle>
+          {radio.description && radio.description !== " " && <DescriptionStyle>{radio.description}</DescriptionStyle>}
           {radio.options.map((option, index) => {
             return (
               <LabelStyle key={option.id + index + "radio option"}>
@@ -129,6 +122,7 @@ query fetchemail($email: String) {
       return questions.Questionnaire.checkbox.map((checkbox) => {
         return (<Fragment key={checkbox.id + "checkbox"}>
           <FormTitle>{checkbox.question}<RedText>*</RedText></FormTitle>
+          {checkbox.description && checkbox.description !== " " && <DescriptionStyle>{checkbox.description}</DescriptionStyle>}
           {checkbox.options.map((option) => {
             return (
               <LabelStyle key={option.id + "checkboc option"}>
@@ -147,6 +141,7 @@ query fetchemail($email: String) {
       return questions.Questionnaire.text.map((text) => {
         return (<Fragment key={text.id + "text"}>
           <FormTitle>{text.title}<RedText>*</RedText></FormTitle>
+          {text.description && text.description !== " " && <DescriptionStyle>{text.description}</DescriptionStyle>}
           <LabelStyle key={text.id}>
             <TextAreaStyle name={text.title} type="text" ref={register({ required: true })} />
           </LabelStyle>
@@ -160,6 +155,7 @@ query fetchemail($email: String) {
       return questions.Questionnaire.radio_multiple.map((radio) => {
         return (<Fragment key={radio.id}>
           <FormTitle>{radio.question}</FormTitle>
+          {radio.description && radio.description !== " " && <DescriptionStyle>{radio.description}</DescriptionStyle>}
           <ColumnStyle>
             {radio.options_above.map((aboveOption, index) => {
               return <Fragment key={aboveOption.id}>
@@ -186,7 +182,8 @@ query fetchemail($email: String) {
     return data.allStrapiSurveyQuestions.nodes.map((questions) => {
       return questions.Questionnaire.number.map((number) => {
         return <Fragment key={number.id + "number"}>
-          <FormTitle>{number.question}<RedText>*</RedText></FormTitle>
+          {number.question && number.question !== " " && <FormTitle>{number.question}<RedText>*</RedText></FormTitle>}
+          <DescriptionStyle>{number.description}</DescriptionStyle>
           <div style={{ fontSize: "13px", marginBottom: "10px" }}>{number.min}-{number.max} (har {number.max} er best)</div>
           <input type="number" min={number.min} max={number.max} name={number.question} ref={register({ required: true })} />
         </Fragment>
@@ -207,7 +204,6 @@ query fetchemail($email: String) {
             {renderQuestionsRadio()}
           </InputContainer>
           <InputContainer>
-            {/* <div style={{ fontSize: "13px", marginBottom: "10px" }}>Vel øll tiltøkini, sum tú upplivdi.</div> */}
             {renderQuestionsCheckbox()}
           </InputContainer>
           <InputContainer>
@@ -241,6 +237,11 @@ const PetalContainer = styled.div`
   ${media.desktop3`
     display: none;
   `}
+`
+
+const DescriptionStyle = styled.div`
+  font-size: 13px;
+  margin-bottom: 10px;
 `
 
 const FormStyle = styled.form`
