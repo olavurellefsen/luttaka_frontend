@@ -10,10 +10,13 @@ import { media } from '../utils/mediaTemplate'
 import SendEmail from '../utils/mail/SendEmail'
 
 const Survey = ({ data }) => {
-  const { register, handleSubmit, formState, formState: { errors } } = useForm({ mode: 'onChange' })
+  const { register, handleSubmit, formState, watch, formState: { errors } } = useForm({ mode: 'onChange' })
   const [answer, setAnswer] = useState({})
   const [email, setEmail] = useState("")
   const [components, setComponents] = useState([])
+  let watchFields = watch(data.allStrapiSurveyQuestions.nodes[0].Questionnaire.radio.map((radio) => {
+    return radio.question?.split(". ")?.[1] ? radio.question?.split(". ")?.[1] : radio.question
+  }))
 
   const [createSurveyAnwser] = useMutation(gql`
   mutation CreateSurvey($email: String!, $input: jsonb!, $schedule_title: String!) {
@@ -73,10 +76,18 @@ const Survey = ({ data }) => {
       setEmail(data.email)
       let tmpEmail = data.email
       delete data.email
+      if (watchFields) {
+        for (const key in data) {
+          if (data[key] === "Annað") {
+            data[key] = data[key + "_annað"]
+            delete data[key + "_annað"]
+          }
+        }
+      }
       setAnswer(JSON.stringify(data))
       await fetchUser({
         variables: {
-          email: tmpEmail ? tmpEmail : null
+          email: tmpEmail ? tmpEmail : ""
         }
       })
     }
@@ -95,6 +106,7 @@ const Survey = ({ data }) => {
           </LabelStyle>
         )
       })}
+      {watchFields[radio.question?.split(". ")?.[1] ? radio.question?.split(". ")?.[1] : radio.question] === "Annað" && <TextInputStyle type="text" name={radio.question?.split(". ")?.[1] ? radio.question?.split(". ")?.[1] + "_annað" : radio.question + "_annað"} ref={register({ required: radio.required })} />}
     </Fragment>)
   }
 
@@ -105,7 +117,7 @@ const Survey = ({ data }) => {
       {errors[checkbox.question?.split(". ")?.[1] ? checkbox.question?.split(". ")?.[1] : checkbox.question]?.type === "required" && <ErrorStyle>Skal útfyllast.</ErrorStyle>}
       {checkbox.options.map((option) => {
         return (
-          <LabelStyle key={option.id + "checkboc option"}>
+          <LabelStyle key={option.id + "checkbox option"}>
             <InputStyle name={checkbox.question?.split(". ")?.[1] ? checkbox.question?.split(". ")?.[1] : checkbox.question} type="checkbox" value={option.title} ref={register({ required: checkbox.required })} />
             {option.title}
           </LabelStyle>
@@ -160,6 +172,37 @@ const Survey = ({ data }) => {
   }
 
 
+  const renderComponents = () => {
+    return components.map((component, index) => {
+      switch (component.type) {
+        case "checkbox":
+          return <InputContainer key={index}>
+            {renderQuestionsCheckbox(component)}
+          </InputContainer>
+        case "text":
+          return <InputContainer key={index}>
+            {renderQuestionText(component)}
+          </InputContainer>
+        case "radio":
+          return <InputContainer key={index}>
+            {renderQuestionsRadio(component)}
+          </InputContainer>
+        case "radio_multiple":
+          return <InputContainer key={index}>
+            {renderQuestionsRadioMultiple(component)}
+          </InputContainer>
+        case "number":
+          return <InputContainer key={index}>
+            {renderQuestionsNumber(component)}
+          </InputContainer>
+        default:
+          return null
+      }
+    })
+  }
+
+
+
   useEffect(() => {
     if (data) {
       const array = []
@@ -208,35 +251,6 @@ const Survey = ({ data }) => {
       setComponents([...array])
     }
   }, [data])
-
-  const renderComponents = () => {
-    return components.map((component, index) => {
-      switch (component.type) {
-        case "checkbox":
-          return <InputContainer key={index}>
-            {renderQuestionsCheckbox(component)}
-          </InputContainer>
-        case "text":
-          return <InputContainer key={index}>
-            {renderQuestionText(component)}
-          </InputContainer>
-        case "radio":
-          return <InputContainer key={index}>
-            {renderQuestionsRadio(component)}
-          </InputContainer>
-        case "radio_multiple":
-          return <InputContainer key={index}>
-            {renderQuestionsRadioMultiple(component)}
-          </InputContainer>
-        case "number":
-          return <InputContainer key={index}>
-            {renderQuestionsNumber(component)}
-          </InputContainer>
-        default:
-          return null
-      }
-    })
-  }
 
   if (survey_data?.survey?.length > 0) {
     return (
@@ -388,6 +402,12 @@ const SubmitButton = styled.button`
 const ErrorStyle = styled.span`
   font-size: 12px;
   color: red;
+`
+
+const TextInputStyle = styled.input`
+  min-width: 40px;
+  margin-left: 10px;
+  margin-top: 5px;
 `
 
 export default Survey;
