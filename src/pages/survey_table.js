@@ -68,27 +68,28 @@ const SurveyTable = () => {
         {isAuthenticated && emails.includes(user.email) && <TableContainer>
           <ButtonStyle>
             <CSVLink data={values} headers={headers} filename="eftirmeting.csv" target="_blank">
-              Tak niður sum csv
+              Tak eftirmetingar niður sum csv
             </CSVLink>
           </ButtonStyle>
           <TableStyle>
             <thead>
               <tr>
-                {headers.map((header) => <th>{header}</th>)}
+                {headers.map((header, index) => <th key={index + header}>{header}</th>)}
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => {
+              {rows.map((row, rowIndex) => {
                 const values = Object.values(row)
-                return <tr>{values.map((data) => {
-
-                  return <td>{data}</td>
+                return <tr key={row + rowIndex}>{values.map((data, index) => {
+                  if (Array.isArray(data)){
+                    return <td>{data.map((word) => <div>{word}</div>)}</td>
+                  }
+                  return <td key={data + index}>{data}</td>
                 })}</tr>
               })}
             </tbody>
           </TableStyle>
         </TableContainer>}
-
       </Layout>
     </ContainerStyle>
   )
@@ -136,7 +137,15 @@ const TableStyle = styled.table`
   border-collapse: collapse;
   font-family: Roboto;
   display: grid;
-
+  width: 700px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  ${media.desktop3`
+    width: 500px;
+  `}
+  ${media.phone1`
+      width: 200px;
+  `}
   thead {
     text-align: left;
     background: #F0F0F0;
@@ -157,11 +166,12 @@ const TableStyle = styled.table`
     height: 35px;
     border-bottom: 1px solid gray;
     min-width: 150px;
-    width: 100%;
+    padding-right: 10px;;
   }
   td {
     font-size: 14px;
     line-height: 14px;
+    width: 130px;
   }
 `
 
