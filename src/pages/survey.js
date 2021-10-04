@@ -1,6 +1,6 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { graphql, navigate } from 'gatsby';
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import PetalMenu from '../components/front_page_large_screens/petalMenu';
@@ -13,6 +13,7 @@ const Survey = ({ data }) => {
   const { register, handleSubmit, formState } = useForm({ mode: 'onChange' })
   const [answer, setAnswer] = useState({})
   const [email, setEmail] = useState("")
+  const [components, setComponents] = useState([])
 
   const [createSurveyAnwser] = useMutation(gql`
   mutation CreateSurvey($email: String!, $input: jsonb!, $schedule_title: String!) {
@@ -22,11 +23,11 @@ const Survey = ({ data }) => {
   }
   `)
   const [fetchUser, { data: survey_data }] = useLazyQuery(gql`
-query fetchemail($email: String) {
-  survey_json(where: {_and: {email: {_eq: $email, _is_null: false, _neq: ""}}}) {
-    id
-  }
-}
+    query fetchemail($email: String) {
+      survey_json(where: {_and: {email: {_eq: $email, _is_null: false, _neq: ""}}}) {
+        id
+      }
+    }
   `, {
     onCompleted() {
       if (survey_data.survey_json.length === 0) {
@@ -81,22 +82,6 @@ query fetchemail($email: String) {
     }
   }
 
-  if (survey_data?.survey?.length > 0) {
-    return (
-      <ContainerStyle>
-        <Layout>
-          <MenuContainer />
-          <PetalContainer name="petal container">
-            <PetalMenu />
-          </PetalContainer>
-          <TitleStyle>Nøgdsemiskanning</TitleStyle>
-          <AnsweredStyle>{data.allStrapiSurveyAlreadyRegistered.nodes[0].content}</AnsweredStyle>
-        </Layout>
-      </ContainerStyle>
-    )
-  }
-
-
   const renderQuestionsRadio = () => {
 
     return data.allStrapiSurveyQuestions.nodes.map((questions) => {
@@ -117,78 +102,157 @@ query fetchemail($email: String) {
     })
   }
 
-  const renderQuestionsCheckbox = () => {
-    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
-      return questions.Questionnaire.checkbox.map((checkbox) => {
-        return (<Fragment key={checkbox.id + "checkbox"}>
-          <FormTitle>{checkbox.question}<RedText>*</RedText></FormTitle>
-          {checkbox.description && checkbox.description !== " " && <DescriptionStyle>{checkbox.description}</DescriptionStyle>}
-          {checkbox.options.map((option) => {
-            return (
-              <LabelStyle key={option.id + "checkboc option"}>
-                <InputStyle name={checkbox.question} type="checkbox" value={option.title} ref={register({ required: true })} />
-                {option.title}
-              </LabelStyle>
-            )
-          })}
-        </Fragment>)
-      })
-    })
-  }
-
-  const renderQuestionText = () => {
-    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
-      return questions.Questionnaire.text.map((text) => {
-        return (<Fragment key={text.id + "text"}>
-          <FormTitle>{text.title}<RedText>*</RedText></FormTitle>
-          {text.description && text.description !== " " && <DescriptionStyle>{text.description}</DescriptionStyle>}
-          <LabelStyle key={text.id}>
-            <TextAreaStyle name={text.title} type="text" ref={register({ required: true })} />
+  const renderQuestionsCheckbox = (checkbox) => {
+    return (<Fragment key={checkbox.id + "checkbox"}>
+      <FormTitle>{checkbox.question}<RedText>*</RedText></FormTitle>
+      {checkbox.description && checkbox.description !== " " && <DescriptionStyle>{checkbox.description}</DescriptionStyle>}
+      {checkbox.options.map((option) => {
+        return (
+          <LabelStyle key={option.id + "checkboc option"}>
+            <InputStyle name={checkbox.question} type="checkbox" value={option.title} ref={register({ required: true })} />
+            {option.title}
           </LabelStyle>
-        </Fragment>)
+        )
+      })}
+    </Fragment>)
+
+  }
+
+  const renderQuestionText = (text) => {
+    return (<Fragment key={text.id + "text"}>
+      <FormTitle>{text.title}<RedText>*</RedText></FormTitle>
+      {text.description && text.description !== " " && <DescriptionStyle>{text.description}</DescriptionStyle>}
+      <LabelStyle key={text.id}>
+        <TextAreaStyle name={text.title} type="text" ref={register({ required: true })} />
+      </LabelStyle>
+    </Fragment>)
+  }
+
+  const renderQuestionsRadioMultiple = (radio) => {
+    return (<Fragment key={radio.id}>
+      <FormTitle>{radio.question}</FormTitle>
+      {radio.description && radio.description !== " " && <DescriptionStyle>{radio.description}</DescriptionStyle>}
+      <ColumnStyle>
+        {radio.options_above.map((aboveOption, index) => {
+          return <Fragment key={aboveOption.id}>
+            {index === 0 ? <>
+              <ParagraphStyle></ParagraphStyle><ParagraphStyle>{aboveOption.title}</ParagraphStyle>
+            </> : <ParagraphStyle>{aboveOption.title}</ParagraphStyle>}
+          </Fragment>
+        })}
+        {radio.options_to_the_side.map((sideOption) => {
+          return <Fragment key={sideOption.id + "sideoption"}>
+            <LabelStyle htmlFor={sideOption.title}>{sideOption.title}</LabelStyle>
+            {radio.options_above.map((aboveOption, index) => (
+              <InputStyle key={sideOption.id + index + "above_option_side"} type="radio" name={sideOption.title} value={aboveOption.title} ref={register({ required: false })} />
+            ))}
+          </Fragment>
+        })}
+      </ColumnStyle>
+    </Fragment>)
+  }
+
+  const renderQuestionsNumber = (number) => {
+    return <Fragment key={number.id + "number"}>
+      {number.question && number.question !== " " && <FormTitle>{number.question}<RedText>*</RedText></FormTitle>}
+      <DescriptionStyle>{number.description}</DescriptionStyle>
+      <input type="number" min={number.min} max={number.max} name={number.question} ref={register({ required: true })} />
+    </Fragment>
+  }
+
+
+  useEffect(() => {
+    if (data) {
+      const array = []
+      data.allStrapiSurveyQuestions.nodes[0].Questionnaire.checkbox.map((checkbox) => {
+        checkbox.type = "checkbox"
+        array.push(checkbox)
+        return null
       })
+      data.allStrapiSurveyQuestions.nodes[0].Questionnaire.radio.map((radio) => {
+        radio.type = "radio"
+        array.push(radio)
+        return null
+
+      })
+      data.allStrapiSurveyQuestions.nodes[0].Questionnaire.radio_multiple.map((radio_multiple) => {
+        radio_multiple.type = "radio_multiple"
+        array.push(radio_multiple)
+        return null
+      })
+      data.allStrapiSurveyQuestions.nodes[0].Questionnaire.text.map((text) => {
+        text.type = "text"
+        array.push(text)
+        return null
+      })
+      data.allStrapiSurveyQuestions.nodes[0].Questionnaire.number.map((number) => {
+        number.type = "number"
+        array.push(number)
+        return null
+      })
+      array.sort((a, b) => {
+        let aNumber = 0
+        let bNumber = 0
+        if (a.question) {
+          aNumber = a.question.split(". ")[0]
+        } else if (a.title) {
+          aNumber = a.title.split(". ")[0]
+        }
+        if (b.question) {
+          bNumber = b.question.split(". ")[0]
+
+        } else if (b.title) {
+          bNumber = b.title.split(". ")[0]
+        }
+        return parseInt(aNumber) < parseInt(bNumber) ? -1 : parseInt(aNumber) === parseInt(bNumber) ? 0 : 1
+      })
+      setComponents([...array])
+    }
+  }, [data])
+
+  const renderComponents = () => {
+    return components.map((component, index) => {
+      debugger
+      switch (component.type) {
+        case "checkbox":
+          return <InputContainer key={index}>
+            {renderQuestionsCheckbox(component)}
+          </InputContainer>
+        case "text":
+          return <InputContainer key={index}>
+            {renderQuestionText(component)}
+          </InputContainer>
+        case "radio":
+          return <InputContainer key={index}>
+            {renderQuestionsRadio(component)}
+          </InputContainer>
+        case "radio_multiple":
+          return <InputContainer key={index}>
+            {renderQuestionsRadioMultiple(component)}
+          </InputContainer>
+        case "number":
+          return <InputContainer key={index}>
+            {renderQuestionsNumber(component)}
+          </InputContainer>
+        default:
+          return null
+      }
     })
   }
 
-  const renderQuestionsRadioMultiple = () => {
-    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
-      return questions.Questionnaire.radio_multiple.map((radio) => {
-        return (<Fragment key={radio.id}>
-          <FormTitle>{radio.question}</FormTitle>
-          {radio.description && radio.description !== " " && <DescriptionStyle>{radio.description}</DescriptionStyle>}
-          <ColumnStyle>
-            {radio.options_above.map((aboveOption, index) => {
-              return <Fragment key={aboveOption.id}>
-                {index === 0 ? <>
-                  <ParagraphStyle></ParagraphStyle><ParagraphStyle>{aboveOption.title}</ParagraphStyle>
-                </> : <ParagraphStyle>{aboveOption.title}</ParagraphStyle>}
-              </Fragment>
-            })}
-            {radio.options_to_the_side.map((sideOption) => {
-              return <Fragment key={sideOption.id + "sideoption"}>
-                <LabelStyle htmlFor={sideOption.title}>{sideOption.title}</LabelStyle>
-                {radio.options_above.map((aboveOption, index) => (
-                  <InputStyle key={sideOption.id + index + "above_option_side"} type="radio" name={sideOption.title} value={aboveOption.title} ref={register({ required: false })} />
-                ))}
-              </Fragment>
-            })}
-          </ColumnStyle>
-        </Fragment>)
-      })
-    })
-  }
-
-  const renderQuestionsNumber = () => {
-    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
-      return questions.Questionnaire.number.map((number) => {
-        return <Fragment key={number.id + "number"}>
-          {number.question && number.question !== " " && <FormTitle>{number.question}<RedText>*</RedText></FormTitle>}
-          <DescriptionStyle>{number.description}</DescriptionStyle>
-          <div style={{ fontSize: "13px", marginBottom: "10px" }}>{number.min}-{number.max} (har {number.max} er best)</div>
-          <input type="number" min={number.min} max={number.max} name={number.question} ref={register({ required: true })} />
-        </Fragment>
-      })
-    })
+  if (survey_data?.survey?.length > 0) {
+    return (
+      <ContainerStyle>
+        <Layout>
+          <MenuContainer />
+          <PetalContainer name="petal container">
+            <PetalMenu />
+          </PetalContainer>
+          <TitleStyle>Nøgdsemiskanning</TitleStyle>
+          <AnsweredStyle>{data.allStrapiSurveyAlreadyRegistered.nodes[0].content}</AnsweredStyle>
+        </Layout>
+      </ContainerStyle>
+    )
   }
 
   return (
@@ -200,21 +264,7 @@ query fetchemail($email: String) {
         </PetalContainer>
         <TitleStyle>Nøgdsemiskanning</TitleStyle>
         <FormStyle onSubmit={handleSubmit(onSubmit)}>
-          <InputContainer>
-            {renderQuestionsRadio()}
-          </InputContainer>
-          <InputContainer>
-            {renderQuestionsCheckbox()}
-          </InputContainer>
-          <InputContainer>
-            {renderQuestionText()}
-          </InputContainer>
-          <InputContainer>
-            {renderQuestionsRadioMultiple()}
-          </InputContainer>
-          <InputContainer>
-            {renderQuestionsNumber()}
-          </InputContainer>
+          {renderComponents()}
           <InputContainer>
             <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
             <EmailStyle type="text" name="email" ref={register({ required: false })} />
