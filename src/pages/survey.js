@@ -10,7 +10,7 @@ import { media } from '../utils/mediaTemplate'
 import SendEmail from '../utils/mail/SendEmail'
 
 const Survey = ({ data }) => {
-  const { register, handleSubmit, formState } = useForm({ mode: 'onChange' })
+  const { register, handleSubmit, formState, formState: { errors } } = useForm({ mode: 'onChange' })
   const [answer, setAnswer] = useState({})
   const [email, setEmail] = useState("")
   const [components, setComponents] = useState([])
@@ -82,34 +82,31 @@ const Survey = ({ data }) => {
     }
   }
 
-  const renderQuestionsRadio = () => {
-
-    return data.allStrapiSurveyQuestions.nodes.map((questions) => {
-      return questions.Questionnaire.radio.map((radio) => {
-        return (<Fragment key={radio.id + "radio"}>
-          <FormTitle>{radio.question}<RedText>*</RedText></FormTitle>
-          {radio.description && radio.description !== " " && <DescriptionStyle>{radio.description}</DescriptionStyle>}
-          {radio.options.map((option, index) => {
-            return (
-              <LabelStyle key={option.id + index + "radio option"}>
-                <InputStyle name={radio.question} type="radio" value={option.title} ref={register({ required: true })} />
-                {option.title}
-              </LabelStyle>
-            )
-          })}
-        </Fragment>)
-      })
-    })
+  const renderQuestionsRadio = (radio) => {
+    return (<Fragment key={radio.id + "radio"}>
+      <FormTitle>{radio.question}{radio.required && <RedText>*</RedText>}</FormTitle>
+      {radio.description && radio.description !== " " && <DescriptionStyle>{radio.description}</DescriptionStyle>}
+      {errors[radio.question?.split(". ")?.[1] ? radio.question?.split(". ")?.[1] : radio.question]?.type === "required" && <ErrorStyle>Skal útfyllast.</ErrorStyle>}
+      {radio.options.map((option, index) => {
+        return (
+          <LabelStyle key={option.id + index + "radio option"}>
+            <InputStyle name={radio.question?.split(". ")?.[1] ? radio.question?.split(". ")?.[1] : radio.question} type="radio" value={option.title} ref={register({ required: radio.required })} />
+            {option.title}
+          </LabelStyle>
+        )
+      })}
+    </Fragment>)
   }
 
   const renderQuestionsCheckbox = (checkbox) => {
     return (<Fragment key={checkbox.id + "checkbox"}>
-      <FormTitle>{checkbox.question}<RedText>*</RedText></FormTitle>
+      <FormTitle>{checkbox.question}{checkbox.required && <RedText>*</RedText>}</FormTitle>
       {checkbox.description && checkbox.description !== " " && <DescriptionStyle>{checkbox.description}</DescriptionStyle>}
+      {errors[checkbox.question?.split(". ")?.[1] ? checkbox.question?.split(". ")?.[1] : checkbox.question]?.type === "required" && <ErrorStyle>Skal útfyllast.</ErrorStyle>}
       {checkbox.options.map((option) => {
         return (
           <LabelStyle key={option.id + "checkboc option"}>
-            <InputStyle name={checkbox.question} type="checkbox" value={option.title} ref={register({ required: true })} />
+            <InputStyle name={checkbox.question?.split(". ")?.[1] ? checkbox.question?.split(". ")?.[1] : checkbox.question} type="checkbox" value={option.title} ref={register({ required: checkbox.required })} />
             {option.title}
           </LabelStyle>
         )
@@ -120,10 +117,11 @@ const Survey = ({ data }) => {
 
   const renderQuestionText = (text) => {
     return (<Fragment key={text.id + "text"}>
-      <FormTitle>{text.title}<RedText>*</RedText></FormTitle>
+      <FormTitle>{text.title}{text.required && <RedText>*</RedText>}</FormTitle>
       {text.description && text.description !== " " && <DescriptionStyle>{text.description}</DescriptionStyle>}
+      {errors[text.title?.split(". ")?.[1] ? text.title?.split(". ")?.[1] : text.title]?.type === "required" && <ErrorStyle>Skal útfyllast.</ErrorStyle>}
       <LabelStyle key={text.id}>
-        <TextAreaStyle name={text.title} type="text" ref={register({ required: true })} />
+        <TextAreaStyle name={text.title?.split(". ")?.[1] ? text.title?.split(". ")?.[1] : text.title} type="text" ref={register({ required: text.required })} />
       </LabelStyle>
     </Fragment>)
   }
@@ -154,9 +152,10 @@ const Survey = ({ data }) => {
 
   const renderQuestionsNumber = (number) => {
     return <Fragment key={number.id + "number"}>
-      {number.question && number.question !== " " && <FormTitle>{number.question}<RedText>*</RedText></FormTitle>}
+      {number.question && number.question !== " " && <FormTitle>{number.question}{number.required && <RedText>*</RedText>}</FormTitle>}
       <DescriptionStyle>{number.description}</DescriptionStyle>
-      <input type="number" min={number.min} max={number.max} name={number.question} ref={register({ required: true })} />
+      {errors[number.question?.split(". ")?.[1] ? number.question?.split(". ")?.[1] : number.question]?.type === "required" && <ErrorStyle>Skal útfyllast.</ErrorStyle>}
+      <input type="number" min={number.min} max={number.max} name={number.question?.split(". ")?.[1] ? number.question?.split(". ")?.[1] : number.question} ref={register({ required: true })} />
     </Fragment>
   }
 
@@ -212,7 +211,6 @@ const Survey = ({ data }) => {
 
   const renderComponents = () => {
     return components.map((component, index) => {
-      debugger
       switch (component.type) {
         case "checkbox":
           return <InputContainer key={index}>
@@ -263,7 +261,8 @@ const Survey = ({ data }) => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>Nøgdsemiskanning</TitleStyle>
-        <FormStyle onSubmit={handleSubmit(onSubmit)}>
+        <FormStyle onSubmit={handleSubmit(onSubmit)} >
+
           {renderComponents()}
           <InputContainer>
             <FormTitle>Um tú ynskir at vera við í lutakastinum, mást tú skriva tín teldupost her</FormTitle>
@@ -384,6 +383,13 @@ const SubmitButton = styled.button`
   }
   cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
 `
+
+
+const ErrorStyle = styled.span`
+  font-size: 12px;
+  color: red;
+`
+
 export default Survey;
 
 export const PageQuery = graphql`
@@ -405,6 +411,7 @@ query fetchAlreadyRegistered {
           id
           question
           description
+          required
           options {
             id
             title
@@ -414,6 +421,7 @@ query fetchAlreadyRegistered {
           id
           question
           description
+          required
           options {
             id
             title
@@ -422,6 +430,7 @@ query fetchAlreadyRegistered {
         text {
           id
           title
+          required
         }
         radio_multiple {
           id
@@ -440,6 +449,7 @@ query fetchAlreadyRegistered {
           id
           question
           description
+          required
           min
           max
         }
