@@ -15,6 +15,12 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+   {
+     resolve: `gatsby-plugin-plausible`,
+      options: {
+        domain: `visindavoka.fo`,
+      }
+    },
     {
       resolve: 'gatsby-source-strapi',
       options: {
