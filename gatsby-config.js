@@ -37,6 +37,7 @@ module.exports = {
           `magazine`,
           `media-2-s`,
           `diverses`,
+          `survey-questions`
         ],
         singleTypes: [
           `about`,

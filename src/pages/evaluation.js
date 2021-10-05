@@ -22,7 +22,7 @@ const Evauluation = ({data}) => {
         <BackgroundStyle>
           <DescriptionStyle source={content} />
           <SubmitButton onClick={() => {
-            // navigate(`/survey`)
+            navigate(`/survey`)
           }}>Nøgdsemiskanning</SubmitButton>
         </BackgroundStyle>
       </Layout>

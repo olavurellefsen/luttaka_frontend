@@ -41,7 +41,7 @@ exports.handler = function (event) {
         }
       })
       .catch(error => {
-        console.log("error code 400 slayer", JSON.stringify(error))
+        console.log("error code 400", JSON.stringify(error))
 
         //return error object with status 400
         return {
