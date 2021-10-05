@@ -252,7 +252,7 @@ const Survey = ({ data }) => {
     }
   }, [data])
 
-  if (survey_data?.survey?.length > 0) {
+  if (survey_data?.survey_json?.length > 0) {
     return (
       <ContainerStyle>
         <Layout>
