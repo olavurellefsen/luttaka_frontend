@@ -54,7 +54,7 @@ const Survey = ({ data }) => {
           }
           try {
             SendEmail(`${process.env.GATSBY_EMAIL_END_POINT}`, {
-              to: `kr@tokni.com`,
+              to: `gransking@gransking.fo`,
               subject: `Nýggj Eftirmeting`,
               html: `<h1>Ein nýggjur luttakari hevur eftirmett</h1> <br/>
                       <p>Niðanfyri eru upplýsingar, ið luttakarin hevur upplýst.</p>
