@@ -25,6 +25,7 @@ const SurveyTable = () => {
   const [rows, setRows] = useState([])
   const [values, setValues] = useState([])
   const [headers, setHeaders] = useState([])
+  const [title, setTitle] = useState("")
   const emails = ["annika@gransking.fo", "kr@tokni.com", "heg@tokni.com", "dagmar@gransking.fo", "laila@gransking.fo", "maria@gransking.fo", "oe@tokni.com"]
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const SurveyTable = () => {
       const rowArray = []
       data.survey_json.map((survey, index) => {
         if (index === 0) {
+          setTitle(survey.schedule_title)
           for (const key in JSON.parse(survey.input)) {
             headerArray.push(key)
           }
@@ -57,6 +59,7 @@ const SurveyTable = () => {
     }
   }, [rows])
 
+  console.log("data", data)
   return (
     <ContainerStyle>
       <Layout>
@@ -66,6 +69,7 @@ const SurveyTable = () => {
         </PetalContainer>
         <TitleStyle>EFTIRMETINGAR</TitleStyle>
         {isAuthenticated && emails.includes(user.email) && <TableContainer>
+          <h2>{title ? title : ""}</h2>
           <ButtonStyle>
             <CSVLink data={values} headers={headers} filename="eftirmeting.csv" target="_blank">
               Tak eftirmetingar niður sum csv
@@ -109,6 +113,9 @@ const TableContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  h2 {
+    color: #58A449;
+  }
 `
 
 const ButtonStyle = styled.button`

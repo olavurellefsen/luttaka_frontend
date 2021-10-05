@@ -68,7 +68,7 @@ const DescriptionStyle = styled(ReactMarkdown)`
 `
 
 const SubmitButton = styled.button`
-  background-color: gray;//#74AB58;
+  background-color: #74AB58;
   color: white;
   font-size: 16px;
   width: 200px;
@@ -79,7 +79,7 @@ const SubmitButton = styled.button`
   &:active {
     opacity: 0.1;
   }
-  cursor: not-allowed;
+  cursor: pointer;
 `
 export default Evauluation
 
