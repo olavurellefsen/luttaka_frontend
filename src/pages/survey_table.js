@@ -59,7 +59,6 @@ const SurveyTable = () => {
     }
   }, [rows])
 
-  console.log("data", data)
   return (
     <ContainerStyle>
       <Layout>
