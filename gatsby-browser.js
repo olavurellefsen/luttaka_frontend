@@ -33,6 +33,7 @@ exports.wrapPageElement = ({ element }) => {
       redirectUri={process.env.GATSBY_REDIRECT_URI}
       onRedirectCallback={onRedirectCallback}
       audience="hasura"
+      cacheLocation="localstorage"
     >
       <GraphQLProvider>
         {element}
