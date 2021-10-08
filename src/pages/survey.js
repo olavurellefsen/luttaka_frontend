@@ -154,7 +154,7 @@ const Survey = ({ data }) => {
           return <Fragment key={sideOption.id + "sideoption"}>
             <LabelStyle htmlFor={sideOption.title}>{sideOption.title}</LabelStyle>
             {radio.options_above.map((aboveOption, index) => (
-              <InputStyle key={sideOption.id + index + "above_option_side"} type="radio" name={sideOption.title} value={aboveOption.title} ref={register({ required: false })} />
+              <InputStyle key={sideOption.id + index + "above_option_side"} type="radio" name={sideOption + " - " + radio.question} value={aboveOption.title} ref={register({ required: false })} />
             ))}
           </Fragment>
         })}
