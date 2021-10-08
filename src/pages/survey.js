@@ -79,6 +79,7 @@ const Survey = ({ data }) => {
   })
 
   const onSubmit = async data => {
+    debugger
     if (
       !formState.isSubmitting) {
       setEmail(data.email)
@@ -160,9 +161,9 @@ const Survey = ({ data }) => {
         })}
         {radio.options_to_the_side.map((sideOption) => {
           return <Fragment key={sideOption.id + "sideoption"}>
-            <LabelStyle htmlFor={sideOption.title}>{sideOption.title}</LabelStyle>
+            <LabelStyle htmlFor={radio.question.split(". ")[1] + "- " + sideOption.title}>{sideOption.title}</LabelStyle>
             {radio.options_above.map((aboveOption, index) => (
-              <InputStyle key={sideOption.id + index + "above_option_side"} type="radio" name={sideOption.title} value={aboveOption.title} ref={register({ required: false })} />
+              <InputStyle key={sideOption.id + index + "above_option_side"} type="radio" name={radio.question.split(". ")[1] + "- " + sideOption.title} value={aboveOption.title} ref={register({ required: false })} />
             ))}
           </Fragment>
         })}
