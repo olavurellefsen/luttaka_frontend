@@ -21,7 +21,7 @@ subscription GetSurveysJson {
 
 const SurveyTable = () => {
   const { isAuthenticated, user } = useAuth0()
-  const { data } = useSubscription(surveys_query)
+  const { data, loading } = useSubscription(surveys_query)
   const [rows, setRows] = useState([])
   const [values, setValues] = useState([])
   const [headers, setHeaders] = useState([])
@@ -67,32 +67,34 @@ const SurveyTable = () => {
           <PetalMenu />
         </PetalContainer>
         <TitleStyle>EFTIRMETINGAR</TitleStyle>
-        {isAuthenticated && emails.includes(user.email) && <TableContainer>
-          <h2>{title ? title : ""}</h2>
-          <ButtonStyle>
-            <CSVLink data={values} headers={headers} filename="eftirmeting.csv" target="_blank">
-              Tak eftirmetingar niður sum csv
-            </CSVLink>
-          </ButtonStyle>
-          <TableStyle>
-            <thead>
-              <tr>
-                {headers.map((header, index) => <th key={index + header}>{header}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row, rowIndex) => {
-                const values = Object.values(row)
-                return <tr key={row + rowIndex}>{values.map((data, index) => {
-                  if (Array.isArray(data)){
-                    return <td>{data.map((word) => <div>{word}</div>)}</td>
-                  }
-                  return <td key={data + index}>{data}</td>
-                })}</tr>
-              })}
-            </tbody>
-          </TableStyle>
-        </TableContainer>}
+        {isAuthenticated && emails.includes(user.email) && !loading && <div>
+          {headers.length > 0 ? <TableContainer>
+            <h2>{title ? title : ""}</h2>
+            <ButtonStyle>
+              <CSVLink data={values} headers={headers} filename="eftirmeting.csv" target="_blank">
+                Tak eftirmetingar niður sum csv
+              </CSVLink>
+            </ButtonStyle>
+            <TableStyle>
+              <thead>
+                <tr>
+                  {headers.map((header, index) => <th key={index + header}>{header}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, rowIndex) => {
+                  const values = Object.values(row)
+                  return <tr key={row + rowIndex}>{values.map((data, index) => {
+                    if (Array.isArray(data)) {
+                      return <td>{data.map((word) => <div>{word}</div>)}</td>
+                    }
+                    return <td key={data + index}>{data}</td>
+                  })}</tr>
+                })}
+              </tbody>
+            </TableStyle>
+          </TableContainer> : <ErrorTextStyle>Ongar dátur eru skrásettar í løtuni</ErrorTextStyle>}
+        </div>}
       </Layout>
     </ContainerStyle>
   )
@@ -194,5 +196,9 @@ const TitleStyle = styled.h3`
   ${media.desktop3`
     margin-top: 100px;
   `}
+`
+
+const ErrorTextStyle = styled.p`
+  color: crimson;
 `
 export default SurveyTable
